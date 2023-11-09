@@ -1,0 +1,13 @@
+20 Presents, 20 People
+
+DATA:
+- PLAYER_DATA
+- PRESENT_DATA
+
+On site load:
+- Prompted to enter players
+    - Input field, for each player added, append on to PLAYER_DATA array
+- Randomize order: 
+
+On game start:
+- Use PLAYER_DATA, randomize an order
