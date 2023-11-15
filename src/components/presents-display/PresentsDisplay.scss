@@ -1,21 +1,8 @@
 .presents-display-container {
     align-content: space-evenly;
+    background-color: #232c3b;
     display: flex;
     flex-wrap: wrap;
     height: calc(100vh - 100px);
     justify-content: space-evenly;
-
-    .present-container {
-        background-color: gray;
-        cursor: pointer;
-        height: 250px;
-        margin: 20px;
-        position: relative;
-        width: 250px;
-
-        img {
-            height: 100%;
-            width: 100%;
-        }
-    }
 }

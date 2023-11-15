@@ -1,0 +1,13 @@
+.content-container {
+    align-items: baseline;
+    display: flex;
+    gap: 8px;
+
+    .company-logo {
+        height: 60px;
+    }
+
+    .white-elephant-icon {
+        height: 48px;
+    }
+}

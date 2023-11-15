@@ -1,3 +1,4 @@
 export const PRESENTS_ACTION_TYPES = {
-    // SHUFFLE_PLAYERS: 'players/SHUFFLE_PLAYERS',
+    ASSIGN_OWNER: 'presents/ASSIGN_OWNER',
+    UPDATE_STEALS_LEFT: 'presents/UPDATE_STEALS_LEFT'
 };

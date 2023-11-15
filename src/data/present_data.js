@@ -1,8 +1,8 @@
-import P0 from '../assets/AL_C_GUARDIANS.png';
-import P1 from '../assets/AL_C_ROYALS.png';
-import P2 from '../assets/AL_C_TIGERS.png';
-import P3 from '../assets/AL_C_TWINS.png';
-import P4 from '../assets/AL_C_WHITE_SOX.png';
+import P0 from '../assets/gift-covers/AL_C_GUARDIANS.png'
+import P1 from '../assets/gift-covers/AL_C_ROYALS.png';
+import P2 from '../assets/gift-covers/AL_C_TIGERS.png';
+import P3 from '../assets/gift-covers/AL_C_TWINS.png';
+import P4 from '../assets/gift-covers/AL_C_WHITE_SOX.png';
 // import P5 from '../assets/AL_E_BLUE_JAYS.png';
 // import P6 from '../assets/AL_E_ORIOLES.png';
 // import P7 from '../assets/AL_E_RAYS.png';
@@ -25,35 +25,35 @@ export const PRESENT_DATA = [
         coverImg: P0,
         presentTitle: "Guardians",
         stealsLeft: 2,
-        isAssigned: false
+        owner: null
     },
     {
         id: 1,
         coverImg: P1,
         presentTitle: "Royals",
         stealsLeft: 2,
-        isAssigned: false
+        owner: null
     },
     {
         id: 2,
         coverImg: P2,
         presentTitle: "Tigers",
         stealsLeft: 2,
-        isAssigned: false
+        owner: null
     },
     {
         id: 3,
         coverImg: P3,
         presentTitle: "Twins",
         stealsLeft: 2,
-        isAssigned: false
+        owner: null
     },
     {
         id: 4,
         coverImg: P4,
         presentTitle: "White Sox",
-        stealsLeft: 2,
-        isAssigned: false
+        stealsLeft: 0,
+        owner: null
     }
     // {
     //     id: 5,
