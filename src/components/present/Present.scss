@@ -13,8 +13,6 @@
             width: 100%;
         }
     }
-
-
     
     .present-opened {
         align-items: center;
@@ -43,9 +41,19 @@
             }
         }
 
-        h1 {
-            font-size: 20px;
+        .present-info {
+            text-align: center;
+
+            h1 {
+                font-size: 24px;
+                margin-bottom: 12px;
+            }
+            h2 {
+                font-size: 16px;
+            }
         }
+
+
 
         .displayed-text {
             align-items: center;

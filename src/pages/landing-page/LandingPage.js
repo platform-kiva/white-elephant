@@ -9,7 +9,7 @@ export default function LandingPage() {
   return (
     <div className='landing-page-container'>
       <div className='game-logo-container'>
-        <GameLogo />
+        <GameLogo size={"regular"}/>
         <PrimaryBtn label={"START"} navTo={"/shuffle-players"}/>
       </div>
     </div>

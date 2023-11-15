@@ -9,9 +9,6 @@ export default function Present({ present }) {
                 <img src={present.coverImg} alt="gift graphic"/>
             </div>
         }
-
-
-
         {present.owner !== null && 
             <div className='present-opened'>
 

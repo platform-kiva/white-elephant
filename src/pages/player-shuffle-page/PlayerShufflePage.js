@@ -23,7 +23,7 @@ export default function PlayerShufflePage() {
 
     return (
         <div className='player-shuffle-page-container'>
-            <GameLogo />
+            <GameLogo size={"regular"}/>
             <div className='players-display'>
                 {players.map((player) => (
                     <h1>{player.playerName}</h1>

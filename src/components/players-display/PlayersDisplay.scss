@@ -1,21 +1,32 @@
 .players-display-container {
+    align-items: center;
     background-color: gray;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    height: calc(100vh - 100px);
+    height: 100vh;
     text-align: center;
     width: 200px;
 
-    .player-container {
-        opacity: 0.5;
+    .game-logo-container {
+        margin: 24px 0px;
+    }
 
-        h2 {
-            font-size: 16px;
+    .player-names-container {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        .player-container {
+            opacity: 0.5;
+    
+            h2 {
+                font-size: 16px;
+            }
+        }
+    
+        .player-container-active {
+            opacity: 1.0;
         }
     }
 
-    .player-container-active {
-        opacity: 1.0;
-    }
 }

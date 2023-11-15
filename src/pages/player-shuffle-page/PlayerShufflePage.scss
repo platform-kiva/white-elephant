@@ -4,7 +4,7 @@
     flex-direction: column;
     gap: 48px;
     height: 100%;
-    padding-top: 50px;
+    justify-content: space-evenly;
     width: 100%;
 
     .players-display {
@@ -12,7 +12,7 @@
         flex-direction: column;
         flex-wrap: wrap;
         gap: 20px;
-        height: 500px;
+        height: 300px;
         max-width: 80%;
         text-align: center;
         width: fit-content;

@@ -24,35 +24,35 @@ export const PRESENT_DATA = [
         id: 0,
         coverImg: P0,
         presentTitle: "Guardians",
-        stealsLeft: 2,
+        stealsLeft: 3,
         owner: null
     },
     {
         id: 1,
         coverImg: P1,
         presentTitle: "Royals",
-        stealsLeft: 2,
+        stealsLeft: 3,
         owner: null
     },
     {
         id: 2,
         coverImg: P2,
         presentTitle: "Tigers",
-        stealsLeft: 2,
+        stealsLeft: 3,
         owner: null
     },
     {
         id: 3,
         coverImg: P3,
         presentTitle: "Twins",
-        stealsLeft: 2,
+        stealsLeft: 3,
         owner: null
     },
     {
         id: 4,
         coverImg: P4,
         presentTitle: "White Sox",
-        stealsLeft: 0,
+        stealsLeft: 3,
         owner: null
     }
     // {

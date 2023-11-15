@@ -7,18 +7,29 @@ import { selectPlayers } from '../../store/players/players.selector'
 import { selectPresents } from '../../store/presents/presents.selector'
 import { selectLastGiftStolen, selectTurnIndex } from '../../store/game/game.selector'
 import { selectStolenGiftTurnIndex } from '../../store/game/game.selector'
+import { selectShuffleStatus } from '../../store/game/game.selector'
+import { useNavigate } from 'react-router-dom'
 
 // styles
 import './PresentsDisplay.scss'
 import Present from '../present/Present'
+import { useEffect } from 'react'
 
 export default function PresentsDisplay() {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const players = useSelector(selectPlayers)
   const presents = useSelector(selectPresents)
   const turnIndex = useSelector(selectTurnIndex)
   const stolenGiftTurnIndex = useSelector(selectStolenGiftTurnIndex)
   const lastGiftStolen = useSelector(selectLastGiftStolen)
+  const shuffleStatus = useSelector(selectShuffleStatus)
+
+  useEffect(() => {
+    if (!shuffleStatus) {
+      navigate("/shuffle-players")
+    }
+  }, [shuffleStatus, navigate])
 
   const handleAction = (presentID) => {
     let player = null
