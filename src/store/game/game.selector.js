@@ -19,5 +19,19 @@ export const selectStolenGiftTurnIndex = createSelector(
 
 export const selectLastGiftStolen = createSelector(
     [selectGameReducer],
-    (gameSlice => gameSlice.lastGiftStolen)
+    (gameSlice) => gameSlice.lastGiftStolen
+)
+
+export const selectGameHistory = createSelector(
+    [selectGameReducer],
+    (gameSlice) => gameSlice.gameHistory
+)
+
+export const selectGameIsOver = createSelector(
+    [selectGameReducer],
+    (gameSlice) => gameSlice.gameIsOver
+)
+export const selectFirstPlayerReplayed = createSelector(
+    [selectGameReducer],
+    (gameSlice) => gameSlice.firstPlayerReplayed
 )

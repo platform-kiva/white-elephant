@@ -11,6 +11,8 @@ export const presentsReducer = (state = PRESENTS_INITIAL_STATE, action = {}) => 
     switch(type) {
         case PRESENTS_ACTION_TYPES.ASSIGN_OWNER:
             return { ...state, presents: payload };
+        case PRESENTS_ACTION_TYPES.SWAP_OWNERS:
+            return { ...state, presents: payload };
         default:
             return state;
     }

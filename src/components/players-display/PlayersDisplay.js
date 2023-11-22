@@ -1,23 +1,30 @@
-import { useSelector } from 'react-redux'
-import { selectPlayers } from '../../store/players/players.selector'
+import { useSelector } from 'react-redux';
+import { selectPlayers } from '../../store/players/players.selector';
 import { selectStolenGiftTurnIndex } from '../../store/game/game.selector';
 import { selectTurnIndex } from '../../store/game/game.selector';
+import { selectGameHistory } from '../../store/game/game.selector';
 
 // styles
-import './PlayersDisplay.scss'
+import './PlayersDisplay.scss';
 
 // components
-import GameLogo from '../game-logo/GameLogo'
+import Btn from '../btn/Btn';
+import GameLogo from '../game-logo/GameLogo';
+import GameHistory from '../game-history/GameHistory';
 
 export default function PlayersDisplay() {
   const players = useSelector(selectPlayers);
-  const turnIndex = useSelector(selectTurnIndex)
-  const stolenGiftTurnIndex = useSelector(selectStolenGiftTurnIndex)
+  const turnIndex = useSelector(selectTurnIndex);
+  const stolenGiftTurnIndex = useSelector(selectStolenGiftTurnIndex);
+  const gameHistory = useSelector(selectGameHistory);
 
   return (
     <div className='players-display-container'>
       <div className='game-logo-container'>
         <GameLogo size={"small"}/>
+      </div>
+      <div className='btn-container'>
+        <Btn label={"UNDO"} isActive={gameHistory.length !== 0}/>
       </div>
       {turnIndex !== players.length &&
         <div className='player-names-container'>
@@ -37,6 +44,7 @@ export default function PlayersDisplay() {
           ))}
         </div>
       }
+      <GameHistory history={gameHistory}/>
     </div>
   )
 }

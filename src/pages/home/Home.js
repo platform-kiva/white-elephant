@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom'
+import Snowfall from 'react-snowfall'
 
 // styles
 import './Home.scss'
@@ -10,6 +11,7 @@ export default function Home() {
         <Outlet />
       </div>
       <div className='background' />
+      <Snowfall />
     </div>
   )
 }

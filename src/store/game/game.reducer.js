@@ -4,7 +4,10 @@ export const GAME_INITIAL_STATE = {
     turnIndex: 0,
     stolenGiftTurnIndex: null,
     lastGiftStolen: null,
-    shuffleStatus: false
+    shuffleStatus: false,
+    gameHistory: [],
+    gameIsOver: false,
+    firstPlayerReplayed: false
 };
 
 export const gameReducer = (state = GAME_INITIAL_STATE, action = {}) => {
@@ -19,6 +22,12 @@ export const gameReducer = (state = GAME_INITIAL_STATE, action = {}) => {
             return { ...state, turnIndex: payload }
         case GAME_ACTION_TYPES.SET_LAST_GIFT_STOLEN:
             return { ...state, lastGiftStolen: payload }
+        case GAME_ACTION_TYPES.SET_GAME_HISTORY:
+            return { ...state, gameHistory: payload }
+        case GAME_ACTION_TYPES.SET_GAME_IS_OVER:
+            return { ...state, gameIsOver: true}
+        case GAME_ACTION_TYPES.SET_FIRST_PLAYER_REPLAYED:
+            return { ...state, firstPlayerReplayed: true}
         default:
             return state;
     }

@@ -8,8 +8,8 @@ import { selectPlayers } from '../../store/players/players.selector'
 import './PlayerShufflePage.scss'
 
 // components
+import Btn from '../../components/btn/Btn';
 import GameLogo from '../../components/game-logo/GameLogo'
-import PrimaryBtn from '../../components/primary-btn/PrimaryBtn';
 
 export default function PlayerShufflePage() {
     const dispatch = useDispatch()
@@ -26,15 +26,15 @@ export default function PlayerShufflePage() {
             <GameLogo size={"regular"}/>
             <div className='players-display'>
                 {players.map((player) => (
-                    <h1>{player.playerName}</h1>
+                    <h1 key={player.playerName}>{player.playerName}</h1>
                 ))}
             </div>
             <div className='action-btns-container'>
                 <div onClick={() => handleShuffle()}>
-                    <PrimaryBtn label={"SHUFFLE"} />
+                    <Btn label={"SHUFFLE"} />
                 </div>
                 <div>
-                    <PrimaryBtn label={"NEXT"} isActive={shuffleStatus ? true : false} navTo={'/play'}/>
+                    <Btn label={"NEXT"} isActive={shuffleStatus ? true : false} navTo={'/play'} />
                 </div>
             </div>
         </div>
