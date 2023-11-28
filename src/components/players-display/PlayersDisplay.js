@@ -5,7 +5,13 @@ import { selectTurnIndex } from '../../store/game/game.selector';
 import { selectGameHistory } from '../../store/game/game.selector';
 
 // styles
-import './PlayersDisplay.scss';
+import {
+  BtnContainer,
+  PlayersDisplayContainer,
+  GameLogoContainer,
+  PlayerNamesContainer,
+  PlayerContainer
+} from './PlayersDisplay.styles.js';
 
 // components
 import Btn from '../btn/Btn';
@@ -18,33 +24,37 @@ export default function PlayersDisplay() {
   const stolenGiftTurnIndex = useSelector(selectStolenGiftTurnIndex);
   const gameHistory = useSelector(selectGameHistory);
 
+  const handleUndo = () => {
+    alert(gameHistory.slice(-1))
+  }
+
   return (
-    <div className='players-display-container'>
-      <div className='game-logo-container'>
+    <PlayersDisplayContainer>
+      <GameLogoContainer>
         <GameLogo size={"small"}/>
-      </div>
-      <div className='btn-container'>
+      </GameLogoContainer>
+      <BtnContainer onClick={() => handleUndo()}>
         <Btn label={"UNDO"} isActive={gameHistory.length !== 0}/>
-      </div>
+      </BtnContainer>
       {turnIndex !== players.length &&
-        <div className='player-names-container'>
+        <PlayerNamesContainer>
           {players.map((player) => (
-            <div key={player.playerName} className={`player-container ${player.playerName === players[stolenGiftTurnIndex === null ? turnIndex : stolenGiftTurnIndex].playerName ? 'player-container-active' : ''}`}>
-              <h2 style={{ fontSize: player.playerName === players[stolenGiftTurnIndex === null ? turnIndex : stolenGiftTurnIndex].playerName ? '24px' : '' }}>{player.playerName}</h2>
-            </div>
+            <PlayerContainer key={player.playerName} $isActive={player.playerName === players[stolenGiftTurnIndex === null ? turnIndex : stolenGiftTurnIndex].playerName}>
+              <h2>{player.playerName}</h2>
+            </PlayerContainer>
           ))}
-        </div>
+        </PlayerNamesContainer>
       }
       {turnIndex === players.length &&
-        <div className='player-names-container'>
+        <PlayerNamesContainer>
           {players.map((player) => (
             <div key={player.playerName} className={`player-container`}>
               <h2>{player.playerName}</h2>
             </div>
           ))}
-        </div>
+        </PlayerNamesContainer>
       }
       <GameHistory history={gameHistory}/>
-    </div>
+    </PlayersDisplayContainer>
   )
 }

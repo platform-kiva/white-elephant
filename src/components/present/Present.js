@@ -1,34 +1,31 @@
 // styles
-import './Present.scss'
+import { OwnerContainer, PresentContainer, PresentCoverImgContainer, PresentInfo, PresentOpened, PresentUnopened } from './Present.styled.js'
 
 export default function Present({ present }) {
   return (
-    <div className='present-container'>
+    <PresentContainer>
         {present.owner === null &&
-            <div className='present-unopened'>
+            <PresentUnopened>
                 <img src={present.coverImg} alt="gift graphic"/>
-            </div>
+            </PresentUnopened>
         }
         {present.owner !== null && 
-            <div className='present-opened'>
+            <PresentOpened>
 
-                <div className='present-cover-img-container'>
+                <PresentCoverImgContainer>
                     <img src={present.coverImg} alt='present cover img'/>
-                </div>
+                </PresentCoverImgContainer>
 
-                <div className='present-info'>
+                <PresentInfo>
                     <h1>{present.presentTitle}</h1>
                     <h2>Steals Left: {present.stealsLeft}</h2>
-                </div>
+                </PresentInfo>
 
-                <div className='owner-container'>
+                <OwnerContainer>
                     <h2>{present.owner.name}</h2>
-                </div>
-            </div>
+                </OwnerContainer>
+            </PresentOpened>
         }
-
-
-
-    </div>
+    </PresentContainer>
   )
 }
