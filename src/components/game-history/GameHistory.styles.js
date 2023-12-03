@@ -1,10 +1,12 @@
-.game-history-container {
+import styled from "styled-components";
+
+export const GameHistoryContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin-top: 50px;
-    
+
     h2 {
         font-size: 16px;
     }
-}
+`

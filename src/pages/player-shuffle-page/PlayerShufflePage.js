@@ -5,7 +5,11 @@ import { selectShuffleStatus } from '../../store/game/game.selector'
 import { selectPlayers } from '../../store/players/players.selector'
 
 // styles
-import './PlayerShufflePage.scss'
+import {
+    PlayerShufflePageContainer,
+    PlayersDisplay,
+    ActionBtnsContainer
+ } from './PlayerShufflePage.styles.js'
 
 // components
 import Btn from '../../components/btn/Btn';
@@ -22,21 +26,21 @@ export default function PlayerShufflePage() {
     }
 
     return (
-        <div className='player-shuffle-page-container'>
+        <PlayerShufflePageContainer>
             <GameLogo size={"regular"}/>
-            <div className='players-display'>
+            <PlayersDisplay>
                 {players.map((player) => (
                     <h1 key={player.name}>{player.name}</h1>
                 ))}
-            </div>
-            <div className='action-btns-container'>
+            </PlayersDisplay>
+            <ActionBtnsContainer>
                 <div onClick={() => handleShuffle()}>
                     <Btn label={"SHUFFLE"} />
                 </div>
                 <div>
                     <Btn label={"NEXT"} isActive={shuffleStatus ? true : false} navTo={'/play'} />
                 </div>
-            </div>
-        </div>
+            </ActionBtnsContainer>
+        </PlayerShufflePageContainer>
     )
 }

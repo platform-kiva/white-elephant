@@ -13,7 +13,7 @@ import { addPresentHistory } from '../../store/players/players.action'
 import { addOwnerHistory, swapOwners } from '../../store/presents/presents.action'
 
 // styles
-import './PresentsDisplay.scss'
+import { PresentsDisplayContainer } from './PresentsDisplay.styles.js'
 import Present from '../present/Present'
 
 export default function PresentsDisplay() {
@@ -107,12 +107,12 @@ export default function PresentsDisplay() {
   }
 
   return (
-    <div className='presents-display-container'>
+    <PresentsDisplayContainer>
       {presents.map((present) => (
           <div key={present.id} onClick={() => handleAction(present.id)}>
             <Present present={present} ownerName={present.ownerHistory} />
           </div>
       ))}
-    </div>
+    </PresentsDisplayContainer>
   )
 }
