@@ -1,148 +1,104 @@
-import P0 from '../assets/gift-covers/AL_C_GUARDIANS.png'
-import P1 from '../assets/gift-covers/AL_C_ROYALS.png';
-import P2 from '../assets/gift-covers/AL_C_TIGERS.png';
-import P3 from '../assets/gift-covers/AL_C_TWINS.png';
-import P4 from '../assets/gift-covers/AL_C_WHITE_SOX.png';
-// import P5 from '../assets/AL_E_BLUE_JAYS.png';
-// import P6 from '../assets/AL_E_ORIOLES.png';
-// import P7 from '../assets/AL_E_RAYS.png';
-// import P8 from '../assets/AL_E_RED_SOX.png';
-// import P9 from '../assets/AL_E_YANKEES.png';
-// import P10 from '../assets/AL_W_ANGELS.png';
-// import P11 from '../assets/AL_W_ASTROS.png';
-// import P12 from '../assets/AL_W_ATHLETICS.png';
-// import P13 from '../assets/AL_W_MARINERS.png';
-// import P14 from '../assets/AL_W_RANGERS.png';
-// import P15 from '../assets/NL_C_BREWERS.png';
-// import P16 from '../assets/NL_C_CARDINALS.png';
-// import P17 from '../assets/NL_C_CUBS.png';
-// import P18 from '../assets/NL_C_PIRATES.png';
-// import P19 from '../assets/NL_C_REDS.png';
+import P0_C from '../assets/present-covers/Gift01.png'
+import P1_C from '../assets/present-covers/Gift02.png'
+import P2_C from '../assets/present-covers/Gift03.png'
+import P3_C from '../assets/present-covers/Gift04.png'
+import P4_C from '../assets/present-covers/Gift05.png'
+import P5_C from '../assets/present-covers/Gift06.png'
+import P6_C from '../assets/present-covers/Gift07.png'
+import P7_C from '../assets/present-covers/Gift08.png'
+import P8_C from '../assets/present-covers/Gift09.png'
+import P9_C from '../assets/present-covers/Gift10.png'
+
+import P0_P from '../assets/present-imgs/1_GlazedDonutBlanket.png'
+import P1_P from '../assets/present-imgs/2_VegetableChopper.png'
+import P2_P from '../assets/present-imgs/3_DeskCoffeeWarmer.png'
+import P3_P from '../assets/present-imgs/4_CatColoringBook.png'
+import P4_P from '../assets/present-imgs/5_BuildOnBrickCoffeeMug.png'
+import P5_P from '../assets/present-imgs/6_MagicTapAutomaticDrinkDispenser.png'
+import P6_P from '../assets/present-imgs/7_BelgianWaffleMaker.png'
+import P7_P from '../assets/present-imgs/8_EchoPopSpeaker.png'
+import P8_P from '../assets/present-imgs/9_BeerMittenGloves.png'
+import P9_P from '../assets/present-imgs/10_WestworldS1_4KUHDBluRay.png'
 
 export const PRESENT_DATA = [
     {
+        name: "Glazed Donut Blanket",
         id: 0,
-        coverImg: P0,
-        presentTitle: "Guardians",
+        ownerHistory: [],
+        coverImg: P0_C,
+        presentImg: P0_P,
         stealsLeft: 3,
-        owner: null
     },
     {
+        name: "Vegetable Chopper",
         id: 1,
-        coverImg: P1,
-        presentTitle: "Royals",
+        ownerHistory: [],
+        coverImg: P1_C,
+        presentImg: P1_P,
         stealsLeft: 3,
-        owner: null
     },
     {
+        name: "Desk Coffee Warmer",
         id: 2,
-        coverImg: P2,
-        presentTitle: "Tigers",
+        ownerHistory: [],
+        coverImg: P2_C,
+        presentImg: P2_P,
         stealsLeft: 3,
-        owner: null
     },
     {
+        name: "Cat Coloring Book",
         id: 3,
-        coverImg: P3,
-        presentTitle: "Twins",
+        ownerHistory: [],
+        coverImg: P3_C,
+        presentImg: P3_P,
         stealsLeft: 3,
-        owner: null
     },
     {
+        name: "Brick Build Coffee Mug",
         id: 4,
-        coverImg: P4,
-        presentTitle: "White Sox",
+        ownerHistory: [],
+        coverImg: P4_C,
+        presentImg: P4_P,
         stealsLeft: 3,
-        owner: null
+    },
+    {
+        name: "Magic Tap Drink Dispenser",
+        id: 5,
+        ownerHistory: [],
+        coverImg: P5_C,
+        presentImg: P5_P,
+        stealsLeft: 3,
+    },
+    {
+        name: "Belgian Waffle Maker",
+        id: 6,
+        ownerHistory: [],
+        coverImg: P6_C,
+        presentImg: P6_P,
+        stealsLeft: 3,
+    },
+    {
+        name: "Echo Pop Speaker",
+        id: 7,
+        ownerHistory: [],
+        coverImg: P7_C,
+        presentImg: P7_P,
+        stealsLeft: 3,
+    },
+    {
+        name: "Beer Gloves",
+        id: 8,
+        ownerHistory: [],
+        coverImg: P8_C,
+        presentImg: P8_P,
+        stealsLeft: 3,
+    },
+    {
+        name: "Westworld S1 4K Blu-Ray",
+        id: 9,
+        ownerHistory: [],
+        coverImg: P9_C,
+        presentImg: P9_P,
+        stealsLeft: 3,
     }
-    // {
-    //     id: 5,
-    //     coverImg: P5,
-    //     presentTitle: "Blue Jays",
-    //     stealsLeft: 2
-    // },
-    // {
-    //     id: 6,
-    //     coverImg: P6,
-    //     presentTitle: "Orioles",
-    //     stealsLeft: 2
-    // },
-    // {
-    //     id: 7,
-    //     coverImg: P7,
-    //     presentTitle: "Rays",
-    //     stealsLeft: 2
-    // },
-    // {
-    //     id: 8,
-    //     coverImg: P8,
-    //     presentTitle: "Red Sox",
-    //     stealsLeft: 2
-    // },
-    // {
-    //     id: 9,
-    //     coverImg: P9,
-    //     presentTitle: "Yankees",
-    //     stealsLeft: 2
-    // },
-    // {
-    //     id: 10,
-    //     coverImg: P10,
-    //     presentTitle: "Angels",
-    //     stealsLeft: 2
-    // },
-    // {
-    //     id: 11,
-    //     coverImg: P11,
-    //     presentTitle: "Astros",
-    //     stealsLeft: 2
-    // },
-    // {
-    //     id: 12,
-    //     coverImg: P12,
-    //     presentTitle: "Athletics",
-    //     stealsLeft: 2
-    // },
-    // {
-    //     id: 13,
-    //     coverImg: P13,
-    //     presentTitle: "Mariners",
-    //     stealsLeft: 2
-    // },
-    // {
-    //     id: 14,
-    //     coverImg: P14,
-    //     presentTitle: "Rangers",
-    //     stealsLeft: 2
-    // },
-    // {
-    //     id: 15,
-    //     coverImg: P15,
-    //     presentTitle: "Brewers",
-    //     stealsLeft: 2
-    // },
-    // {
-    //     id: 16,
-    //     coverImg: P16,
-    //     presentTitle: "Cardinals",
-    //     stealsLeft: 2
-    // },
-    // {
-    //     id: 17,
-    //     coverImg: P17,
-    //     presentTitle: "Cubs",
-    //     stealsLeft: 2
-    // },
-    // {
-    //     id: 18,
-    //     coverImg: P18,
-    //     presentTitle: "Pirates",
-    //     stealsLeft: 2
-    // },
-    // {
-    //     id: 19,
-    //     coverImg: P19,
-    //     presentTitle: "Reds",
-    //     stealsLeft: 2
-    // }
 ]

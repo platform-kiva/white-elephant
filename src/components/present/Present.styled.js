@@ -19,10 +19,10 @@ export const PresentContainer = styled.div`
     align-items: center;
     cursor: pointer;
     display: flex;
-    height: 350px;
+    height: 200px;
     margin: 20px;
     position: relative;
-    width: 250px;
+    width: 200px;
 `
 export const PresentUnopened = styled.div`
     img {

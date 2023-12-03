@@ -22,7 +22,9 @@ export const gameReducer = (state = GAME_INITIAL_STATE, action = {}) => {
             return { ...state, turnIndex: payload }
         case GAME_ACTION_TYPES.SET_LAST_GIFT_STOLEN:
             return { ...state, lastGiftStolen: payload }
-        case GAME_ACTION_TYPES.SET_GAME_HISTORY:
+        case GAME_ACTION_TYPES.ADD_GAME_HISTORY:
+            return { ...state, gameHistory: payload }
+        case GAME_ACTION_TYPES.REMOVE_GAME_HISTORY:
             return { ...state, gameHistory: payload }
         case GAME_ACTION_TYPES.SET_GAME_IS_OVER:
             return { ...state, gameIsOver: true}

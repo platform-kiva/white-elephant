@@ -16,10 +16,18 @@ export const setLastGiftStolen = (index) => {
     return ({ type: GAME_ACTION_TYPES.SET_LAST_GIFT_STOLEN, payload: index})
 }
 
-export const setGameHistory = (history, turnInfo) => {
+export const addGameHistory = (history, turnInfo, turn2Info = null) => {
     const updatedHistory = history.map(turn => turn)
     updatedHistory.push(turnInfo)
-    return ({ type: GAME_ACTION_TYPES.SET_GAME_HISTORY, payload: updatedHistory})
+    if (turn2Info) {
+        updatedHistory.push(turn2Info)
+    }
+    return ({ type: GAME_ACTION_TYPES.ADD_GAME_HISTORY, payload: updatedHistory})
+}
+
+export const removeGameHistory = (history) => {
+    const updatedHistory = history.slice(0, -1)
+    return ({ type: GAME_ACTION_TYPES.REMOVE_GAME_HISTORY, payload: updatedHistory })
 }
 
 export const setGameIsOver = () => {

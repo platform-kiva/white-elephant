@@ -1,40 +1,73 @@
 import { PLAYERS_ACTION_TYPES } from "./players.types"
 
-const shuffleArray = (array) => {
-    let currentIndex = array.length, randomIndex
-    while (currentIndex > 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex--;
-        [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
+const swapPresentsHelper = (playersArray, thief, victim, thiefsPresent, victimsPresent) => {
+  return playersArray.map(player => {
+      if (player.id === thief) {
+          const updatedHistory = player.presentHistory.map(present => present)
+          updatedHistory.push(victimsPresent)
+          return { ...player, presentHistory: updatedHistory}
+      }
+      if (player.id === victim) {
+        const updatedHistory = player.presentHistory.map(present => present)
+        updatedHistory.push(thiefsPresent)
+        return { ...player, presentHistory: updatedHistory}
     }
-    const newArrayWithTurnInd = array.map((object, index) => {
-        return { ...object, playersTurnInd: index };
-    });
+      return player;
+  });
+};
 
-    return newArrayWithTurnInd;
+export const swapPresents = (playersArray, thief, victim, thiefsPresent, victimsPresent) => {
+  const swappedPresentsArray = swapPresentsHelper(playersArray, thief, victim, thiefsPresent, victimsPresent)
+  return ({ type: PLAYERS_ACTION_TYPES.SWAP_PRESENTS, payload: swappedPresentsArray })
 }
 
-const assignPresentHelper = (playersArray, presentToAssign, turnInd, resetIndex) => {
-    return playersArray.map((player, index) => {
-      if (player.playersTurnInd === turnInd) {
-        return { ...player, gift: presentToAssign };
-      }
-      if (player.playersTurnInd === resetIndex) {
-        return { ...player, gift: null };
-      }
-      return player;
-    });
-  };
-  
+const shuffleArray = (array) => {
+  let currentIndex = array.length, randomIndex
+  while (currentIndex > 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+  const newArrayWithTurnInd = array.map((object, index) => {
+      return { ...object, id: index };
+  });
 
-  export const assignGift = (playersArray, presentToAssign, turnInd, resetIndex) => {
-      const assignedPlayersArray = assignPresentHelper(playersArray, presentToAssign, turnInd, resetIndex);
-      return ({ type: PLAYERS_ACTION_TYPES.ASSIGN_GIFT, payload: assignedPlayersArray });
-  };
-  
+  return newArrayWithTurnInd;
+}
 
 export const shufflePlayers = (playersArray) => {
-    const shuffledPlayersArray = shuffleArray(playersArray)
-    return ({ type: PLAYERS_ACTION_TYPES.SHUFFLE_PLAYERS, payload: shuffledPlayersArray })
+    const shuffledPlayersArray = shuffleArray(playersArray);
+    return ({ type: PLAYERS_ACTION_TYPES.SHUFFLE_PLAYERS, payload: shuffledPlayersArray });
+};
+
+const removePresentHistoryHelper = (playersArray, playerID) => {
+  return playersArray.map((player) => {
+    if (player.id === playerID) {
+      const updatedHistory = player.presentHistory.slice(0, -1)
+      return { ...player, presentHistory: updatedHistory };
+    }
+    return player;
+  });
 }
+
+export const removePresentHistory = (playersArray, playerID) => {
+  const updatedArray = removePresentHistoryHelper(playersArray, playerID);
+  return ({ type: PLAYERS_ACTION_TYPES.REMOVE_PRESENT_HISTORY, payload: updatedArray});
+};
+
+const addPresentHistoryHelper = (playersArray, playerID, presentID) => {
+  return playersArray.map((player) => {
+    if (player.id === playerID) {
+      const updatedHistory = player.presentHistory.map(turn => turn)
+      updatedHistory.push(presentID)
+      return { ...player, presentHistory: updatedHistory };
+    }
+    return player;
+  });
+}
+
+export const addPresentHistory = (playersArray, playerID, presentID) => {
+  const updatedArray = addPresentHistoryHelper(playersArray, playerID, presentID);
+  return ({ type: PLAYERS_ACTION_TYPES.ADD_PRESENT_HISTORY, payload: updatedArray});
+};

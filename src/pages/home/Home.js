@@ -10,8 +10,9 @@ export default function Home() {
       <div className='outlet-container'>
         <Outlet />
       </div>
-      <div className='background' />
-      <Snowfall />
+      <div className='background'>
+        <Snowfall />
+      </div>
     </div>
   )
 }

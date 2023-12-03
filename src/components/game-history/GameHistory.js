@@ -10,9 +10,11 @@ export default function GameHistory({ history }) {
   const presents = useSelector(selectPresents);
 
   const createTurnString = (turn) => {
-    const name = players[turn[0]].playerName
+    // const name = players[turn[0]].name
+    const name = players[turn[0]].id
     const actionTaken = turn[1]
-    const present = presents[turn[2]].presentTitle
+    // const present = presents[turn[2]].name
+    const present = presents[turn[2]].id
 
     return `${name} ${actionTaken} ${present}`
   }

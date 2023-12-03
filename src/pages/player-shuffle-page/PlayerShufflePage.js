@@ -26,7 +26,7 @@ export default function PlayerShufflePage() {
             <GameLogo size={"regular"}/>
             <div className='players-display'>
                 {players.map((player) => (
-                    <h1 key={player.playerName}>{player.playerName}</h1>
+                    <h1 key={player.name}>{player.name}</h1>
                 ))}
             </div>
             <div className='action-btns-container'>

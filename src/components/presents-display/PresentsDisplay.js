@@ -1,15 +1,16 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { assignGift } from '../../store/players/players.action'
-import { assignOwner, swapOwners } from '../../store/presents/presents.action'
-import { setLastGiftStolen, setStolenGiftTurnIndex, setGameHistory, setGameIsOver, setFirstPlayerReplayed } from '../../store/game/game.action'
+// import { swapOwners } from '../../store/presents/presents.action'
+import { setLastGiftStolen, setStolenGiftTurnIndex, addGameHistory, setGameIsOver, setFirstPlayerReplayed } from '../../store/game/game.action'
 import { setTurnIndex } from '../../store/game/game.action'
 import { selectPlayers } from '../../store/players/players.selector'
 import { selectPresents } from '../../store/presents/presents.selector'
 import { selectGameHistory, selectLastGiftStolen, selectTurnIndex, selectFirstPlayerReplayed } from '../../store/game/game.selector'
 import { selectStolenGiftTurnIndex } from '../../store/game/game.selector'
 import { selectShuffleStatus } from '../../store/game/game.selector'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import { addPresentHistory } from '../../store/players/players.action'
+import { addOwnerHistory, swapOwners } from '../../store/presents/presents.action'
 
 // styles
 import './PresentsDisplay.scss'
@@ -34,79 +35,84 @@ export default function PresentsDisplay() {
   }, [shuffleStatus, navigate])
 
   useEffect(() => {
-    if (turnIndex === 5) {
+    if (turnIndex === players.length) {
       dispatch(setFirstPlayerReplayed())
       dispatch(setTurnIndex(0))
     }
-  }, [turnIndex, dispatch])
+  }, [turnIndex, dispatch, players.length])
+
+  const handleOpen = (playerID, presentID) => {
+    dispatch(addGameHistory(gameHistory, [playerID, "opens", presentID]))
+    dispatch(addPresentHistory(players, playerID, presentID))
+    dispatch(addOwnerHistory(presents, presentID, playerID, false))
+    dispatch(setLastGiftStolen(null))
+    dispatch(setStolenGiftTurnIndex(null))
+
+    if (firstPlayerReplayed) {
+      dispatch(setGameIsOver())
+      dispatch(setTurnIndex(players.length))
+    } else {
+      dispatch(setTurnIndex(turnIndex + 1))
+    }
+  }
+
+  const handleSteal = (thief, victim, present) => {
+    if (present.id !== lastGiftStolen) {
+      if (present.stealsLeft !== 0) {
+        dispatch(addGameHistory(gameHistory, [thief, "steals", present.id, "from", victim]))
+        dispatch(addPresentHistory(players, thief, present.id))
+        dispatch(addOwnerHistory(presents, present.id, thief, true))
+        dispatch(setLastGiftStolen(present.id))
+        dispatch(setStolenGiftTurnIndex(victim))
+      } else {
+        alert("Present cannot be stolen any more times")
+      }
+    } else {
+      alert("You cannot immediately steal back the same gift!")
+    }
+  }
+
+  const handleSwap = (thief, stolenPresent) => {
+    const thiefsPresent = players[thief].presentHistory[players[thief].presentHistory.length - 1]
+    const victim = presents[stolenPresent].ownerHistory[presents[stolenPresent].ownerHistory.length - 1]
+    const victimsPresent = players[victim].presentHistory[players[victim].presentHistory.length - 1]
+    console.log("Thief: ", thief)
+    console.log("Thief's Present: ", thiefsPresent)
+    console.log("Victim: ", victim)
+    console.log("Victim's Present: ", victimsPresent)
+
+    dispatch(addGameHistory(gameHistory, [thief, "steals", victimsPresent, "from", victim], [victim, "is given", thiefsPresent, "from", thief]))
+    dispatch(swapOwners(presents, thief, victim, thiefsPresent, victimsPresent))
+    dispatch(setGameIsOver())
+  }
 
   const handleAction = (presentID) => {
     let player = null
     const present = presents[presentID]
     if (stolenGiftTurnIndex === null) {
-      player = players[turnIndex]
+      player = players[turnIndex].id
     } else {
-      player = players[stolenGiftTurnIndex]
+      player = players[stolenGiftTurnIndex].id
     }
-
-    if (present.owner === null) {
-      if (stolenGiftTurnIndex === null) {
-        dispatch(assignGift(players, present.id, turnIndex, null))
-        dispatch(assignOwner(presents, { name: player.playerName, index: player.playersTurnInd }, present.id, false))
-        if (firstPlayerReplayed) {
-          dispatch(setGameIsOver())
-          dispatch(setTurnIndex(players.length))
-        } else {
-          dispatch(setTurnIndex(turnIndex + 1))
-        }
-        dispatch(setStolenGiftTurnIndex(null))
-        dispatch(setGameHistory(gameHistory, [turnIndex, "opens", present.id]))
-      } else {
-        dispatch(assignGift(players, present.id, stolenGiftTurnIndex, null))
-        dispatch(assignOwner(presents, { name: player.playerName, index: player.playersTurnInd }, present.id, false))
-        if (firstPlayerReplayed) {
-          dispatch(setGameIsOver())
-          dispatch(setTurnIndex(players.length))
-        } else {
-          dispatch(setTurnIndex(turnIndex + 1))
-        }
-        dispatch(setStolenGiftTurnIndex(null))
-        dispatch(setLastGiftStolen(null))
-        dispatch(setGameHistory(gameHistory, [stolenGiftTurnIndex, "opens", present.id]))
-      }
+    if (present.ownerHistory.length === 0) {
+      handleOpen(player, present.id)
     } else {
-      if (presentID !== lastGiftStolen) {
-        if (present.stealsLeft !== 0) {
-          const currentOwner = present.owner
-          const newOwner = player
-          if (!firstPlayerReplayed) {
-            dispatch(setStolenGiftTurnIndex(present.owner.index))
-            dispatch(assignGift(players, present.id, turnIndex, currentOwner.index))
-            dispatch(assignOwner(presents, { name: newOwner.playerName, index: newOwner.playersTurnInd }, present.id, true)) 
-            dispatch(setLastGiftStolen(presentID))
-            dispatch(setGameHistory(gameHistory, [player.playersTurnInd, "steals", present.id]))
-          } else {
-            dispatch(swapOwners(presents, { name: player.playerName, index: player.playersTurnInd }, { name: present.owner.name, index: present.owner.index }))
-            dispatch(setGameHistory(gameHistory, [player.playersTurnInd, "steals", present.id]))
-            dispatch(setGameIsOver())
-          }
-        } else {
-          alert("Present cannot be stolen any more times")
-        }
+      if (!firstPlayerReplayed) {
+        handleSteal(player, present.ownerHistory[present.ownerHistory.length - 1], present)
       } else {
-        alert("You cannot immediately steal back the same gift!")
+        handleSwap(player, presentID)
       }
+      
     }
   }
 
-
   return (
     <div className='presents-display-container'>
-        {presents.map((present) => (
-            <div key={present.id} onClick={() => handleAction(present.id)}>
-              <Present present={present} />
-            </div>
-        ))}
+      {presents.map((present) => (
+          <div key={present.id} onClick={() => handleAction(present.id)}>
+            <Present present={present} ownerName={present.ownerHistory} />
+          </div>
+      ))}
     </div>
   )
 }
