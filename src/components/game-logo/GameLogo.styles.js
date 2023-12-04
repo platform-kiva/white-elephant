@@ -3,17 +3,17 @@ import styled from "styled-components";
 export const ContentContainer = styled.div`
     align-items: baseline;
     display: flex;
-    gap: 8px;
+    gap: 10px;
 `
 export const CompanyLogo = styled.img`
     height: ${(props) =>
         props.$size === "regular"
-        ? '60px'
-        : '40px'};
+        ? '100px'
+        : '30px'};
 `
 export const WhiteElephantIcon = styled.img`
     height: ${(props) =>
         props.$size === "regular"
-        ? '48px'
-        : '32px'};
+        ? '50px'
+        : '20px'};
 `

@@ -8,6 +8,7 @@ import { GameHistoryContainer } from './GameHistory.styles.js'
 export default function GameHistory({ history }) {
   const players = useSelector(selectPlayers);
   const presents = useSelector(selectPresents);
+  const reversedHistory = [...history].reverse();
 
   const createTurnString = (turn) => {
     const name = players[turn[0]].name
@@ -18,10 +19,14 @@ export default function GameHistory({ history }) {
   }
   
   return (
-    <GameHistoryContainer>
-      {history.map((turn) => (
-        <h2 key={turn}>{createTurnString(turn)}</h2>
-      ))}
-    </GameHistoryContainer>
+    <>
+      {history.length !== 0 &&
+        <GameHistoryContainer>
+          {reversedHistory.map((turn, index) => (
+            <h2 key={index} style={{ opacity: index === 0 ? 1 : 0.5 }}>{createTurnString(turn)}</h2>
+          ))}
+        </GameHistoryContainer> 
+      }
+    </>
   )
 }

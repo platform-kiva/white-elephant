@@ -18,7 +18,6 @@ Nicole
 Sergio
 Tammy
 Victoria
-
 */
 
 export const PLAYER_DATA = [
@@ -69,6 +68,41 @@ export const PLAYER_DATA = [
     },
     {
         name: 'Kiva',
+        id: null,
+        presentHistory: []
+    },
+    {
+        name: 'Mica',
+        id: null,
+        presentHistory: []
+    },
+    {
+        name: 'Michelle',
+        id: null,
+        presentHistory: []
+    },
+    {
+        name: 'Mya',
+        id: null,
+        presentHistory: []
+    },
+    {
+        name: 'Nicole',
+        id: null,
+        presentHistory: []
+    },
+    {
+        name: 'Sergio',
+        id: null,
+        presentHistory: []
+    },
+    {
+        name: 'Tammy',
+        id: null,
+        presentHistory: []
+    },
+    {
+        name: 'Victoria',
         id: null,
         presentHistory: []
     }

@@ -42,7 +42,7 @@ export default function PresentsDisplay() {
   }, [turnIndex, dispatch, players.length])
 
   const handleOpen = (playerID, presentID) => {
-    dispatch(addGameHistory(gameHistory, [playerID, "opens", presentID]))
+    dispatch(addGameHistory(gameHistory, [playerID, "opened", presentID]))
     dispatch(addPresentHistory(players, playerID, presentID))
     dispatch(addOwnerHistory(presents, presentID, playerID, false))
     dispatch(setLastGiftStolen(null))
@@ -59,7 +59,7 @@ export default function PresentsDisplay() {
   const handleSteal = (thief, victim, present) => {
     if (present.id !== lastGiftStolen) {
       if (present.stealsLeft !== 0) {
-        dispatch(addGameHistory(gameHistory, [thief, "steals", present.id, "from", victim]))
+        dispatch(addGameHistory(gameHistory, [thief, "stole", present.id, "from", victim]))
         dispatch(addPresentHistory(players, thief, present.id))
         dispatch(addOwnerHistory(presents, present.id, thief, true))
         dispatch(setLastGiftStolen(present.id))
@@ -76,12 +76,7 @@ export default function PresentsDisplay() {
     const thiefsPresent = players[thief].presentHistory[players[thief].presentHistory.length - 1]
     const victim = presents[stolenPresent].ownerHistory[presents[stolenPresent].ownerHistory.length - 1]
     const victimsPresent = players[victim].presentHistory[players[victim].presentHistory.length - 1]
-    console.log("Thief: ", thief)
-    console.log("Thief's Present: ", thiefsPresent)
-    console.log("Victim: ", victim)
-    console.log("Victim's Present: ", victimsPresent)
-
-    dispatch(addGameHistory(gameHistory, [thief, "steals", victimsPresent, "from", victim], [victim, "is given", thiefsPresent, "from", thief]))
+    dispatch(addGameHistory(gameHistory, [thief, "stole", victimsPresent, "from", victim], [victim, "is given", thiefsPresent, "from", thief]))
     dispatch(swapOwners(presents, thief, victim, thiefsPresent, victimsPresent))
     dispatch(setGameIsOver())
   }

@@ -1,7 +1,16 @@
 import { useSelector } from 'react-redux'
-import { OwnerContainer, PresentContainer, PresentCoverImgContainer, PresentInfo, PresentOpened, PresentUnopened } from './Present.styled.js'
 import { selectPlayers } from '../../store/players/players.selector.js'
 import { selectGameIsOver } from '../../store/game/game.selector.js'
+
+// styles
+import {
+    OwnerContainer,
+    PresentContainer,
+    PresentImgContainer,
+    PresentInfo,
+    PresentOpened,
+    PresentUnopened
+} from './Present.styled.js'
 
 export default function Present({ present }) {
     const players = useSelector(selectPlayers)
@@ -11,9 +20,9 @@ export default function Present({ present }) {
         <PresentContainer>
             {present.ownerHistory.length !== 0 ?
                 <PresentOpened>
-                    <PresentCoverImgContainer>
+                    <PresentImgContainer>
                         <img src={present.presentImg} alt='present cover img'/>
-                    </PresentCoverImgContainer>
+                    </PresentImgContainer>
                     <PresentInfo>
                         <h1>{present.name}</h1>
                         {!gameIsOver &&

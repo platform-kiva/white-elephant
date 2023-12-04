@@ -14,6 +14,7 @@ import {
   BtnContainer,
   PlayersDisplayContainer,
   GameLogoContainer,
+  GameHistoryContainer,
   PlayerNamesContainer,
   PlayerContainer
 } from './PlayersDisplay.styles.js';
@@ -64,6 +65,9 @@ export default function PlayersDisplay() {
       <GameLogoContainer>
         <GameLogo size={"small"}/>
       </GameLogoContainer>
+      <GameHistoryContainer>
+        <GameHistory history={gameHistory}/>
+      </GameHistoryContainer>
       <BtnContainer onClick={() => handleUndo()}>
         <Btn label={"UNDO"} isActive={gameHistory.length !== 0}/>
       </BtnContainer>
@@ -79,13 +83,12 @@ export default function PlayersDisplay() {
       {turnIndex === players.length &&
         <PlayerNamesContainer>
           {players.map((player) => (
-            <div key={player.name} className={`player-container`}>
+            <PlayerContainer key={player.name}>
               <h2>{player.name}</h2>
-            </div>
+            </PlayerContainer>
           ))}
         </PlayerNamesContainer>
       }
-      <GameHistory history={gameHistory}/>
     </PlayersDisplayContainer>
   )
 }
