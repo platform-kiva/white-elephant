@@ -42,6 +42,7 @@ export const PRESENT_DATA = [
         coverImg: P0_C,
         presentImg: P0_P,
         stealsLeft: 3,
+        bgCol: '145, 143, 198'
     },
     {
         name: "Vegetable Chopper",
@@ -50,6 +51,7 @@ export const PRESENT_DATA = [
         coverImg: P1_C,
         presentImg: P1_P,
         stealsLeft: 3,
+        bgCol: '18, 186, 213'
     },
     {
         name: "Desk Coffee Warmer",
@@ -58,6 +60,7 @@ export const PRESENT_DATA = [
         coverImg: P2_C,
         presentImg: P2_P,
         stealsLeft: 3,
+        bgCol: '250, 165, 35'
     },
     {
         name: "Cat Coloring Book",
@@ -66,6 +69,7 @@ export const PRESENT_DATA = [
         coverImg: P3_C,
         presentImg: P3_P,
         stealsLeft: 3,
+        bgCol: '125, 170, 69'
     },
     {
         name: "Brick Build Coffee Mug",
@@ -74,6 +78,7 @@ export const PRESENT_DATA = [
         coverImg: P4_C,
         presentImg: P4_P,
         stealsLeft: 3,
+        bgCol: '248, 155, 36'
     },
     {
         name: "Magic Tap Drink Dispenser",
@@ -82,6 +87,7 @@ export const PRESENT_DATA = [
         coverImg: P5_C,
         presentImg: P5_P,
         stealsLeft: 3,
+        bgCol: '131, 96, 167'
     },
     {
         name: "Belgian Waffle Maker",
@@ -90,6 +96,7 @@ export const PRESENT_DATA = [
         coverImg: P6_C,
         presentImg: P6_P,
         stealsLeft: 3,
+        bgCol: '239, 114, 41'
     },
     {
         name: "Echo Pop Speaker",
@@ -98,6 +105,7 @@ export const PRESENT_DATA = [
         coverImg: P7_C,
         presentImg: P7_P,
         stealsLeft: 3,
+        bgCol: '0, 153, 190'
     },
     {
         name: "Beer Gloves",
@@ -106,6 +114,7 @@ export const PRESENT_DATA = [
         coverImg: P8_C,
         presentImg: P8_P,
         stealsLeft: 3,
+        bgCol: '131, 179, 66'
     },
     {
         name: "Westworld S1 4K Blu-Ray",
@@ -114,6 +123,7 @@ export const PRESENT_DATA = [
         coverImg: P9_C,
         presentImg: P9_P,
         stealsLeft: 3,
+        bgCol: '255, 193, 21'
     },
     {
         name: "Lightsaber Chopsticks",
@@ -122,6 +132,7 @@ export const PRESENT_DATA = [
         coverImg: P10_C,
         presentImg: P10_P,
         stealsLeft: 3,
+        bgCol: '213, 61, 39'
     },
     {
         name: "Bread Pillow",
@@ -130,6 +141,7 @@ export const PRESENT_DATA = [
         coverImg: P11_C,
         presentImg: P11_P,
         stealsLeft: 3,
+        bgCol: '229, 36, 60'
     },
     {
         name: "Bamboo Cheese Board",
@@ -138,6 +150,7 @@ export const PRESENT_DATA = [
         coverImg: P12_C,
         presentImg: P12_P,
         stealsLeft: 3,
+        bgCol: '243, 135, 156'
     },
     {
         name: "Reusable Paper Towels",
@@ -146,6 +159,7 @@ export const PRESENT_DATA = [
         coverImg: P13_C,
         presentImg: P13_P,
         stealsLeft: 3,
+        bgCol: '242, 121, 143'
     },
     {
         name: "Acupressure Mat",
@@ -154,6 +168,7 @@ export const PRESENT_DATA = [
         coverImg: P14_C,
         presentImg: P14_P,
         stealsLeft: 3,
+        bgCol: '177, 148, 197'
     },
     {
         name: "Nachosaurus Chip & Dip Set",
@@ -162,6 +177,7 @@ export const PRESENT_DATA = [
         coverImg: P15_C,
         presentImg: P15_P,
         stealsLeft: 3,
+        bgCol: '254, 191, 22'
     },
     {
         name: "Snuggie Wearable Blanket",
@@ -170,5 +186,6 @@ export const PRESENT_DATA = [
         coverImg: P16_C,
         presentImg: P16_P,
         stealsLeft: 3,
+        bgCol: '0, 188, 233'
     },
 ]

@@ -37,7 +37,7 @@ export const PresentUnopened = styled.div`
 `
 export const PresentOpened = styled.div`
     align-items: center;
-    background-color: rgba(255,255,255,0.2);
+    background-color: rgba(${props => props.$bgCol}, 0.5);
     border-radius: 8px;
     display: flex;
     flex-direction: column;

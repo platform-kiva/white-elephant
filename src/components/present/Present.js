@@ -19,7 +19,7 @@ export default function Present({ present }) {
     return (
         <PresentContainer>
             {present.ownerHistory.length !== 0 ?
-                <PresentOpened>
+                <PresentOpened $bgCol={present.bgCol}>
                     <PresentImgContainer>
                         <img src={present.presentImg} alt='present cover img'/>
                     </PresentImgContainer>
