@@ -11,5 +11,5 @@ export const GameLogoContainer = styled.div`
     align-items: center;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 42px;
 `

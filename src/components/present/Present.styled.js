@@ -75,10 +75,10 @@ export  const PresentInfo = styled.div`
     text-align: center;
 
     h1 {
-        font-size: 16px;
+        font-size: 12px;
         margin-bottom: 12px;
     }
     h2 {
-        font-size: 12px;
+        font-size: 10px;
     }
 `

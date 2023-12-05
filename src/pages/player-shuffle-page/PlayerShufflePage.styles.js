@@ -4,7 +4,6 @@ export const PlayerShufflePageContainer = styled.div`
     align-items: center;
     display: flex;
     flex-direction: column;
-    gap: 48px;
     height: 100%;
     justify-content: space-evenly;
     width: 100%;

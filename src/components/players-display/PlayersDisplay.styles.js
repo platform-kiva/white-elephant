@@ -2,21 +2,23 @@ import styled from "styled-components";
 
 export const PlayersDisplayContainer = styled.div`
     align-items: center;
-    background-color: rgba(255,255,255,0.2);
     display: flex;
     flex-direction: column;
     height: 100vh;
+    justify-content: center;
     text-align: center;
     width: 150px;
 `
 export const GameLogoContainer = styled.div`
     margin: 24px 0px;
+    position: absolute;
+    top: 20px;
 `
 export const GameHistoryContainer = styled.div`
     width: 90%;
 `
 export const BtnContainer = styled.div`
-    margin: 10px 0px;
+    margin: 20px 0px;
     width: 90%;
 `
 export const PlayerNamesContainer = styled.div`

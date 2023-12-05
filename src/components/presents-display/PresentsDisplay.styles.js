@@ -6,4 +6,5 @@ export const PresentsDisplayContainer = styled.div`
     flex-wrap: wrap;
     height: 100vh;
     justify-content: space-evenly;
+    max-width: 1200px;
 `

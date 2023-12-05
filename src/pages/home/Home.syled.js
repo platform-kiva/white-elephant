@@ -10,6 +10,8 @@ export const OutletContainer = styled.div`
     width: 100vw;
 `
 export const Background = styled.div`
+    background-size: auto 200px;
+    background-repeat: no-repeat;
     background-color: #232c3b;
     height: 100vh;
     position: fixed;
