@@ -15,6 +15,8 @@ export const presentsReducer = (state = PRESENTS_INITIAL_STATE, action = {}) => 
             return { ...state, presents: payload };
         case PRESENTS_ACTION_TYPES.REMOVE_OWNER_HISTORY:
             return { ...state, presents: payload };
+        case PRESENTS_ACTION_TYPES.RESET_PRESENTS_STATE:
+            return { presents: PRESENT_DATA }
         default:
             return state;
     }

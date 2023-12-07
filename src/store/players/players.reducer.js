@@ -17,6 +17,8 @@ export const playersReducer = (state = PLAYERS_INITIAL_STATE, action = {}) => {
             return { ...state, players: payload };
         case PLAYERS_ACTION_TYPES.SWAP_PRESENTS:
             return { ...state, players: payload};
+        case PLAYERS_ACTION_TYPES.RESET_PLAYERS_STATE:
+            return { players: PLAYER_DATA }
         default:
             return state;
     }

@@ -30,6 +30,16 @@ export const gameReducer = (state = GAME_INITIAL_STATE, action = {}) => {
             return { ...state, gameIsOver: true}
         case GAME_ACTION_TYPES.SET_FIRST_PLAYER_REPLAYED:
             return { ...state, firstPlayerReplayed: true}
+        case GAME_ACTION_TYPES.RESET_GAME_STATE:
+            return {
+                turnIndex: 0,
+                stolenGiftTurnIndex: null,
+                lastGiftStolen: null,
+                shuffleStatus: false,
+                gameHistory: [],
+                gameIsOver: false,
+                firstPlayerReplayed: false
+            }
         default:
             return state;
     }

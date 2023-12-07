@@ -61,3 +61,7 @@ const addOwnerHistoryHelper = (presentsArray, presentID, playerID, isBeingStolen
     const updatedArray = addOwnerHistoryHelper(presentsArray, presentID, playerID, isBeingStolen);
     return ({ type: PRESENTS_ACTION_TYPES.ADD_OWNER_HISTORY, payload: updatedArray});
   };
+
+  export const resetPresentsState = () => {
+    return ({ type: PRESENTS_ACTION_TYPES.RESET_PRESENTS_STATE })
+  }

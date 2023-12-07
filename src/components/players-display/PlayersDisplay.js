@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { removePresentHistory } from '../../store/players/players.action.js';
 import { selectPlayers } from '../../store/players/players.selector';
 import { selectStolenGiftTurnIndex } from '../../store/game/game.selector';
@@ -8,6 +9,12 @@ import { setTurnIndex } from '../../store/game/game.action.js'
 import { removeOwnerHistory } from '../../store/presents/presents.action.js';
 import { selectPresents } from '../../store/presents/presents.selector.js';
 import { setLastGiftStolen, setStolenGiftTurnIndex } from '../../store/game/game.action.js';
+import { resetGameState } from '../../store/game/game.action.js';
+import { resetPlayersState } from '../../store/players/players.action.js';
+import { resetPresentsState } from '../../store/presents/presents.action.js';
+
+// assets
+import turnIcon from '../../assets/turn-icon.png';
 
 // styles
 import {
@@ -16,7 +23,8 @@ import {
   GameLogoContainer,
   GameHistoryContainer,
   PlayerNamesContainer,
-  PlayerContainer
+  PlayerContainer,
+  TurnIcon
 } from './PlayersDisplay.styles.js';
 
 // components
@@ -26,11 +34,19 @@ import GameHistory from '../game-history/GameHistory';
 
 export default function PlayersDisplay() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const players = useSelector(selectPlayers);
   const presents = useSelector(selectPresents)
   const turnIndex = useSelector(selectTurnIndex);
   const stolenGiftTurnIndex = useSelector(selectStolenGiftTurnIndex);
   const gameHistory = useSelector(selectGameHistory);
+
+  const handleReset = () => {
+    dispatch(resetGameState())
+    dispatch(resetPlayersState())
+    dispatch(resetPresentsState())
+    navigate("/")
+  }
 
   const handleUndo = () => {
     if (gameHistory.length !== 0) {
@@ -71,16 +87,21 @@ export default function PlayersDisplay() {
       <BtnContainer onClick={() => handleUndo()}>
         <Btn label={"UNDO"} isActive={gameHistory.length !== 0}/>
       </BtnContainer>
-      {turnIndex !== players.length &&
+      {turnIndex !== players.length ?
         <PlayerNamesContainer>
           {players.map((player) => (
             <PlayerContainer key={player.name} $isActive={player.name === players[stolenGiftTurnIndex === null ? turnIndex : stolenGiftTurnIndex].name}>
-              <h2>{player.name}</h2>
+                {player.name === players[stolenGiftTurnIndex === null ? turnIndex : stolenGiftTurnIndex].name &&
+                  <TurnIcon src={turnIcon} alt='turn icon' />
+                }
+                <h2>{player.name}</h2>  
+                {player.name === players[stolenGiftTurnIndex === null ? turnIndex : stolenGiftTurnIndex].name &&
+                  <TurnIcon src={turnIcon} alt='turn icon' />
+                }
             </PlayerContainer>
           ))}
         </PlayerNamesContainer>
-      }
-      {turnIndex === players.length &&
+        :
         <PlayerNamesContainer>
           {players.map((player) => (
             <PlayerContainer key={player.name}>
@@ -89,6 +110,9 @@ export default function PlayersDisplay() {
           ))}
         </PlayerNamesContainer>
       }
+      <BtnContainer onClick={() => handleReset()}>
+        <Btn label={"RESET GAME"} />
+      </BtnContainer>
     </PlayersDisplayContainer>
   )
 }

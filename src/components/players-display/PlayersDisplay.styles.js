@@ -22,14 +22,21 @@ export const BtnContainer = styled.div`
     width: 90%;
 `
 export const PlayerNamesContainer = styled.div`
+    align-items: center;
     display: flex;
     flex-direction: column;
     gap: 10px;
 `
 export const PlayerContainer = styled.div`
+    align-items: center;
+    display: flex;
+    gap: 5px;
     opacity: ${props => props.$isActive ? '1.0' : '0.5'};
 
     h2 {
         font-size: ${props => props.$isActive ? '18px' : '12px'};
     }
+`
+export const TurnIcon = styled.img`
+    height: 24px;
 `

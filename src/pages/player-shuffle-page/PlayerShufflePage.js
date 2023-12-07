@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import { shufflePlayers } from '../../store/players/players.action';
 import { setShuffleStatus } from '../../store/game/game.action';
@@ -16,9 +18,16 @@ import Btn from '../../components/btn/Btn';
 import GameLogo from '../../components/game-logo/GameLogo'
 
 export default function PlayerShufflePage() {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const players = useSelector(selectPlayers);
-    const shuffleStatus = useSelector(selectShuffleStatus)
+    const shuffleStatus = useSelector(selectShuffleStatus);
+
+    useEffect(() => {
+        if (shuffleStatus) {
+            navigate("/play")
+        }
+    }, [navigate, shuffleStatus])
 
     const handleShuffle = () => {
         dispatch(shufflePlayers(players))

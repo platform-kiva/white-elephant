@@ -71,3 +71,7 @@ export const addPresentHistory = (playersArray, playerID, presentID) => {
   const updatedArray = addPresentHistoryHelper(playersArray, playerID, presentID);
   return ({ type: PLAYERS_ACTION_TYPES.ADD_PRESENT_HISTORY, payload: updatedArray});
 };
+
+export const resetPlayersState = () => {
+  return ({ type: PLAYERS_ACTION_TYPES.RESET_PLAYERS_STATE })
+}

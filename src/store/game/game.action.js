@@ -37,3 +37,7 @@ export const setGameIsOver = () => {
 export const setFirstPlayerReplayed = () => {
     return ({ type: GAME_ACTION_TYPES.SET_FIRST_PLAYER_REPLAYED })
 }
+
+export const resetGameState = () => {
+    return ({ type: GAME_ACTION_TYPES.RESET_GAME_STATE })
+}
