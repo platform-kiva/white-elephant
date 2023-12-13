@@ -78,9 +78,9 @@ export default function PlayersDisplay() {
 
   return (
     <PlayersDisplayContainer>
-      <GameLogoContainer>
+      {/* <GameLogoContainer>
         <GameLogo size={"small"}/>
-      </GameLogoContainer>
+      </GameLogoContainer> */}
       <GameHistoryContainer>
         <GameHistory history={gameHistory}/>
       </GameHistoryContainer>
