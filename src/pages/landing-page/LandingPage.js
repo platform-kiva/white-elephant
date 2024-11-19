@@ -1,4 +1,9 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { resetGameState } from '../../store/game/game.action.js';
+import { clearPlayers } from '../../store/players/players.action.js';
+import { resetPresentsState } from '../../store/presents/presents.action.js';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectShuffleStatus } from '../../store/game/game.selector.js'
 import { fadeInUp } from '../../animations/Animations.js';
 import { motion } from 'framer-motion';
@@ -11,7 +16,18 @@ import Btn from '../../components/btn/Btn'
 import GameLogo from '../../components/game-logo/GameLogo';
 
 export default function LandingPage() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const shuffleStatus = useSelector(selectShuffleStatus);
+
+  useEffect(() => {
+    if (shuffleStatus) {
+      dispatch(resetGameState);
+      dispatch(clearPlayers());
+      dispatch(resetPresentsState());
+      navigate('/');
+    }
+  }, [dispatch, navigate, shuffleStatus])
 
   return (
     <LandingPageContainer>
