@@ -8,4 +8,5 @@ export const PresentsDisplayContainer = styled.div`
     justify-content: space-evenly;
     max-width: 1200px;
     min-height: 300px;
+    width: 100%;
 `

@@ -15,7 +15,7 @@ export const gameReducer = (state = GAME_INITIAL_STATE, action = {}) => {
 
     switch(type) {
         case GAME_ACTION_TYPES.SET_SHUFFLE_STATUS:
-            return { ...state, shuffleStatus: true };
+            return { ...state, shuffleStatus: payload };
         case GAME_ACTION_TYPES.SET_STOLEN_GIFT_TURN_INDEX:
             return { ...state, stolenGiftTurnIndex: payload }
         case GAME_ACTION_TYPES.SET_TURN_INDEX:
@@ -29,7 +29,7 @@ export const gameReducer = (state = GAME_INITIAL_STATE, action = {}) => {
         case GAME_ACTION_TYPES.SET_GAME_IS_OVER:
             return { ...state, gameIsOver: true}
         case GAME_ACTION_TYPES.SET_FIRST_PLAYER_REPLAYED:
-            return { ...state, firstPlayerReplayed: true}
+            return { ...state, firstPlayerReplayed: payload}
         case GAME_ACTION_TYPES.RESET_GAME_STATE:
             return {
                 ...state,

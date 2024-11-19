@@ -1,7 +1,8 @@
 import { PRESENTS_ACTION_TYPES } from "./presents.types";
 
 export const PRESENTS_INITIAL_STATE = {
-    presentData: []
+    presentData: [],
+    cardImgsUploaded: false
 };
 
 export const presentsReducer = (state = PRESENTS_INITIAL_STATE, action = {}) => {
@@ -18,6 +19,8 @@ export const presentsReducer = (state = PRESENTS_INITIAL_STATE, action = {}) => 
             return { ...state, presentData: [] }
         case PRESENTS_ACTION_TYPES.SET_PRESENTS:
             return { ...state, presentData: payload }
+        case PRESENTS_ACTION_TYPES.SET_CARD_IMGS_UPLOADED:
+            return { ...state, cardImgsUploaded: payload }
         default:
             return state;
     }

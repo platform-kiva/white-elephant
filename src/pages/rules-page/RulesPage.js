@@ -1,47 +1,121 @@
+import { fadeInUp } from '../../animations/Animations';
+import { motion } from 'framer-motion';
+
 // styles
 import {
-    RulesPageContainer
+  RulesPageContainer,
+  ContentContainer,
+  RulesContainer,
+  BtnContainer
 } from './RulesPage.styles';
+
+// components
+import Btn from '../../components/btn/Btn';
+import PageTitle from '../../components/page-title/PageTitle';
 
 export default function RulesPage() {
   return (
     <RulesPageContainer>
-        <h1>Welcome to White Elephant!</h1>
-        <h2>Game Rules</h2>
-        <h3>Gift Guidelines</h3>
-        <ul>
-          <li>Each participant contributes a gift.</li>
-          <li>Set a budget (e.g., $20-$30) to keep gifts equitable.</li>
-        </ul>
-        <h3>Game Setup</h3>
-        <ul>
-          <li>The game organizer will enter all players, then upload a gift image matching the total number of players</li>
-          <li>Once a players and gifts are entered, the game organizer will press shuffle to randomly generate the order</li>
-        </ul>
-        <h3>Playing the Game</h3>
-        <ul>
-          <li>The first participant chooses a gift from the screen display.</li>
-          <li>The organizer reveals what the gift is by clicking on it.</li>
-        </ul>
-        <ul>
-          <li>Subsequent participants can either:</li>
-          <ul>
-            <li>Steal a previously chosen gift, or</li>
-            <li>Select a new gift</li>
-            <li>If a gift is stolen:</li>
+      <PageTitle title={"Welcome to White Elephant!"} />
+      <ContentContainer>
+        <RulesContainer>
+          <motion.h2
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            custom={2 * 0.05}
+            style={{ width: "100%" }}
+          >
+            HOW TO PLAY
+          </motion.h2>
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            custom={3 * 0.05}
+            style={{ width: "100%" }}
+          >
+            <h3>Gift Guidelines</h3>
             <ul>
-              <li>The person whose gift was stolen must choose another gift (either a new one or steal from someone else).</li>
+              <li>Each participant contributes a gift.</li>
+              <li>Set a budget (e.g. $20-$30) to keep gifts equitable.</li>
             </ul>
-            <li>Rules for Stealing:</li>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            custom={4 * 0.05}
+            style={{ width: "100%" }}
+          >
+            <h3>Game Setup</h3>
+            <ul>
+              <li>The game organizer will enter all participant names, and upload a gift image for each participant.</li>
+              <li>Once all players and gifts are entered, the game organizer may shuffle the player list to randomly generate the order.</li>
+            </ul>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            custom={5 * 0.05}
+            style={{ width: "100%" }}
+          >
+            <h3>Playing the Game</h3>
+            <ul>
+              <li>The first participant chooses a gift from the screen display.</li>
+              <li>The organizer reveals what the gift is by clicking on it.</li>
+              <li>Subsequent participants may either:</li>
               <ul>
-                <li>A gift that has been stolen cannot be immediately stolen back</li>
-                <li>Any gift can only be stolen a maximum of 3 times</li>
+                <li>Steal a previously chosen gift <em><b>OR</b></em> select a new gift.</li>
               </ul>
-          </ul>
-        </ul>
-        <ul>
-          <li>Repeat</li>
-        </ul>
+              <li>If a gift is stolen:</li>
+              <ul>
+                <li>The person whose gift was stolen must choose another gift (either a new one or steal from someone else).</li>
+              </ul>
+            </ul>
+          </motion.div>
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            custom={6 * 0.05}
+            style={{ width: "100%" }}
+          >
+            <h3>Rules for Stealing:</h3>
+            <ul>
+              <li>A gift that has been stolen cannot be immediately stolen back</li>
+              <li>Any gift can only be stolen a maximum of 3 times</li>
+            </ul>
+          </motion.div>
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            custom={7 * 0.05}
+            style={{ width: "100%" }}
+          >
+            <div>
+              <h3>Repeat</h3>
+              <ul>
+                <li>Repeat until all players have gone.</li>
+                <li>After the last player has taken their turn, the first player will get one last opportunity to steal a gift before the game concludes.</li>
+              </ul>
+            </div>
+          </motion.div>
+        </RulesContainer>
+      </ContentContainer>
+      <BtnContainer
+        initial="hidden"
+        animate="visible"
+        variants={fadeInUp}
+        custom={8 * 0.05}
+        style={{ width: "100%" }}
+        >
+        <Btn label={"BACK"} navTo={'/'} />
+      </BtnContainer>
     </RulesPageContainer>
   )
 }

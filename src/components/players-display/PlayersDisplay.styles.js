@@ -2,23 +2,32 @@ import styled from "styled-components";
 
 export const PlayersDisplayContainer = styled.div`
     align-items: center;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    gap: 16px;
     height: 100vh;
     justify-content: center;
+    padding: 24px;
+    position: relative;
     text-align: center;
-    width: 150px;
+    width: 200px;
 `
 export const GameLogoContainer = styled.div`
-    margin: 24px 0px;
     position: absolute;
-    top: 20px;
+    top: 24px;
+    width: 100%;
 `
 export const GameHistoryContainer = styled.div`
-    width: 90%;
+    width: 100%;
 `
 export const BtnContainer = styled.div`
-    margin: 20px 0px;
+    bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 160px;
+    position: absolute;
     width: 90%;
 `
 export const PlayerNamesContainer = styled.div`

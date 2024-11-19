@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
-export const BtnContainer = styled.button`
+export const BtnContainer = styled(motion.button)`
     background: none;
     border: 2px solid #FFFFFF;
     border-radius: 8px;
@@ -19,10 +20,10 @@ export const BtnContainer = styled.button`
 
     ${props => props.$isActive && `
         &:hover {
-            background: #FFFFFF;
-            color: #000000;
+            background: ${props.$isCritical ? "darkred" : "#FFFFFF"};
+            color: ${props.$isCritical ? "#FFFFFF" : "#000000"};
             transform: scale(1.05);
             transition: 0.2s ease-in;
         }
-    `};
+`};
 `

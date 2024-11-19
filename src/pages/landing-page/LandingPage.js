@@ -1,5 +1,7 @@
 import { useSelector } from 'react-redux';
 import { selectShuffleStatus } from '../../store/game/game.selector.js'
+import { fadeInUp } from '../../animations/Animations.js';
+import { motion } from 'framer-motion';
 
 // styles
 import { LandingPageContainer, GameLogoContainer } from './LandingPage.styles.js';
@@ -14,9 +16,28 @@ export default function LandingPage() {
   return (
     <LandingPageContainer>
       <GameLogoContainer>
-        <GameLogo size={"regular"}/>
-        <Btn label={shuffleStatus ? "RESUME" : "START"} navTo={"/add-players"}/>
-        <Btn label={"RULES"} navTo={"/rules"}/>
+        <GameLogo size={"regular"} />
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp}
+          custom={6 * 0.05}
+          style={{ width: "100%" }}
+        >
+          <Btn
+            label={shuffleStatus ? "RESUME" : "START"}
+            navTo={"/add-players"}
+          />
+        </motion.div>
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp}
+          custom={4 * 0.05}
+          style={{ width: "100%" }}
+        >
+          <Btn label={"RULES"} navTo={"/rules"} />
+        </motion.div>
       </GameLogoContainer>
     </LandingPageContainer>
   )

@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { selectPlayerData } from '../../store/players/players.selector';
 import { selectPresentData } from '../../store/presents/presents.selector';
-import { setPresents } from '../../store/presents/presents.action';
+import { setCardImgsUploaded, setPresents } from '../../store/presents/presents.action';
+import { fadeInUp } from '../../animations/Animations';
 
 // styles
 import {
@@ -36,6 +37,7 @@ import P16_C from '../../assets/present-covers/Gift17.png'
 
 // components
 import Btn from '../../components/btn/Btn';
+import PageTitle from '../../components/page-title/PageTitle';
 
 export default function AddPresentsPage() {
     const dispatch = useDispatch();
@@ -63,19 +65,19 @@ export default function AddPresentsPage() {
             setFileNames(prepopulatedFileNames);
         }
     }, [presentData]);
-
+    
     const handleFileUpload = (event, index) => {
         const file = event.target.files[0];
         if (file) {
-            const fileURL = URL.createObjectURL(file); // Create an object URL for the file
+            const fileURL = URL.createObjectURL(file);
             setUploadedPhotos((prev) => {
                 const updatedPhotos = [...prev];
-                updatedPhotos[index] = fileURL; // Store the object URL
+                updatedPhotos[index] = fileURL;
                 return updatedPhotos;
             });
             setFileNames((prev) => {
                 const updatedNames = [...prev];
-                updatedNames[index] = file.name; // Store the filename
+                updatedNames[index] = file.name;
                 return updatedNames;
             });
         }
@@ -101,10 +103,11 @@ export default function AddPresentsPage() {
             fileName: fileNames[index] || "",
             stealsLeft: 3,
         }));
-    
+
         // Dispatch the data to Redux
         dispatch(setPresents(presentPhotoData));
-    
+        dispatch(setCardImgsUploaded(true));
+
         // Navigate to the next page
         navigate('/shuffle-players');
     };
@@ -117,11 +120,22 @@ export default function AddPresentsPage() {
 
     return (
         <AddPresentsPageContainer>
-            <h1>Add Presents</h1>
+            <PageTitle title={"Add Presents"} />
             <ContentContainer>
-                <PresentImgUploadsContainer>
+                <PresentImgUploadsContainer
+                    initial="hidden"
+                    animate="visible"
+                    variants={fadeInUp}
+                    custom={1 * 0.05}
+                >
                     {playerData.map((_, index) => (
-                        <PresentItem key={index}>
+                        <PresentItem
+                            key={index}
+                            initial="hidden"
+                            animate="visible"
+                            variants={fadeInUp}
+                            custom={index * 0.1}
+                        >
                             <label
                                 htmlFor={`file-upload-${index}`}
                                 className={`custom-file-upload ${fileNames[index] ? "file-uploaded" : ""}`}
@@ -143,7 +157,13 @@ export default function AddPresentsPage() {
                         </PresentItem>
                     ))}
                 </PresentImgUploadsContainer>
-                <BtnContainer style={{ display: "flex", gap: "8px" }}>
+                <BtnContainer
+                    style={{ display: "flex", gap: "8px" }}
+                    initial="hidden"
+                    animate="visible"
+                    variants={fadeInUp}
+                    custom={3 * 0.05}
+                >
                     <div onClick={() => navigate('/add-players')} style={{ width: "100%" }}>
                         <Btn label={"BACK"} navTo={'/'} />
                     </div>

@@ -91,3 +91,7 @@ export const removePlayer = (playerData, index) => {
   const newPlayerDataArray = playerData.filter((_, i) => i !== index);
   return ({ type: PLAYERS_ACTION_TYPES.SET_PLAYERS, payload: newPlayerDataArray });
 }
+
+export const clearPlayers = () => {
+  return ({ type: PLAYERS_ACTION_TYPES.SET_PLAYERS, payload: [] });
+}

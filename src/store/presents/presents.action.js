@@ -69,3 +69,6 @@ const addOwnerHistoryHelper = (presentsArray, presentID, playerID, isBeingStolen
   export const setPresents = (presentData) => {
     return ({ type: PRESENTS_ACTION_TYPES.SET_PRESENTS, payload: presentData })
   }
+  export const setCardImgsUploaded = (status) => {
+    return ({ type: PRESENTS_ACTION_TYPES.SET_CARD_IMGS_UPLOADED, payload: status })
+  }

@@ -17,3 +17,15 @@ h1 {
   font-family: 'Lobster';
   font-size: 48px;
 }
+
+h2 {
+  font-family: 'Roboto Condensed';
+}
+
+h3 {
+  font-family: 'Roboto Condensed';
+}
+
+li {
+  font-family: 'Roboto';
+}

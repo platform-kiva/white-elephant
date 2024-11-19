@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 export const AddPresentsPageContainer = styled.div`
     align-items: center;
@@ -17,8 +18,8 @@ export const ContentContainer = styled.div`
     flex-direction: column;
     gap: 24px;
 `
-export const PresentImgUploadsContainer = styled.div`
-    border: 1px solid #FFFFFF;
+export const PresentImgUploadsContainer = styled(motion.div)`
+    border: 2px solid rgba(255,255,255,0.25);
     border-radius: 8px;
     box-sizing: border-box;
     height: 500px;
@@ -26,7 +27,7 @@ export const PresentImgUploadsContainer = styled.div`
     padding: 8px;
     width: 420px;
 `
-export const PresentItem = styled.div`
+export const PresentItem = styled(motion.div)`
     background: rgba(255,255,255,0.25);
     border-radius: 8px;
     box-sizing: border-box;
@@ -108,7 +109,7 @@ export const TextInput = styled.input`
         outline: none;
     }
 `
-export const BtnContainer = styled.div`
+export const BtnContainer = styled(motion.div)`
     display: flex;
     gap: 8px;
     width: 100%;

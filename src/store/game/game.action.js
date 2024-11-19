@@ -1,7 +1,7 @@
 import { GAME_ACTION_TYPES } from "./game.types"
 
-export const setShuffleStatus = () => {
-    return ({ type: GAME_ACTION_TYPES.SET_SHUFFLE_STATUS })
+export const setShuffleStatus = (status) => {
+    return ({ type: GAME_ACTION_TYPES.SET_SHUFFLE_STATUS, payload: status })
 }
 
 export const setStolenGiftTurnIndex = (index) => {
@@ -34,8 +34,8 @@ export const setGameIsOver = () => {
     return ({ type: GAME_ACTION_TYPES.SET_GAME_IS_OVER })
 }
 
-export const setFirstPlayerReplayed = () => {
-    return ({ type: GAME_ACTION_TYPES.SET_FIRST_PLAYER_REPLAYED })
+export const setFirstPlayerReplayed = (val) => {
+    return ({ type: GAME_ACTION_TYPES.SET_FIRST_PLAYER_REPLAYED, payload: val })
 }
 
 export const resetGameState = () => {

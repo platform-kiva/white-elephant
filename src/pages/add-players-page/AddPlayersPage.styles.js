@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
 export const AddPlayersPageContainer = styled.div`
     align-items: center;
@@ -10,45 +11,43 @@ export const AddPlayersPageContainer = styled.div`
 export const ContentContainer = styled.div`
     align-items: start;
     backdrop-filter: blur(10px);
-    background: rgba(255,255,255,0.0);
     border: none;
     display: flex;
     flex-direction: column;
     gap: 16px;
 `
-export const InputContainer = styled.div`
+export const InputContainer = styled(motion.div)`
     box-sizing: border-box;
     display: flex;
     gap: 8px;
     width: 100%;
-
 `;
 export const NameInput = styled.input`
-        background: none;
-        border: 2px solid rgba(255,255,255,0.25);
-        border-radius: 8px;
-        box-sizing: border-box;
+    background: none;
+    border: 2px solid rgba(255,255,255,0.25);
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    flex-grow: 1;
+    font-size: 16px;
+    font-weight: 600;
+    height: 41px;
+    padding: 8px;
+    padding-left: 16px;
+
+    &::placeholder {
         color: #FFFFFF;
-        flex-grow: 1;
-        font-size: 16px;
         font-weight: 600;
-        height: 41px;
-        padding: 8px;
-        padding-left: 16px;
+        opacity: 0.8;
+    }
 
-        &::placeholder {
-            color: #FFFFFF;
-            font-weight: 600;
-            opacity: 0.8;
-        }
-
-        &:focus {
-            border: 2px solid rgba(255,255,255,1.0);
-            outline: none;
-        }
+    &:focus {
+        border: 2px solid rgba(255,255,255,1.0);
+        outline: none;
+    }
 `
 
-export const PlayersListContainer = styled.div`
+export const PlayersListContainer = styled(motion.div)`
     border: 2px solid rgba(255,255,255,0.25);
     border-radius: 8px;
     box-sizing: border-box;
@@ -58,7 +57,7 @@ export const PlayersListContainer = styled.div`
     width: 420px;
 `;
 
-export const PlayerItem = styled.div`
+export const PlayerItem = styled(motion.div)`
     background: rgba(255,255,255,0.25);
     border: 2px solid rgba(255,255,255,0.25);
     box-sizing: border-box;
@@ -96,7 +95,7 @@ export const PlayerItem = styled.div`
         }
     }
 `;
-export const BtnContainer = styled.div`
+export const BtnContainer = styled(motion.div)`
     display: flex;
     gap: 8px;
     width: 100%;

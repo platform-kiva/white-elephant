@@ -18,3 +18,18 @@ export const Background = styled.div`
     width: 100vw;
     z-index: -100;
 `
+export const ImgContainer = styled.div`
+    display: flex;
+    height: 100%;
+    opacity: 0.25;
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+
+    img {
+        height: 50px;
+    }
+`
+export const PresentImg = styled.img`
+    height: 100%;
+`
