@@ -11,6 +11,6 @@ export const EndOfGameHeader = styled.div`
     align-items: center;
     display: flex;
     flex-direction: column;
-    gap: 50px;
-    padding: 50px 0px;
+    gap: 16px;
+    padding: 48px;
 `

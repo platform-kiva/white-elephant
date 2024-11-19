@@ -1,8 +1,7 @@
 import { PLAYERS_ACTION_TYPES } from "./players.types";
-import { PLAYER_DATA } from '../../data/player_data';
 
 export const PLAYERS_INITIAL_STATE = {
-    players: PLAYER_DATA
+    playerData: []
 };
 
 export const playersReducer = (state = PLAYERS_INITIAL_STATE, action = {}) => {
@@ -10,15 +9,17 @@ export const playersReducer = (state = PLAYERS_INITIAL_STATE, action = {}) => {
 
     switch(type) {
         case PLAYERS_ACTION_TYPES.SHUFFLE_PLAYERS:
-            return { ...state, players: payload };
+            return { ...state, playerData: payload };
         case PLAYERS_ACTION_TYPES.ADD_PRESENT_HISTORY:
-            return { ...state, players: payload };
+            return { ...state, playerData: payload };
         case PLAYERS_ACTION_TYPES.REMOVE_PRESENT_HISTORY:
-            return { ...state, players: payload };
+            return { ...state, playerData: payload };
         case PLAYERS_ACTION_TYPES.SWAP_PRESENTS:
-            return { ...state, players: payload};
+            return { ...state, playerData: payload };
         case PLAYERS_ACTION_TYPES.RESET_PLAYERS_STATE:
-            return { players: PLAYER_DATA }
+            return { ...state, playerData: [] };
+        case PLAYERS_ACTION_TYPES.SET_PLAYERS:
+            return { ...state, playerData: payload };
         default:
             return state;
     }

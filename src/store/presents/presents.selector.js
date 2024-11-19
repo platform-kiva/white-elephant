@@ -2,7 +2,7 @@ import { createSelector } from "reselect";
 
 const selectPresentsReducer = (state) => state.presents;
 
-export const selectPresents = createSelector(
+export const selectPresentData = createSelector(
     [selectPresentsReducer],
-    (presentsSlice) => presentsSlice.presents
-);
+    (presentsSlice) => presentsSlice.presentData
+)

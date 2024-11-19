@@ -1,19 +1,19 @@
 import { useSelector } from 'react-redux'
-import { selectPlayers } from '../../store/players/players.selector'
-import { selectPresents } from '../../store/presents/presents.selector';
+import { selectPlayerData } from '../../store/players/players.selector'
+import { selectPresentData } from '../../store/presents/presents.selector';
 
 // styles
 import { GameHistoryContainer } from './GameHistory.styles.js'
 
 export default function GameHistory({ history }) {
-  const players = useSelector(selectPlayers);
-  const presents = useSelector(selectPresents);
+  const playerData = useSelector(selectPlayerData);
+  const presentData = useSelector(selectPresentData);
   const reversedHistory = [...history].reverse();
 
   const createTurnString = (turn) => {
-    const name = players[turn[0]].name
+    const name = playerData[turn[0]].name
     const actionTaken = turn[1]
-    const present = presents[turn[2]].name
+    const present = presentData[turn[2]].name
 
     return `${name} ${actionTaken} ${present}`
   }

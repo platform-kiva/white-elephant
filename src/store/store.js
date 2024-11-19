@@ -11,8 +11,9 @@ import { rootReducer } from './root-reducer';
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: []
-}
+    version: 1, // Increment this whenever state structure changes
+    blacklist: [] // Add keys you don't want to persist
+};
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 const middleWares = [thunk];

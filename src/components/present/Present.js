@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { selectPlayers } from '../../store/players/players.selector.js'
+import { selectPlayerData } from '../../store/players/players.selector.js'
 import { selectGameIsOver } from '../../store/game/game.selector.js'
 
 // styles
@@ -13,13 +13,13 @@ import {
 } from './Present.styled.js'
 
 export default function Present({ present }) {
-    const players = useSelector(selectPlayers)
+    const playerData = useSelector(selectPlayerData)
     const gameIsOver = useSelector(selectGameIsOver)
 
     return (
         <PresentContainer>
             {present.ownerHistory.length !== 0 ?
-                <PresentOpened $bgCol={present.bgCol}>
+                <PresentOpened $bgCol={'255,255,255'}>
                     <PresentImgContainer>
                         <img src={present.presentImg} alt='present cover img'/>
                     </PresentImgContainer>
@@ -30,7 +30,7 @@ export default function Present({ present }) {
                         }
                     </PresentInfo>
                     <OwnerContainer>
-                        <h2>{players[present.ownerHistory[present.ownerHistory.length - 1]].name}</h2>
+                        <h2>{playerData[present.ownerHistory[present.ownerHistory.length - 1]].name}</h2>
                     </OwnerContainer>
                 </PresentOpened>
                 :

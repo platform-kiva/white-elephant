@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 // import { swapOwners } from '../../store/presents/presents.action'
 import { setLastGiftStolen, setStolenGiftTurnIndex, addGameHistory, setGameIsOver, setFirstPlayerReplayed } from '../../store/game/game.action'
 import { setTurnIndex } from '../../store/game/game.action'
-import { selectPlayers } from '../../store/players/players.selector'
-import { selectPresents } from '../../store/presents/presents.selector'
+import { selectPlayerData } from '../../store/players/players.selector'
+import { selectPresentData } from '../../store/presents/presents.selector'
 import { selectGameHistory, selectLastGiftStolen, selectTurnIndex, selectFirstPlayerReplayed } from '../../store/game/game.selector'
 import { selectStolenGiftTurnIndex } from '../../store/game/game.selector'
 import { selectShuffleStatus } from '../../store/game/game.selector'
@@ -19,8 +19,8 @@ import Present from '../present/Present'
 export default function PresentsDisplay() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const players = useSelector(selectPlayers)
-  const presents = useSelector(selectPresents)
+  const playerData = useSelector(selectPlayerData)
+  const presentData = useSelector(selectPresentData)
   const turnIndex = useSelector(selectTurnIndex)
   const stolenGiftTurnIndex = useSelector(selectStolenGiftTurnIndex)
   const lastGiftStolen = useSelector(selectLastGiftStolen)
@@ -35,22 +35,22 @@ export default function PresentsDisplay() {
   }, [shuffleStatus, navigate])
 
   useEffect(() => {
-    if (turnIndex === players.length) {
+    if (turnIndex === playerData.length) {
       dispatch(setFirstPlayerReplayed())
       dispatch(setTurnIndex(0))
     }
-  }, [turnIndex, dispatch, players.length])
+  }, [turnIndex, dispatch, playerData.length])
 
   const handleOpen = (playerID, presentID) => {
     dispatch(addGameHistory(gameHistory, [playerID, "opened", presentID]))
-    dispatch(addPresentHistory(players, playerID, presentID))
-    dispatch(addOwnerHistory(presents, presentID, playerID, false))
+    dispatch(addPresentHistory(playerData, playerID, presentID))
+    dispatch(addOwnerHistory(presentData, presentID, playerID, false))
     dispatch(setLastGiftStolen(null))
     dispatch(setStolenGiftTurnIndex(null))
 
     if (firstPlayerReplayed) {
       dispatch(setGameIsOver())
-      dispatch(setTurnIndex(players.length))
+      dispatch(setTurnIndex(playerData.length))
     } else {
       dispatch(setTurnIndex(turnIndex + 1))
     }
@@ -60,8 +60,8 @@ export default function PresentsDisplay() {
     if (present.id !== lastGiftStolen) {
       if (present.stealsLeft !== 0) {
         dispatch(addGameHistory(gameHistory, [thief, "stole", present.id, "from", victim]))
-        dispatch(addPresentHistory(players, thief, present.id))
-        dispatch(addOwnerHistory(presents, present.id, thief, true))
+        dispatch(addPresentHistory(playerData, thief, present.id))
+        dispatch(addOwnerHistory(presentData, present.id, thief, true))
         dispatch(setLastGiftStolen(present.id))
         dispatch(setStolenGiftTurnIndex(victim))
       } else {
@@ -73,21 +73,21 @@ export default function PresentsDisplay() {
   }
 
   const handleSwap = (thief, stolenPresent) => {
-    const thiefsPresent = players[thief].presentHistory[players[thief].presentHistory.length - 1]
-    const victim = presents[stolenPresent].ownerHistory[presents[stolenPresent].ownerHistory.length - 1]
-    const victimsPresent = players[victim].presentHistory[players[victim].presentHistory.length - 1]
+    const thiefsPresent = playerData[thief].presentHistory[playerData[thief].presentHistory.length - 1]
+    const victim = presentData[stolenPresent].ownerHistory[presentData[stolenPresent].ownerHistory.length - 1]
+    const victimsPresent = playerData[victim].presentHistory[playerData[victim].presentHistory.length - 1]
     dispatch(addGameHistory(gameHistory, [thief, "stole", victimsPresent, "from", victim], [victim, "is given", thiefsPresent, "from", thief]))
-    dispatch(swapOwners(presents, thief, victim, thiefsPresent, victimsPresent))
+    dispatch(swapOwners(presentData, thief, victim, thiefsPresent, victimsPresent))
     dispatch(setGameIsOver())
   }
 
   const handleAction = (presentID) => {
     let player = null
-    const present = presents[presentID]
+    const present = presentData[presentID]
     if (stolenGiftTurnIndex === null) {
-      player = players[turnIndex].id
+      player = playerData[turnIndex].id
     } else {
-      player = players[stolenGiftTurnIndex].id
+      player = playerData[stolenGiftTurnIndex].id
     }
     if (present.ownerHistory.length === 0) {
       handleOpen(player, present.id)
@@ -103,7 +103,7 @@ export default function PresentsDisplay() {
 
   return (
     <PresentsDisplayContainer>
-      {presents.map((present) => (
+      {presentData.map((present) => (
           <div key={present.id} onClick={() => handleAction(present.id)}>
             <Present present={present} ownerName={present.ownerHistory} />
           </div>

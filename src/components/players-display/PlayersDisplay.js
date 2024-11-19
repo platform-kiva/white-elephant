@@ -1,17 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { removePresentHistory } from '../../store/players/players.action.js';
-import { selectPlayers } from '../../store/players/players.selector';
+import { selectPlayerData } from '../../store/players/players.selector';
 import { selectStolenGiftTurnIndex } from '../../store/game/game.selector';
 import { selectTurnIndex } from '../../store/game/game.selector';
 import { selectGameHistory } from '../../store/game/game.selector';
 import { setTurnIndex } from '../../store/game/game.action.js'
 import { removeOwnerHistory } from '../../store/presents/presents.action.js';
-import { selectPresents } from '../../store/presents/presents.selector.js';
+import { selectPresentData } from '../../store/presents/presents.selector.js';
 import { setLastGiftStolen, setStolenGiftTurnIndex } from '../../store/game/game.action.js';
 import { resetGameState } from '../../store/game/game.action.js';
-import { resetPlayersState } from '../../store/players/players.action.js';
-import { resetPresentsState } from '../../store/presents/presents.action.js';
 
 // assets
 import turnIcon from '../../assets/turn-icon.png';
@@ -35,16 +33,14 @@ import GameHistory from '../game-history/GameHistory';
 export default function PlayersDisplay() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const players = useSelector(selectPlayers);
-  const presents = useSelector(selectPresents)
+  const playerData = useSelector(selectPlayerData);
+  const presentData = useSelector(selectPresentData)
   const turnIndex = useSelector(selectTurnIndex);
   const stolenGiftTurnIndex = useSelector(selectStolenGiftTurnIndex);
   const gameHistory = useSelector(selectGameHistory);
 
   const handleReset = () => {
     dispatch(resetGameState())
-    dispatch(resetPlayersState())
-    dispatch(resetPresentsState())
     navigate("/")
   }
 
@@ -54,11 +50,11 @@ export default function PlayersDisplay() {
       const lastTurnWasASteal = lastTurn.length === 5 ? true : false
       console.log(lastTurn)
       if (!lastTurnWasASteal) {
-        dispatch(removeOwnerHistory(presents, lastTurn[2], false))
-        dispatch(removePresentHistory(players, lastTurn[0], lastTurn[4]))
+        dispatch(removeOwnerHistory(presentData, lastTurn[2], false))
+        dispatch(removePresentHistory(playerData, lastTurn[0], lastTurn[4]))
       } else {
-        dispatch(removeOwnerHistory(presents, lastTurn[2], true))
-        dispatch(removePresentHistory(players, lastTurn[5], lastTurn[2])) 
+        dispatch(removeOwnerHistory(presentData, lastTurn[2], true))
+        dispatch(removePresentHistory(playerData, lastTurn[5], lastTurn[2])) 
       }
       dispatch(setTurnIndex(lastTurn[0]))
       const previousTurn = gameHistory[gameHistory.length - 1]
@@ -78,24 +74,24 @@ export default function PlayersDisplay() {
 
   return (
     <PlayersDisplayContainer>
-      {/* <GameLogoContainer>
+      <GameLogoContainer>
         <GameLogo size={"small"}/>
-      </GameLogoContainer> */}
+      </GameLogoContainer>
       <GameHistoryContainer>
         <GameHistory history={gameHistory}/>
       </GameHistoryContainer>
       <BtnContainer onClick={() => handleUndo()}>
         <Btn label={"UNDO"} isActive={gameHistory.length !== 0}/>
       </BtnContainer>
-      {turnIndex !== players.length ?
+      {turnIndex !== playerData.length ?
         <PlayerNamesContainer>
-          {players.map((player) => (
-            <PlayerContainer key={player.name} $isActive={player.name === players[stolenGiftTurnIndex === null ? turnIndex : stolenGiftTurnIndex].name}>
-                {player.name === players[stolenGiftTurnIndex === null ? turnIndex : stolenGiftTurnIndex].name &&
+          {playerData.map((player) => (
+            <PlayerContainer key={player.name} $isActive={player.name === playerData[stolenGiftTurnIndex === null ? turnIndex : stolenGiftTurnIndex].name}>
+                {player.name === playerData[stolenGiftTurnIndex === null ? turnIndex : stolenGiftTurnIndex].name &&
                   <TurnIcon src={turnIcon} alt='turn icon' />
                 }
                 <h2>{player.name}</h2>  
-                {player.name === players[stolenGiftTurnIndex === null ? turnIndex : stolenGiftTurnIndex].name &&
+                {player.name === playerData[stolenGiftTurnIndex === null ? turnIndex : stolenGiftTurnIndex].name &&
                   <TurnIcon src={turnIcon} alt='turn icon' />
                 }
             </PlayerContainer>
@@ -103,7 +99,7 @@ export default function PlayersDisplay() {
         </PlayerNamesContainer>
         :
         <PlayerNamesContainer>
-          {players.map((player) => (
+          {playerData.map((player) => (
             <PlayerContainer key={player.name}>
               <h2>{player.name}</h2>
             </PlayerContainer>

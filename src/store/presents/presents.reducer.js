@@ -1,8 +1,7 @@
 import { PRESENTS_ACTION_TYPES } from "./presents.types";
-import { PRESENT_DATA } from '../../data/present_data';
 
 export const PRESENTS_INITIAL_STATE = {
-    presents: PRESENT_DATA
+    presentData: []
 };
 
 export const presentsReducer = (state = PRESENTS_INITIAL_STATE, action = {}) => {
@@ -10,13 +9,15 @@ export const presentsReducer = (state = PRESENTS_INITIAL_STATE, action = {}) => 
 
     switch(type) {
         case PRESENTS_ACTION_TYPES.SWAP_OWNERS:
-            return { ...state, presents: payload };
+            return { ...state, presentData: payload };
         case PRESENTS_ACTION_TYPES.ADD_OWNER_HISTORY:
-            return { ...state, presents: payload };
+            return { ...state, presentData: payload };
         case PRESENTS_ACTION_TYPES.REMOVE_OWNER_HISTORY:
-            return { ...state, presents: payload };
+            return { ...state, presentData: payload };
         case PRESENTS_ACTION_TYPES.RESET_PRESENTS_STATE:
-            return { presents: PRESENT_DATA }
+            return { ...state, presentData: [] }
+        case PRESENTS_ACTION_TYPES.SET_PRESENTS:
+            return { ...state, presentData: payload }
         default:
             return state;
     }

@@ -1,8 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
-import { PLAYER_DATA } from "../data/player_data";
-import { PRESENT_DATA } from "../data/present_data";
 
 export const resetGame = () => {
     const dispatch = useDispatch();
@@ -12,10 +10,10 @@ export const resetGame = () => {
     dispatch(resetGameState());
 
     // reset players state
-    dispatch(resetPlayersState(PLAYER_DATA));
+    dispatch(resetPlayersState([]));
 
     // reset presents state
-    dispatch(resetPresentsState(PRESENT_DATA));
+    dispatch(resetPresentsState([]));
 
     navigate("/")
 }

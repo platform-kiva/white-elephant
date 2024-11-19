@@ -4,14 +4,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { shufflePlayers } from '../../store/players/players.action';
 import { setShuffleStatus } from '../../store/game/game.action';
 import { selectShuffleStatus } from '../../store/game/game.selector'
-import { selectPlayers } from '../../store/players/players.selector'
+import { selectPlayerData } from '../../store/players/players.selector'
 
 // styles
 import {
     PlayerShufflePageContainer,
     PlayersDisplay,
     ActionBtnsContainer
- } from './PlayerShufflePage.styles.js'
+} from './PlayerShufflePage.styles.js'
 
 // components
 import Btn from '../../components/btn/Btn';
@@ -20,7 +20,7 @@ import GameLogo from '../../components/game-logo/GameLogo'
 export default function PlayerShufflePage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const players = useSelector(selectPlayers);
+    const playerData = useSelector(selectPlayerData);
     const shuffleStatus = useSelector(selectShuffleStatus);
 
     useEffect(() => {
@@ -30,19 +30,22 @@ export default function PlayerShufflePage() {
     }, [navigate, shuffleStatus])
 
     const handleShuffle = () => {
-        dispatch(shufflePlayers(players))
+        dispatch(shufflePlayers(playerData))
         dispatch(setShuffleStatus())
     }
 
     return (
         <PlayerShufflePageContainer>
-            <GameLogo size={"regular"}/>
+            <GameLogo size={"regular"} />
             <PlayersDisplay>
-                {players.map((player) => (
+                {playerData.map((player) => (
                     <h1 key={player.name}>{player.name}</h1>
                 ))}
             </PlayersDisplay>
             <ActionBtnsContainer>
+                <div onClick={() => navigate('/add-players')}>
+                    <Btn label={"ADD MORE PLAYERS"} />
+                </div>
                 <div onClick={() => handleShuffle()}>
                     <Btn label={"SHUFFLE"} />
                 </div>

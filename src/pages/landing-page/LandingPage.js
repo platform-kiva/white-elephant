@@ -15,7 +15,8 @@ export default function LandingPage() {
     <LandingPageContainer>
       <GameLogoContainer>
         <GameLogo size={"regular"}/>
-        <Btn label={shuffleStatus ? "RESUME" : "START"} navTo={"/shuffle-players"}/>
+        <Btn label={shuffleStatus ? "RESUME" : "START"} navTo={"/add-players"}/>
+        <Btn label={"RULES"} navTo={"/rules"}/>
       </GameLogoContainer>
     </LandingPageContainer>
   )
