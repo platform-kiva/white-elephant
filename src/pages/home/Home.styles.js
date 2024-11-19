@@ -21,7 +21,7 @@ export const Background = styled.div`
 export const ImgContainer = styled.div`
     display: flex;
     height: 100%;
-    opacity: 0.25;
+    opacity: 0.0;
     pointer-events: none;
     position: absolute;
     width: 100%;
