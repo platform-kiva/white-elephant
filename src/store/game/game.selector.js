@@ -26,10 +26,13 @@ export const selectGameHistory = createSelector(
     [selectGameReducer],
     (gameSlice) => gameSlice.gameHistory
 )
-
 export const selectGameIsOver = createSelector(
     [selectGameReducer],
     (gameSlice) => gameSlice.gameIsOver
+)
+export const selectGameIsStarted = createSelector(
+    [selectGameReducer],
+    (gameSlice) => gameSlice.gameIsStarted
 )
 export const selectFirstPlayerReplayed = createSelector(
     [selectGameReducer],

@@ -7,13 +7,14 @@ export const GAME_INITIAL_STATE = {
     shuffleStatus: false,
     gameHistory: [],
     gameIsOver: false,
+    gameIsStarted: false,
     firstPlayerReplayed: false
 };
 
 export const gameReducer = (state = GAME_INITIAL_STATE, action = {}) => {
     const { type, payload } = action;
 
-    switch(type) {
+    switch (type) {
         case GAME_ACTION_TYPES.SET_SHUFFLE_STATUS:
             return { ...state, shuffleStatus: payload };
         case GAME_ACTION_TYPES.SET_STOLEN_GIFT_TURN_INDEX:
@@ -27,9 +28,11 @@ export const gameReducer = (state = GAME_INITIAL_STATE, action = {}) => {
         case GAME_ACTION_TYPES.REMOVE_GAME_HISTORY:
             return { ...state, gameHistory: payload }
         case GAME_ACTION_TYPES.SET_GAME_IS_OVER:
-            return { ...state, gameIsOver: true}
+            return { ...state, gameIsOver: true }
+        case GAME_ACTION_TYPES.SET_GAME_IS_STARTED:
+            return { ...state, gameIsStarted: payload }
         case GAME_ACTION_TYPES.SET_FIRST_PLAYER_REPLAYED:
-            return { ...state, firstPlayerReplayed: payload}
+            return { ...state, firstPlayerReplayed: payload }
         case GAME_ACTION_TYPES.RESET_GAME_STATE:
             return {
                 ...state,
@@ -39,6 +42,7 @@ export const gameReducer = (state = GAME_INITIAL_STATE, action = {}) => {
                 shuffleStatus: false,
                 gameHistory: [],
                 gameIsOver: false,
+                gameIsStarted: false,
                 firstPlayerReplayed: false
             }
         default:

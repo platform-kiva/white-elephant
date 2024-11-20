@@ -41,3 +41,7 @@ export const setFirstPlayerReplayed = (val) => {
 export const resetGameState = () => {
     return ({ type: GAME_ACTION_TYPES.RESET_GAME_STATE })
 }
+
+export const setGameIsStarted = (status) => {
+    return ({ type: GAME_ACTION_TYPES.SET_GAME_IS_STARTED, payload: status })
+}

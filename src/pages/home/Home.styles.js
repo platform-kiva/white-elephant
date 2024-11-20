@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const HomeContainer = styled.div`
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    position: relative;
+    width: 100%;
 `
 export const OutletContainer = styled.div`
     height: 100vh;
@@ -25,11 +26,13 @@ export const ImgContainer = styled.div`
     pointer-events: none;
     position: absolute;
     width: 100%;
-
-    img {
-        height: 50px;
-    }
 `
 export const PresentImg = styled.img`
-    height: 100%;
+    height: 20px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
 `

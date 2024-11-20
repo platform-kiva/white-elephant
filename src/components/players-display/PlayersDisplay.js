@@ -1,13 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { removePresentHistory } from '../../store/players/players.action.js';
 import { selectPlayerData } from '../../store/players/players.selector';
-import { selectStolenGiftTurnIndex } from '../../store/game/game.selector';
-import { selectTurnIndex } from '../../store/game/game.selector';
-import { selectGameHistory } from '../../store/game/game.selector';
-import { setFirstPlayerReplayed, setTurnIndex } from '../../store/game/game.action.js'
+import { setFirstPlayerReplayed, setLastGiftStolen, setStolenGiftTurnIndex, setTurnIndex } from '../../store/game/game.action.js'
+import { selectGameHistory, selectStolenGiftTurnIndex, selectTurnIndex } from '../../store/game/game.selector';
 import { removeOwnerHistory } from '../../store/presents/presents.action.js';
 import { selectPresentData } from '../../store/presents/presents.selector.js';
-import { setLastGiftStolen, setStolenGiftTurnIndex } from '../../store/game/game.action.js';
+import { fadeInUp } from '../../animations/Animations.js';
 
 // assets
 import turnIcon from '../../assets/turn-icon.png';
@@ -30,51 +28,63 @@ import GameHistory from '../game-history/GameHistory';
 
 export default function PlayersDisplay() {
   const dispatch = useDispatch();
-  const playerData = useSelector(selectPlayerData);
-  const presentData = useSelector(selectPresentData)
-  const turnIndex = useSelector(selectTurnIndex);
-  const stolenGiftTurnIndex = useSelector(selectStolenGiftTurnIndex);
   const gameHistory = useSelector(selectGameHistory);
+  const playerData = useSelector(selectPlayerData);
+  const presentData = useSelector(selectPresentData);
+  const stolenGiftTurnIndex = useSelector(selectStolenGiftTurnIndex);
+  const turnIndex = useSelector(selectTurnIndex);
 
   const handleUndo = () => {
     dispatch(setFirstPlayerReplayed(false));
     if (gameHistory.length !== 0) {
-      const lastTurn = gameHistory.pop(-1)
-      const lastTurnWasASteal = lastTurn.length === 5 ? true : false
+      const lastTurn = gameHistory.pop(-1);
+      const lastTurnWasASteal = lastTurn.length === 5 ? true : false;
       if (!lastTurnWasASteal) {
         dispatch(removeOwnerHistory(presentData, lastTurn[2], false))
         dispatch(removePresentHistory(playerData, lastTurn[0], lastTurn[4]))
       } else {
         dispatch(removeOwnerHistory(presentData, lastTurn[2], true))
         dispatch(removePresentHistory(playerData, lastTurn[5], lastTurn[2]))
-      }
-      dispatch(setTurnIndex(lastTurn[0]))
+      };
+      dispatch(setTurnIndex(lastTurn[0]));
       const previousTurn = gameHistory[gameHistory.length - 1]
       if (previousTurn) {
         if (previousTurn.length === 5) {
-          const previousTurn = gameHistory[gameHistory.length - 1]
-          dispatch(setLastGiftStolen(previousTurn[2]))
-          dispatch(setStolenGiftTurnIndex(previousTurn[4]))
+          const previousTurn = gameHistory[gameHistory.length - 1];
+          dispatch(setLastGiftStolen(previousTurn[2]));
+          dispatch(setStolenGiftTurnIndex(previousTurn[4]));
         } else {
-          dispatch(setLastGiftStolen(null))
-          dispatch(setStolenGiftTurnIndex(null))
-        }
-      }
-    }
-  }
+          dispatch(setLastGiftStolen(null));
+          dispatch(setStolenGiftTurnIndex(null));
+        };
+      };
+    };
+  };
 
   return (
     <PlayersDisplayContainer>
       <GameLogoContainer>
         <GameLogo size={"small"} />
       </GameLogoContainer>
-      <GameHistoryContainer>
+      <GameHistoryContainer
+        initial="hidden"
+        animate="visible"
+        variants={fadeInUp}
+        custom={6 * 0.05}
+      >
         <GameHistory history={gameHistory} />
       </GameHistoryContainer>
       {turnIndex !== playerData.length ?
         <PlayerNamesContainer>
-          {playerData.map((player) => (
-            <PlayerContainer key={player.name} $isActive={player.name === playerData[stolenGiftTurnIndex === null ? turnIndex : stolenGiftTurnIndex].name}>
+          {playerData.map((player, index) => (
+            <PlayerContainer
+              key={player.name}
+              $isActive={player.name === playerData[stolenGiftTurnIndex === null ? turnIndex : stolenGiftTurnIndex].name}
+              initial="hidden"
+              animate="visible"
+              variants={fadeInUp}
+              custom={index * 0.1}
+            >
               {player.name === playerData[stolenGiftTurnIndex === null ? turnIndex : stolenGiftTurnIndex].name &&
                 <TurnIcon src={turnIcon} alt='turn icon' />
               }
@@ -94,7 +104,12 @@ export default function PlayersDisplay() {
           ))}
         </PlayerNamesContainer>
       }
-      <BtnContainer>
+      <BtnContainer
+        initial="hidden"
+        animate="visible"
+        variants={fadeInUp}
+        custom={2 * 0.05}
+      >
         <div onClick={() => handleUndo()}>
           <Btn label={"UNDO"} isActive={gameHistory.length !== 0} />
         </div>

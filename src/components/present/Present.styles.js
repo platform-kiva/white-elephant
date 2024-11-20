@@ -49,7 +49,7 @@ export const PresentOpened = styled.div`
 export const OwnerContainer = styled.div`
     border: 2px solid #FFFFFF;
     border-radius: 50px;
-    bottom: 10px;
+    bottom: 8px;
     position: absolute;
 
     h2 {
@@ -57,24 +57,28 @@ export const OwnerContainer = styled.div`
         margin: 5px 24px;
     }
 `
-export const PresentImgContainer = styled.div`display: flex;
+export const PresentImgContainer = styled.div`
+    display: flex;
     height: 50%;
     justify-content: center;
     position: absolute;
     top: -20px;
-    width: 50%;
+    width: 100%;
 
     img {
         height: 100%;
+        object-fit: contain;
+        max-width: 95%;
     }
-`
+`;
 export  const PresentInfo = styled.div`
     display: flex;
     flex-direction: column;
-    margin-top: 50px;
+    margin-top: 48px;
     text-align: center;
 
     h1 {
+        font-family: 'Roboto Condensed';
         font-size: 12px;
         margin-bottom: 12px;
     }

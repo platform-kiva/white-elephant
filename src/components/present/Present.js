@@ -10,7 +10,7 @@ import {
     PresentInfo,
     PresentOpened,
     PresentUnopened
-} from './Present.styled.js'
+} from './Present.styles.js'
 
 export default function Present({ present }) {
     const playerData = useSelector(selectPlayerData)

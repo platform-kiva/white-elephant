@@ -56,6 +56,12 @@ export default function AddPresentsPage() {
     ]
 
     useEffect(() => {
+        if (playerData.length === 0) {
+            navigate("/add-players");
+        }
+    }, [playerData, navigate])
+
+    useEffect(() => {
         if (presentData?.length > 0) {
             const prepopulatedPhotos = presentData.map((present) => present.presentImg || "");
             const prepopulatedTitles = presentData.map((present) => present.name || "");
@@ -120,7 +126,7 @@ export default function AddPresentsPage() {
 
     return (
         <AddPresentsPageContainer>
-            <PageTitle title={"Add Presents"} />
+            <PageTitle title={"Step 2: Add Presents"} />
             <ContentContainer>
                 <PresentImgUploadsContainer
                     initial="hidden"

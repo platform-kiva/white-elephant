@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 export const PlayersDisplayContainer = styled.div`
     align-items: center;
@@ -18,10 +19,10 @@ export const GameLogoContainer = styled.div`
     top: 24px;
     width: 100%;
 `
-export const GameHistoryContainer = styled.div`
+export const GameHistoryContainer = styled(motion.div)`
     width: 100%;
 `
-export const BtnContainer = styled.div`
+export const BtnContainer = styled(motion.div)`
     bottom: 24px;
     display: flex;
     flex-direction: column;
@@ -36,9 +37,9 @@ export const PlayerNamesContainer = styled.div`
     flex-direction: column;
     gap: 10px;
 `
-export const PlayerContainer = styled.div`
+export const PlayerContainer = styled(motion.div)`
     align-items: center;
-    display: flex;
+    display: flex;  
     gap: 5px;
     opacity: ${props => props.$isActive ? '1.0' : '0.5'};
 

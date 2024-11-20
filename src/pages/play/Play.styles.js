@@ -35,7 +35,7 @@ export const VenmoContainer = styled(motion.div)`
     padding: 16px;
 `
 export const VenmoTag = styled.img`
-    height: 48px;
+    width: 96px;
 `
 export const SummaryText = styled(motion.div)`
     align-items: center;

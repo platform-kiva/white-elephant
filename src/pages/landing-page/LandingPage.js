@@ -1,18 +1,21 @@
 import { useEffect } from 'react';
-import { resetGameState } from '../../store/game/game.action.js';
-import { clearPlayers } from '../../store/players/players.action.js';
-import { resetPresentsState } from '../../store/presents/presents.action.js';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectShuffleStatus } from '../../store/game/game.selector.js'
 import { fadeInUp } from '../../animations/Animations.js';
-import { motion } from 'framer-motion';
+import { resetGameState } from '../../store/game/game.action.js';
+import { selectShuffleStatus } from '../../store/game/game.selector.js'
+import { clearPlayers } from '../../store/players/players.action.js';
+import { resetPresentsState } from '../../store/presents/presents.action.js';
 
 // styles
-import { LandingPageContainer, GameLogoContainer } from './LandingPage.styles.js';
+import {
+  LandingPageContainer,
+  GameLogoContainer,
+  BtnContainer
+} from './LandingPage.styles.js';
 
 // components
-import Btn from '../../components/btn/Btn'
+import Btn from '../../components/btn/Btn';
 import GameLogo from '../../components/game-logo/GameLogo';
 
 export default function LandingPage() {
@@ -33,7 +36,7 @@ export default function LandingPage() {
     <LandingPageContainer>
       <GameLogoContainer>
         <GameLogo size={"regular"} />
-        <motion.div
+        <BtnContainer
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -41,11 +44,11 @@ export default function LandingPage() {
           style={{ width: "100%" }}
         >
           <Btn
-            label={shuffleStatus ? "RESUME" : "START"}
+            label={"START"}
             navTo={"/add-players"}
           />
-        </motion.div>
-        <motion.div
+        </BtnContainer>
+        <BtnContainer
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -53,7 +56,7 @@ export default function LandingPage() {
           style={{ width: "100%" }}
         >
           <Btn label={"RULES"} navTo={"/rules"} />
-        </motion.div>
+        </BtnContainer>
       </GameLogoContainer>
     </LandingPageContainer>
   )

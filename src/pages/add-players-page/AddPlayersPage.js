@@ -50,8 +50,7 @@ export default function AddPlayersPage() {
 
     return (
         <AddPlayersPageContainer>
-            <PageTitle title={"Add Players"} />
-
+            <PageTitle title={"Step 1: Add Players"} />
             <ContentContainer>
                 <InputContainer
                     initial="hidden"
@@ -68,7 +67,7 @@ export default function AddPlayersPage() {
                         onKeyDown={handleKeyDown}
                     />
                     <div style={{ width: "100px" }} onClick={handleAddPlayer}>
-                        <Btn label={"ADD"} />
+                        <Btn label={"ADD"} isActive={playerName} />
                     </div>
                 </InputContainer>
 

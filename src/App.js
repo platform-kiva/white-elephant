@@ -17,8 +17,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Home />}>
-          <Route path='rules' element={<RulesPage />} />
           <Route path='/' element={<LandingPage />} />
+          <Route path='rules' element={<RulesPage />} />
           <Route path='/add-players' element={<AddPlayersPage />} />
           <Route path='/add-presents' element={<AddPresentsPage />} />
           <Route path='shuffle-players' element={<PlayerShufflePage />} />
