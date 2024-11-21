@@ -18,6 +18,7 @@ import {
   GameHistoryContainer,
   PlayerNamesContainer,
   PlayerContainer,
+  PlayerName,
   TurnIcon
 } from './PlayersDisplay.styles.js';
 
@@ -73,6 +74,16 @@ export default function PlayersDisplay() {
         custom={6 * 0.05}
       >
         <GameHistory history={gameHistory} />
+        <BtnContainer
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp}
+          custom={2 * 0.05}
+        >
+          <div onClick={() => handleUndo()}>
+            <Btn label={"UNDO MOVE"} isActive={gameHistory.length !== 0} />
+          </div>
+        </BtnContainer>
       </GameHistoryContainer>
       {turnIndex !== playerData.length ?
         <PlayerNamesContainer>
@@ -86,12 +97,17 @@ export default function PlayersDisplay() {
               custom={index * 0.1}
             >
               {player.name === playerData[stolenGiftTurnIndex === null ? turnIndex : stolenGiftTurnIndex].name &&
-                <TurnIcon src={turnIcon} alt='turn icon' />
+                <h3>Up Next:</h3>
               }
-              <h2>{player.name}</h2>
-              {player.name === playerData[stolenGiftTurnIndex === null ? turnIndex : stolenGiftTurnIndex].name &&
-                <TurnIcon src={turnIcon} alt='turn icon' />
-              }
+              <PlayerName>
+                {player.name === playerData[stolenGiftTurnIndex === null ? turnIndex : stolenGiftTurnIndex].name &&
+                  <TurnIcon src={turnIcon} alt='turn icon' />
+                }
+                <h2>{player.name}</h2>
+                {player.name === playerData[stolenGiftTurnIndex === null ? turnIndex : stolenGiftTurnIndex].name &&
+                  <TurnIcon src={turnIcon} alt='turn icon' />
+                }
+              </PlayerName>
             </PlayerContainer>
           ))}
         </PlayerNamesContainer>
@@ -104,16 +120,6 @@ export default function PlayersDisplay() {
           ))}
         </PlayerNamesContainer>
       }
-      <BtnContainer
-        initial="hidden"
-        animate="visible"
-        variants={fadeInUp}
-        custom={2 * 0.05}
-      >
-        <div onClick={() => handleUndo()}>
-          <Btn label={"UNDO"} isActive={gameHistory.length !== 0} />
-        </div>
-      </BtnContainer>
     </PlayersDisplayContainer>
   )
 }

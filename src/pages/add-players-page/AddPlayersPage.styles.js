@@ -6,6 +6,8 @@ export const AddPlayersPageContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 24px;
+    height: 100%;
+    justify-content: center;
     padding: 48px;
 `;
 export const ContentContainer = styled.div`

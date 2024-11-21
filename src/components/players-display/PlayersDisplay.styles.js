@@ -12,24 +12,20 @@ export const PlayersDisplayContainer = styled.div`
     padding: 24px;
     position: relative;
     text-align: center;
-    width: 200px;
+    width: 220px;
 `
 export const GameLogoContainer = styled.div`
-    position: absolute;
-    top: 24px;
     width: 100%;
 `
 export const GameHistoryContainer = styled(motion.div)`
-    width: 100%;
-`
-export const BtnContainer = styled(motion.div)`
-    bottom: 24px;
     display: flex;
     flex-direction: column;
     gap: 8px;
-    max-width: 160px;
-    position: absolute;
-    width: 90%;
+    margin-bottom: 24px;
+    width: 100%;
+`
+export const BtnContainer = styled(motion.div)`
+    width: 100%;
 `
 export const PlayerNamesContainer = styled.div`
     align-items: center;
@@ -40,12 +36,29 @@ export const PlayerNamesContainer = styled.div`
 export const PlayerContainer = styled(motion.div)`
     align-items: center;
     display: flex;  
-    gap: 5px;
-    opacity: ${props => props.$isActive ? '1.0' : '0.5'};
+    flex-direction: column;
+    gap: 8px;
 
     h2 {
-        font-size: ${props => props.$isActive ? '18px' : '12px'};
+        font-size: ${props => props.$isActive ? '24px' : '16px'};
+        font-family: 'Roboto';
+        opacity: ${props => props.$isActive ? '1.0' : '0.5'};
     }
+
+    h3 {
+        border: 1px solid #FFFFFF;
+        border-radius: 100px;
+        font-family: 'Roboto Condensed';
+        font-weight: 500;
+        margin-bottom: 8px;
+        margin-top: 16px;
+        padding: 4px 16px;
+    }
+`
+export const PlayerName = styled.div`
+    align-items: center;
+    display: flex;
+    gap: 8px;
 `
 export const TurnIcon = styled.img`
     height: 24px;

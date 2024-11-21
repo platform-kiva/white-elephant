@@ -5,7 +5,7 @@ export const PlayContainer = styled.div`
     align-items: center;
     display: flex;
     flex-direction: ${props => props.$gameIsOver ? 'column' : 'row'};
-    justify-content: space-between;
+    justify-content: center;
     width: 100vw;
 `
 export const ContentContainer = styled.div`

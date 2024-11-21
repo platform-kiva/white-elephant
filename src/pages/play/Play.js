@@ -57,10 +57,7 @@ export default function Play() {
   return (
     <PlayContainer $gameIsOver={gameIsOver} >
       {!gameIsOver &&
-        <>
-          <PlayersDisplay />
-          <PresentsDisplay />
-        </>
+        <PlayersDisplay />
       }
       {gameIsOver &&
         <ContentContainer>
@@ -74,7 +71,13 @@ export default function Play() {
               <h3>Game Summary</h3>
               <p>Remember to take a screenshot of game results before clickng End Game, as all images and players will be promptly deleted.</p>
             </SummaryText>
-            <PresentsDisplay />
+          </EndOfGameHeader>
+        </ContentContainer>
+      }
+      <PresentsDisplay />
+      {gameIsOver &&
+        <ContentContainer>
+          <EndOfGameHeader>
             <motion.div
               onClick={handleReset}
               initial="hidden"
@@ -113,6 +116,6 @@ export default function Play() {
           </EndOfGameHeader>
         </ContentContainer>
       }
-    </PlayContainer>
+    </PlayContainer >
   )
 }
