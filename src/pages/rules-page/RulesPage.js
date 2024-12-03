@@ -38,7 +38,7 @@ export default function RulesPage() {
             <h3>Gift Guidelines</h3>
             <ul>
               <li>Each participant contributes a gift.</li>
-              <li>Set a budget (e.g. $20-$30) to keep gifts equitable.</li>
+              <li>Set a budget to keep gifts equitable.</li>
             </ul>
           </motion.div>
 
@@ -51,8 +51,8 @@ export default function RulesPage() {
           >
             <h3>Game Setup</h3>
             <ul>
-              <li>The game organizer will enter all participant names, and upload a gift image for each participant.</li>
-              <li>Once all players and gifts are entered, the game organizer may shuffle the player list to randomly generate the order.</li>
+              <li>The <b>Game Organizer</b> enters all participant names, and uploads an image and title for each participant's gift.</li>
+              <li>Once all players and gifts are entered, the <b>Game Organizer</b> may shuffle the player list to randomly generate the playing order.</li>
             </ul>
           </motion.div>
 
@@ -65,8 +65,8 @@ export default function RulesPage() {
           >
             <h3>Playing the Game</h3>
             <ul>
-              <li>The first participant chooses a gift from the screen display.</li>
-              <li>The organizer reveals what the gift is by clicking on it.</li>
+              <li>The first player chooses a gift from the screen display.</li>
+              <li>The <b>Game Organizer</b> reveals what the gift is by clicking on it.</li>
               <li>Subsequent participants may either:</li>
               <ul>
                 <li>Steal a previously chosen gift <em><b>OR</b></em> select a new gift.</li>

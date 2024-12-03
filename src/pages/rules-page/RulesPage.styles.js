@@ -3,13 +3,17 @@ import { motion } from "framer-motion";
 
 export const RulesPageContainer = styled.div`
     align-items: center;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: 24px;
-    height: 100%;
+    height: auto;
     justify-content: center;
-    padding: 48px;
     width: 100%;
+
+    @media (max-width: 500px) {
+        gap: 12px;
+    }
 
     div {
         max-width: 640px;

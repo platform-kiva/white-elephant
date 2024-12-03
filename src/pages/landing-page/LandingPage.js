@@ -40,8 +40,7 @@ export default function LandingPage() {
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
-          custom={6 * 0.05}
-          style={{ width: "100%" }}
+          custom={4 * 0.05}
         >
           <Btn
             label={"START"}
@@ -52,8 +51,7 @@ export default function LandingPage() {
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
-          custom={4 * 0.05}
-          style={{ width: "100%" }}
+          custom={6 * 0.05}
         >
           <Btn label={"RULES"} navTo={"/rules"} />
         </BtnContainer>

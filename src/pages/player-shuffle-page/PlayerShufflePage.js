@@ -78,11 +78,19 @@ export default function PlayerShufflePage() {
                     variants={fadeInUp}
                     custom={3 * 0.05}
                 >
-                    <ActionBtn onClick={handleAddMore}>
-                        <Btn label={"+ ADD MORE"} />
-                    </ActionBtn>
                     <ActionBtn onClick={handleShuffle}>
                         <Btn label={"SHUFFLE"} />
+                    </ActionBtn>
+                </ActionBtnsContainer>
+
+                <ActionBtnsContainer
+                    initial="hidden"
+                    animate="visible"
+                    variants={fadeInUp}
+                    custom={3 * 0.05}
+                >
+                    <ActionBtn onClick={handleAddMore}>
+                        <Btn label={"+ ADD MORE"} />
                     </ActionBtn>
                     <ActionBtn onClick={handleStartGame}>
                         <Btn label={"NEXT"} isActive={shuffleStatus ? true : false} />

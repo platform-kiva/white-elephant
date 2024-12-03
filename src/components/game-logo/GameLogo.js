@@ -12,26 +12,26 @@ import whiteElephantIcon from '../../assets/white-elephant-icon.png';
 
 export default function GameLogo({ size }) {
   return (
-    <ContentContainer $size={size}>
+    <ContentContainer $logoSize={size}>
       <motion.h1
         initial="hidden"
         animate="visible"
         exit="hidden"
         variants={fadeInUp}
-        custom={8 * 0.05}
+        custom={2 * 0.05}
       >
         White Elephant
       </motion.h1>
       <WhiteElephantIcon
         as={motion.img}
-        $size={size}
+        $logoSize={size}
         src={whiteElephantIcon}
         alt="white elephant icon"
         initial="hidden"
         animate="visible"
         exit="hidden"
         variants={fadeInUp}
-        custom={8 * 0.05}
+        custom={2 * 0.05}
       />
     </ContentContainer>
   );

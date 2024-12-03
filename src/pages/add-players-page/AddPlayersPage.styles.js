@@ -8,7 +8,7 @@ export const AddPlayersPageContainer = styled.div`
     gap: 24px;
     height: 100%;
     justify-content: center;
-    padding: 48px;
+    width: 100%;
 `;
 export const ContentContainer = styled.div`
     align-items: start;
@@ -17,6 +17,8 @@ export const ContentContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 16px;
+    max-width: 500px;
+    width: 100%;
 `
 export const InputContainer = styled(motion.div)`
     box-sizing: border-box;
@@ -56,7 +58,8 @@ export const PlayersListContainer = styled(motion.div)`
     height: 500px;
     overflow-y: scroll;
     padding: 8px;
-    width: 420px;
+    max-width: 500px;
+    width: 100%;
 `;
 
 export const PlayerItem = styled(motion.div)`

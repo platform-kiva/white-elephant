@@ -18,12 +18,13 @@ export default function Home() {
 
   return (
     <HomeContainer>
-      <OutletContainer>
-        <Outlet />
-      </OutletContainer>
+
       <Background>
         <Snowfall />
       </Background>
+      <OutletContainer>
+        <Outlet />
+      </OutletContainer>
       {cardImgsUploaded &&
         <ImgContainer>
           {presentData.map((present) => {

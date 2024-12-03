@@ -3,52 +3,49 @@ import { motion } from "framer-motion";
 
 export const AddPresentsPageContainer = styled.div`
     align-items: center;
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: 24px;
     height: 100%;
     justify-content: center;
-    padding: 48px;
 `
 export const ContentContainer = styled.div`
     align-items: start;
     backdrop-filter: blur(10px);
-    background: rgba(255,255,255,0.0);
     border: none;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 16px;
+    max-width: 500px;
+    width: 100%;
 `
 export const PresentImgUploadsContainer = styled(motion.div)`
     border: 2px solid rgba(255,255,255,0.25);
     border-radius: 8px;
     box-sizing: border-box;
     height: 500px;
+    max-width: 500px;
     overflow-y: scroll;
     padding: 8px;
-    width: 420px;
+    width: 100%;
 `
 export const PresentItem = styled(motion.div)`
     background: rgba(255,255,255,0.25);
-    border-radius: 8px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 8px;
-    padding: 8px;
-    width: 100%;
     border: 2px solid rgba(255,255,255,0.25);
     border-radius: 8px;
     box-sizing: border-box;
     color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
     font-size: 16px;
     font-weight: 600;
+    gap: 8px;
+    margin-bottom: 8px;
     padding: 8px;
     padding-left: 16px;
-
+    width: 100%;
+    
     &::placeholder {
         color: #FFFFFF;
         font-weight: 600;

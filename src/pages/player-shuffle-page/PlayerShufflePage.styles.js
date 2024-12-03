@@ -3,13 +3,11 @@ import { motion } from "framer-motion";
 
 export const PlayerShufflePageContainer = styled.div`
     align-items: center;
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: 24px;
     height: 100%;
     justify-content: center;
-    padding: 48px;
     width: 100%;
 `
 export const ContentContainer = styled.div`
@@ -26,22 +24,23 @@ export const PlayersListContainer = styled(motion.div)`
     border-radius: 8px;
     box-sizing: border-box;
     height: 500px;
+    max-width: 500px;
     overflow-y: scroll;
     padding: 8px;
-    width: 420px;
+    width: 100%;
 `;
 export const PlayerItem = styled(motion.div)`
+    align-items: center;
     background: rgba(255,255,255,0.25);
     border: 2px solid rgba(255,255,255,0.25);
+    border-radius: 8px;
     box-sizing: border-box;
     color: #FFFFFF;
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-bottom: 8px;
     padding: 8px;
-    border-radius: 8px;
-
+    
     span {
         font-size: 18px;
         font-weight: 700;
@@ -60,7 +59,6 @@ export const PlayerItem = styled(motion.div)`
         padding: 2px 0px;
         text-align: center;
         transition: 0.2s ease-in-out;
-        width: 20px;
 
         &:hover {
             background-color: darkred;
@@ -73,6 +71,6 @@ export const ActionBtnsContainer = styled(motion.div)`
     gap: 24px;
     width: 100%;
 `
-export const ActionBtn  = styled.div`
-    width: 33.33%
+export const ActionBtn = styled.div`
+    width: 100%;
 `

@@ -1,14 +1,21 @@
 import styled from "styled-components";
 
 export const HomeContainer = styled.div`
-    height: 100%;
+    display: flex;
+    height: 100vh;
     position: relative;
-    width: 100%;
+    width: auto;
 `
 export const OutletContainer = styled.div`
-    height: 100vh;
-    position: absolute;
-    width: 100vw;
+    box-sizing: border-box;
+    height: fit-content;
+    padding: 48px;
+    position: relative;
+    width: 100%;
+
+    @media (max-width: 500px) {
+        padding: 12px;
+    }
 `
 export const Background = styled.div`
     background-color: #232c3b;
