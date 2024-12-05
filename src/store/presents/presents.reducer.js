@@ -21,6 +21,8 @@ export const presentsReducer = (state = PRESENTS_INITIAL_STATE, action = {}) => 
             return { ...state, presentData: payload }
         case PRESENTS_ACTION_TYPES.SET_CARD_IMGS_UPLOADED:
             return { ...state, cardImgsUploaded: payload }
+        case PRESENTS_ACTION_TYPES.SHUFFLE_PRESENTS:
+            return { ...state, presentData: payload }
         default:
             return state;
     }

@@ -19,7 +19,7 @@ import { PresentsDisplayContainer } from './PresentsDisplay.styles.js';
 // components
 import Present from '../present/Present';
 
-export default function PresentsDisplay() {
+export default function PresentsDisplay({ endOfGame=false }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const playerData = useSelector(selectPlayerData);
@@ -109,7 +109,7 @@ export default function PresentsDisplay() {
   }
 
   return (
-    <PresentsDisplayContainer>
+    <PresentsDisplayContainer $endOfGame={endOfGame}>
       {presentData.map((present, index) => (
           <motion.div
             key={index}

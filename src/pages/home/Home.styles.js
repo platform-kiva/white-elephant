@@ -14,7 +14,7 @@ export const OutletContainer = styled.div`
     width: 100%;
 
     @media (max-width: 500px) {
-        padding: 12px;
+        padding: 24px 12px;
     }
 `
 export const Background = styled.div`

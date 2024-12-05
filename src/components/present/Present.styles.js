@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import { size } from "../../media-breakpoints";
 
 const shakeAndTiltAnimation = keyframes`
   0%, 100% {
@@ -17,12 +18,18 @@ const shakeAndTiltAnimation = keyframes`
 
 export const PresentContainer = styled.div`
     align-items: center;
+    box-sizing: border-box;
     cursor: pointer;
     display: flex;
     height: 160px;
-    margin: 20px;
+    margin: 48px 16px;
     position: relative;
     width: 160px;
+
+    @media (max-width: ${size.mobileL}) {
+        height: 80px;
+        width: 80px;
+    }
 `
 export const PresentUnopened = styled.div`
 

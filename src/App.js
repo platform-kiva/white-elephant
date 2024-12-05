@@ -6,6 +6,7 @@ import './App.css';
 // pages
 import AddPlayersPage from './pages/add-players-page/AddPlayersPage';
 import AddPresentsPage from './pages/add-presents-page/AddPresentsPage';
+import EndingPage from './pages/ending-page/EndingPage';
 import Home from './pages/home/Home';
 import LandingPage from './pages/landing-page/LandingPage';
 import Play from './pages/play/Play';
@@ -19,10 +20,11 @@ function App() {
         <Route path='/' element={<Home />}>
           <Route path='/' element={<LandingPage />} />
           <Route path='rules' element={<RulesPage />} />
-          <Route path='/add-players' element={<AddPlayersPage />} />
-          <Route path='/add-presents' element={<AddPresentsPage />} />
+          <Route path='add-players' element={<AddPlayersPage />} />
+          <Route path='add-presents' element={<AddPresentsPage />} />
           <Route path='shuffle-players' element={<PlayerShufflePage />} />
           <Route path='play' element={<Play />} />
+          <Route path='game-complete' element={<EndingPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

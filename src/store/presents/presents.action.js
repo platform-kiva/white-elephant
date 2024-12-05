@@ -72,3 +72,23 @@ const addOwnerHistoryHelper = (presentsArray, presentID, playerID, isBeingStolen
   export const setCardImgsUploaded = (status) => {
     return ({ type: PRESENTS_ACTION_TYPES.SET_CARD_IMGS_UPLOADED, payload: status })
   }
+  
+  const shuffleArray = (array) => {
+    let currentIndex = array.length, randomIndex
+    while (currentIndex > 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+    const newArrayWithTurnInd = array.map((object, index) => {
+      return { ...object, id: index };
+    });
+  
+    return newArrayWithTurnInd;
+  }
+  
+  export const shufflePresents = (presentsArray) => {
+    const shuffledPresentsArray = shuffleArray(presentsArray);
+    return ({ type: PRESENTS_ACTION_TYPES.SHUFFLE_PRESENTS, payload: shuffledPresentsArray });
+  };

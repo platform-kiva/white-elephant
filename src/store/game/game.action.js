@@ -45,3 +45,15 @@ export const resetGameState = () => {
 export const setGameIsStarted = (status) => {
     return ({ type: GAME_ACTION_TYPES.SET_GAME_IS_STARTED, payload: status })
 }
+
+export const setSystemNotification = (text) => {
+    return (dispatch) => {
+      dispatch({ type: GAME_ACTION_TYPES.SET_SYSTEM_NOTIFICATION, payload: text });
+  
+      setTimeout(() => {
+        dispatch({ type: GAME_ACTION_TYPES.SET_SYSTEM_NOTIFICATION, payload: null });
+      }, 3000);
+
+      return
+    };
+  };

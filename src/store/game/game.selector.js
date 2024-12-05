@@ -38,3 +38,7 @@ export const selectFirstPlayerReplayed = createSelector(
     [selectGameReducer],
     (gameSlice) => gameSlice.firstPlayerReplayed
 )
+export const selectSystemNotification = createSelector(
+    [selectGameReducer],
+    (gameSlice) => gameSlice.systemNotification
+);

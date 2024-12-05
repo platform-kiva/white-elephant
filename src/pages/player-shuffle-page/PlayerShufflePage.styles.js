@@ -10,15 +10,6 @@ export const PlayerShufflePageContainer = styled.div`
     justify-content: center;
     width: 100%;
 `
-export const ContentContainer = styled.div`
-    align-items: start;
-    backdrop-filter: blur(10px);
-    background: rgba(255,255,255,0.0);
-    border: none;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-`
 export const PlayersListContainer = styled(motion.div)`
     border: 2px solid rgba(255,255,255,0.25);
     border-radius: 8px;
@@ -68,8 +59,12 @@ export const PlayerItem = styled(motion.div)`
 `;
 export const ActionBtnsContainer = styled(motion.div)`
     display: flex;
-    gap: 24px;
+    gap: 16px;
     width: 100%;
+
+    @media (max-width: 500px) {
+        gap: 12px;
+    }
 `
 export const ActionBtn = styled.div`
     width: 100%;

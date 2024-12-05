@@ -7,7 +7,6 @@ import { fadeInUp } from '../../animations/Animations.js';
 // styles
 import {
     AddPlayersPageContainer,
-    ContentContainer,
     InputContainer,
     PlayersListContainer,
     PlayerItem,
@@ -17,6 +16,7 @@ import {
 
 // components
 import Btn from '../../components/btn/Btn.js';
+import ContentContainer from '../../components/content-container/ContentContainer.js';
 import PageTitle from '../../components/page-title/PageTitle.js';
 
 export default function AddPlayersPage() {

@@ -2,6 +2,8 @@ import Snowfall from 'react-snowfall';
 import { Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectCardImgsUploaded, selectPresentData } from '../../store/presents/presents.selector.js';
+import { selectSystemNotification } from '../../store/game/game.selector.js';
+import { AnimatePresence } from 'framer-motion';
 
 // styles
 import {
@@ -12,12 +14,19 @@ import {
   PresentImg
 } from './Home.styles.js';
 
+// components
+import Notification from '../../components/notification/Notification.js';
+
 export default function Home() {
   const cardImgsUploaded = useSelector(selectCardImgsUploaded);
   const presentData = useSelector(selectPresentData);
+  const systemNotification = useSelector(selectSystemNotification);
 
   return (
     <HomeContainer>
+      <AnimatePresence>
+        {systemNotification && <Notification text={systemNotification} key="notification" />}
+      </AnimatePresence>
 
       <Background>
         <Snowfall />
@@ -28,7 +37,7 @@ export default function Home() {
       {cardImgsUploaded &&
         <ImgContainer>
           {presentData.map((present) => {
-            return <PresentImg key={present.id }src={present.presentImg} />
+            return <PresentImg key={present.id} src={present.presentImg} />
           })}
         </ImgContainer>
       }

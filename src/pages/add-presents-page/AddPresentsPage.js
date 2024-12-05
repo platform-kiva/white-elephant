@@ -9,7 +9,6 @@ import { fadeInUp } from '../../animations/Animations';
 // styles
 import {
     AddPresentsPageContainer,
-    ContentContainer,
     PresentImgUploadsContainer,
     PresentItem,
     TextInput,
@@ -37,6 +36,7 @@ import P16_C from '../../assets/present-covers/Gift17.png'
 
 // components
 import Btn from '../../components/btn/Btn';
+import ContentContainer from '../../components/content-container/ContentContainer';
 import PageTitle from '../../components/page-title/PageTitle';
 
 export default function AddPresentsPage() {
@@ -109,6 +109,8 @@ export default function AddPresentsPage() {
             fileName: fileNames[index] || "",
             stealsLeft: 3,
         }));
+
+        // scramble data
 
         // Dispatch the data to Redux
         dispatch(setPresents(presentPhotoData));

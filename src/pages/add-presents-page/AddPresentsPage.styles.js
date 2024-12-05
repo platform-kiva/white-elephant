@@ -9,16 +9,6 @@ export const AddPresentsPageContainer = styled.div`
     height: 100%;
     justify-content: center;
 `
-export const ContentContainer = styled.div`
-    align-items: start;
-    backdrop-filter: blur(10px);
-    border: none;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    max-width: 500px;
-    width: 100%;
-`
 export const PresentImgUploadsContainer = styled(motion.div)`
     border: 2px solid rgba(255,255,255,0.25);
     border-radius: 8px;
@@ -80,9 +70,7 @@ export const PresentItem = styled(motion.div)`
             transform: scale(1.05);
             transition: 0.2s ease-in;
         }
-    }
-
-    
+    } 
 `
 export const TextInput = styled.input`
     background: none;
@@ -110,6 +98,10 @@ export const TextInput = styled.input`
 `
 export const BtnContainer = styled(motion.div)`
     display: flex;
-    gap: 8px;
+    gap: 16px;
     width: 100%;
+
+    @media (max-width: 500px) {
+        gap: 12px;
+    }
 `

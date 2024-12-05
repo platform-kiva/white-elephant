@@ -8,7 +8,8 @@ export const GAME_INITIAL_STATE = {
     gameHistory: [],
     gameIsOver: false,
     gameIsStarted: false,
-    firstPlayerReplayed: false
+    firstPlayerReplayed: false,
+    systemNotification: null
 };
 
 export const gameReducer = (state = GAME_INITIAL_STATE, action = {}) => {
@@ -45,6 +46,8 @@ export const gameReducer = (state = GAME_INITIAL_STATE, action = {}) => {
                 gameIsStarted: false,
                 firstPlayerReplayed: false
             }
+        case GAME_ACTION_TYPES.SET_SYSTEM_NOTIFICATION:
+            return { ...state, systemNotification: payload };
         default:
             return state;
     }

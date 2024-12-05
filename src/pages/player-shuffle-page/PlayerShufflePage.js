@@ -1,7 +1,10 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { shufflePlayers } from '../../store/players/players.action';
 import { setGameIsStarted, setShuffleStatus } from '../../store/game/game.action';
+import { shufflePresents } from '../../store/presents/presents.action.js';
+import { selectPresentData } from '../../store/presents/presents.selector.js';
 import { selectShuffleStatus } from '../../store/game/game.selector';
 import { selectPlayerData } from '../../store/players/players.selector';
 import { fadeInUp } from '../../animations/Animations.js';
@@ -9,7 +12,6 @@ import { fadeInUp } from '../../animations/Animations.js';
 // styles
 import {
     PlayerShufflePageContainer,
-    ContentContainer,
     PlayersListContainer,
     PlayerItem,
     ActionBtnsContainer,
@@ -18,13 +20,15 @@ import {
 
 // components
 import Btn from '../../components/btn/Btn';
+import ContentContainer from '../../components/content-container/ContentContainer.js';
 import PageTitle from '../../components/page-title/PageTitle.js';
-import { useEffect } from 'react';
+
 
 export default function PlayerShufflePage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const playerData = useSelector(selectPlayerData);
+    const presentData = useSelector(selectPresentData);
     const shuffleStatus = useSelector(selectShuffleStatus);
 
     useEffect(() => {
@@ -46,6 +50,7 @@ export default function PlayerShufflePage() {
     const handleStartGame = () => {
         if (shuffleStatus) {
             dispatch(setGameIsStarted(true));
+            dispatch(shufflePresents(presentData));
             navigate("/play")
         }
     }
@@ -81,6 +86,9 @@ export default function PlayerShufflePage() {
                     <ActionBtn onClick={handleShuffle}>
                         <Btn label={"SHUFFLE"} />
                     </ActionBtn>
+                    <ActionBtn onClick={handleAddMore}>
+                        <Btn label={"+ ADD MORE"} />
+                    </ActionBtn>
                 </ActionBtnsContainer>
 
                 <ActionBtnsContainer
@@ -89,11 +97,8 @@ export default function PlayerShufflePage() {
                     variants={fadeInUp}
                     custom={3 * 0.05}
                 >
-                    <ActionBtn onClick={handleAddMore}>
-                        <Btn label={"+ ADD MORE"} />
-                    </ActionBtn>
                     <ActionBtn onClick={handleStartGame}>
-                        <Btn label={"NEXT"} isActive={shuffleStatus ? true : false} />
+                        <Btn label={"BEGIN GAME"} isActive={shuffleStatus ? true : false} />
                     </ActionBtn>
                 </ActionBtnsContainer>
             </ContentContainer>

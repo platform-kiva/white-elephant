@@ -67,24 +67,26 @@ export default function PlayersDisplay() {
       <GameLogoContainer>
         <GameLogo size={"small"} />
       </GameLogoContainer>
-      <GameHistoryContainer
-        initial="hidden"
-        animate="visible"
-        variants={fadeInUp}
-        custom={6 * 0.05}
-      >
-        <GameHistory history={gameHistory} />
-        <BtnContainer
+      {gameHistory.length !== 0 &&
+        <GameHistoryContainer
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
-          custom={2 * 0.05}
+          custom={6 * 0.05}
         >
-          <div onClick={() => handleUndo()}>
-            <Btn label={"UNDO MOVE"} isActive={gameHistory.length !== 0} />
-          </div>
-        </BtnContainer>
-      </GameHistoryContainer>
+          <GameHistory history={gameHistory} />
+          <BtnContainer
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            custom={2 * 0.05}
+          >
+            <div onClick={() => handleUndo()}>
+              <Btn label={"UNDO MOVE"} isActive={gameHistory.length !== 0} />
+            </div>
+          </BtnContainer>
+        </GameHistoryContainer>
+      }
       {turnIndex !== playerData.length ?
         <PlayerNamesContainer>
           {playerData.map((player, index) => (
@@ -97,13 +99,17 @@ export default function PlayersDisplay() {
               custom={index * 0.1}
             >
               {player.name === playerData[stolenGiftTurnIndex === null ? turnIndex : stolenGiftTurnIndex].name &&
-                <h3>Up Next:</h3>
+                <h3>NOW PLAYING:</h3>
               }
-              <PlayerName>
+              <PlayerName
+                $isActive={player.name === playerData[stolenGiftTurnIndex === null ? turnIndex : stolenGiftTurnIndex].name}
+              >
                 {player.name === playerData[stolenGiftTurnIndex === null ? turnIndex : stolenGiftTurnIndex].name &&
                   <TurnIcon src={turnIcon} alt='turn icon' />
                 }
+
                 <h2>{player.name}</h2>
+
                 {player.name === playerData[stolenGiftTurnIndex === null ? turnIndex : stolenGiftTurnIndex].name &&
                   <TurnIcon src={turnIcon} alt='turn icon' />
                 }
