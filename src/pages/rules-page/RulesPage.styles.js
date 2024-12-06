@@ -30,6 +30,7 @@ export const ContentContainer = styled.div`
     gap: 16px;
     
     h2 {
+        font-family: 'Roboto Condensed';
         padding: 24px 0px;
         text-align: center;
         width: 100%;

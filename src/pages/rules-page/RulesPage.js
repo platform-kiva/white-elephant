@@ -19,15 +19,16 @@ export default function RulesPage() {
       <PageTitle title={"Welcome to White Elephant!"} />
       <ContentContainer>
         <RulesContainer>
-          <motion.h2
+          <motion.div
             initial="hidden"
             animate="visible"
             variants={fadeInUp}
             custom={2 * 0.05}
             style={{ width: "100%" }}
           >
-            HOW TO PLAY
-          </motion.h2>
+            <h2>HOW TO PLAY</h2>
+            
+          </motion.div>
           <motion.div
             initial="hidden"
             animate="visible"

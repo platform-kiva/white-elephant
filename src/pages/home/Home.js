@@ -1,9 +1,8 @@
-import Snowfall from 'react-snowfall';
 import { Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { AnimatePresence } from 'framer-motion';
 import { selectCardImgsUploaded, selectPresentData } from '../../store/presents/presents.selector.js';
 import { selectSystemNotification } from '../../store/game/game.selector.js';
-import { AnimatePresence } from 'framer-motion';
 
 // styles
 import {
@@ -16,6 +15,7 @@ import {
 
 // components
 import Notification from '../../components/notification/Notification.js';
+import Snowfall from 'react-snowfall';
 
 export default function Home() {
   const cardImgsUploaded = useSelector(selectCardImgsUploaded);
