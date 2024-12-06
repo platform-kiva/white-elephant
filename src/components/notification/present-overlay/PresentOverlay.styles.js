@@ -1,13 +1,19 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
-export const NotificationContainer = styled(motion.div)`
-    backdrop-filter: blur(10px);
-    background-color: rgba(0,0,0,0.6);
-    border: 1px solid rgba(255,255,255,0.4);
+export const PresentOverlayContainer = styled(motion.div)`
+    align-items: center;
+    background-color: rgba(0,0,0,0.1);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255,255,255,0.4);
     border-radius: 8px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    justify-content: center;
     left: 50%;
-    max-width: 320px;
+    max-width: 600px;
     padding: 16px;
     position: absolute;
     text-align: center;
@@ -19,6 +25,7 @@ export const NotificationContainer = styled(motion.div)`
         -khtml-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
+    width: 90%;
     z-index: 100;            
     
     h3 {
@@ -26,12 +33,13 @@ export const NotificationContainer = styled(motion.div)`
         font-weight: 500;
         margin: 0;
     }
+
+    img {
+        max-height: 600px;
+        max-width: 300px;
+    }
 `
-export const ProgressBar = styled(motion.div)`
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 4px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 0 0 8px 8px;
-`;
+export const BtnContainer = styled(motion.div)`
+    display: flex;
+    width: 100%;
+`

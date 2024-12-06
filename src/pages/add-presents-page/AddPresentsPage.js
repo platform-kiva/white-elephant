@@ -71,7 +71,7 @@ export default function AddPresentsPage() {
             setFileNames(prepopulatedFileNames);
         }
     }, [presentData]);
-    
+
     const handleFileUpload = (event, index) => {
         const file = event.target.files[0];
         if (file) {
@@ -139,6 +139,7 @@ export default function AddPresentsPage() {
                     {playerData.map((_, index) => (
                         <PresentItem
                             key={index}
+                            hasImage={!!uploadedPhotos[index]} // True if the image exists
                             initial="hidden"
                             animate="visible"
                             variants={fadeInUp}
@@ -161,6 +162,7 @@ export default function AddPresentsPage() {
                                 placeholder="Enter present title..."
                                 value={titles[index] || ""}
                                 onChange={(event) => handleTitleChange(event, index)}
+                                hasTitle={!!titles[index]?.trim()} // True if the title is not empty
                             />
                         </PresentItem>
                     ))}

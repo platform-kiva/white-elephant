@@ -57,8 +57,8 @@ export const PlayersListContainer = styled(motion.div)`
 `;
 
 export const PlayerItem = styled(motion.div)`
-    background: rgba(255,255,255,0.25);
-    border: 2px solid rgba(255,255,255,0.25);
+    background: ${({ isDuplicate }) => (isDuplicate ? 'rgba(255,0,55,0.25)' :'rgba(255,255,255,0.25)')};
+    border: 2px solid ${({ isDuplicate }) => (isDuplicate ? 'rgba(255,0,120,0.55)' : 'rgba(255,255,255,0.25)')};
     box-sizing: border-box;
     color: #FFFFFF;
     display: flex;

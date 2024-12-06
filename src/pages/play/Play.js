@@ -12,7 +12,6 @@ import {
 } from './Play.styles.js';
 
 // components
-import Notification from '../../components/notification/Notification.js';
 import PlayersDisplay from '../../components/players-display/PlayersDisplay';
 import PresentsDisplay from '../../components/presents-display/PresentsDisplay';
 

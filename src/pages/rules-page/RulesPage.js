@@ -13,7 +13,7 @@ import {
 import Btn from '../../components/btn/Btn';
 import PageTitle from '../../components/page-title/PageTitle';
 
-export default function RulesPage() {
+export default function RulesPage({ displayMode = false }) {
   return (
     <RulesPageContainer>
       <PageTitle title={"Welcome to White Elephant!"} />
@@ -27,7 +27,7 @@ export default function RulesPage() {
             style={{ width: "100%" }}
           >
             <h2>HOW TO PLAY</h2>
-            
+
           </motion.div>
           <motion.div
             initial="hidden"
@@ -108,15 +108,25 @@ export default function RulesPage() {
           </motion.div>
         </RulesContainer>
       </ContentContainer>
-      <BtnContainer
-        initial="hidden"
-        animate="visible"
-        variants={fadeInUp}
-        custom={8 * 0.05}
-        style={{ width: "100%" }}
+      {!displayMode &&
+        <BtnContainer
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp}
+          custom={8 * 0.05}
+          style={{ width: "100%" }}
         >
-        <Btn label={"BACK"} navTo={'/'} />
-      </BtnContainer>
+          <Btn label={"BACK"} navTo={'/'} />
+          <a
+            href="/rules-read-mode"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ textDecoration: 'none', width: '100%' }} // Optional: match existing styles
+          >
+            <Btn label={"KEEP OPEN IN NEW TAB"} />
+          </a>
+        </BtnContainer>
+      }
     </RulesPageContainer>
   )
 }

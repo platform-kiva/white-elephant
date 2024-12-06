@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 export const HomeContainer = styled.div`
     display: flex;
-    height: 100vh;
+    height: 100%;
     position: relative;
-    width: auto;
+    width: 100%;
 `
 export const OutletContainer = styled.div`
     box-sizing: border-box;

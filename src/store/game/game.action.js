@@ -13,7 +13,7 @@ export const setTurnIndex = (index) => {
 }
 
 export const setLastGiftStolen = (index) => {
-    return ({ type: GAME_ACTION_TYPES.SET_LAST_GIFT_STOLEN, payload: index})
+    return ({ type: GAME_ACTION_TYPES.SET_LAST_GIFT_STOLEN, payload: index })
 }
 
 export const addGameHistory = (history, turnInfo, turn2Info = null) => {
@@ -22,7 +22,7 @@ export const addGameHistory = (history, turnInfo, turn2Info = null) => {
     if (turn2Info) {
         updatedHistory.push(turn2Info)
     }
-    return ({ type: GAME_ACTION_TYPES.ADD_GAME_HISTORY, payload: updatedHistory})
+    return ({ type: GAME_ACTION_TYPES.ADD_GAME_HISTORY, payload: updatedHistory })
 }
 
 export const removeGameHistory = (history) => {
@@ -48,12 +48,18 @@ export const setGameIsStarted = (status) => {
 
 export const setSystemNotification = (text) => {
     return (dispatch) => {
-      dispatch({ type: GAME_ACTION_TYPES.SET_SYSTEM_NOTIFICATION, payload: text });
-  
-      setTimeout(() => {
-        dispatch({ type: GAME_ACTION_TYPES.SET_SYSTEM_NOTIFICATION, payload: null });
-      }, 3000);
-
-      return
+        dispatch({ type: GAME_ACTION_TYPES.SET_SYSTEM_NOTIFICATION, payload: text });
+        setTimeout(() => {
+            dispatch({ type: GAME_ACTION_TYPES.SET_SYSTEM_NOTIFICATION, payload: null });
+        }, 4000);
+        return
     };
-  };
+};
+
+export const setPresentOverlay = (text, img) => {
+    if (text && img) {
+        return ({ type: GAME_ACTION_TYPES.SET_PRESENT_OVERLAY, payload: { text, img } });
+    } else {
+        return ({ type: GAME_ACTION_TYPES.SET_PRESENT_OVERLAY, payload: null });
+    }
+};

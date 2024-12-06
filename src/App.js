@@ -20,6 +20,7 @@ function App() {
         <Route path='/' element={<Home />}>
           <Route path='/' element={<LandingPage />} />
           <Route path='rules' element={<RulesPage />} />
+          <Route path='rules-read-mode' element={<RulesPage displayMode={true} />} />
           <Route path='add-players' element={<AddPlayersPage />} />
           <Route path='add-presents' element={<AddPresentsPage />} />
           <Route path='shuffle-players' element={<PlayerShufflePage />} />

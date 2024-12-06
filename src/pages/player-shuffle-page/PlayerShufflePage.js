@@ -7,6 +7,7 @@ import { shufflePresents } from '../../store/presents/presents.action.js';
 import { selectPresentData } from '../../store/presents/presents.selector.js';
 import { selectShuffleStatus } from '../../store/game/game.selector';
 import { selectPlayerData } from '../../store/players/players.selector';
+import { setSystemNotification } from '../../store/game/game.action';
 import { fadeInUp } from '../../animations/Animations.js';
 
 // styles
@@ -30,6 +31,10 @@ export default function PlayerShufflePage() {
     const playerData = useSelector(selectPlayerData);
     const presentData = useSelector(selectPresentData);
     const shuffleStatus = useSelector(selectShuffleStatus);
+
+    useEffect(() => {
+        dispatch(setSystemNotification("Click Shuffle to randomize playing order"));
+    }, [dispatch])
 
     useEffect(() => {
         if (playerData.length === 0) {

@@ -20,8 +20,8 @@ export const PresentImgUploadsContainer = styled(motion.div)`
     width: 100%;
 `
 export const PresentItem = styled(motion.div)`
-    background: rgba(255,255,255,0.25);
-    border: 2px solid rgba(255,255,255,0.25);
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.25);
     border-radius: 8px;
     box-sizing: border-box;
     color: #FFFFFF;
@@ -33,17 +33,11 @@ export const PresentItem = styled(motion.div)`
     gap: 8px;
     margin-bottom: 8px;
     padding: 8px;
-    padding-left: 16px;
     width: 100%;
-    
-    &::placeholder {
-        color: #FFFFFF;
-        font-weight: 600;
-        opacity: 0.8;
-    }
 
     &:focus {
-        border: 2px solid rgba(255,255,255,1.0);
+        border: 2px solid ${(props) => (props.hasImage ? 'rgba(255, 255, 255, 1.0)' : 'rgba(255, 0, 0, 0.4)')};
+        box-sizing: border-box;
         outline: none;
     }
 
@@ -53,7 +47,7 @@ export const PresentItem = styled(motion.div)`
 
     .custom-file-upload {
         background-color: none;
-        border: 2px solid #FFFFFF;
+        border: 2px solid ${(props) => (props.hasImage ? 'rgba(255, 255, 255, 1.0)' : 'rgba(255, 0, 0, 0.4)')};
         border-radius: 8px;
         box-sizing: border-box;
         cursor: pointer;
@@ -65,16 +59,15 @@ export const PresentItem = styled(motion.div)`
         text-align: center;
 
         &:hover {
-            background: #FFFFFF;
-            color: #000000;
-            transform: scale(1.05);
+            background: rgba(255,255,255,0.5);
+            transform: scale(1.015);
             transition: 0.2s ease-in;
         }
-    } 
-`
+    }
+`;
 export const TextInput = styled.input`
     background: none;
-    border: 2px solid rgba(255,255,255,0.25);
+    border: 2px solid ${(props) => (props.hasTitle ? 'rgba(255, 255, 255, 0.25)' : 'rgba(255, 0, 0, 0.4)')};
     border-radius: 8px;
     box-sizing: border-box;
     color: #FFFFFF;
@@ -92,10 +85,11 @@ export const TextInput = styled.input`
     }
 
     &:focus {
-        border: 2px solid rgba(255,255,255,1.0);
+        border: 2px solid ${(props) => (props.hasTitle ? 'rgba(255, 255, 255, 1.0)' : 'rgba(255, 0, 0, 0.4)')};
+        box-sizing: border-box;
         outline: none;
     }
-`
+`;
 export const BtnContainer = styled(motion.div)`
     display: flex;
     gap: 16px;

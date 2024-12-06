@@ -44,6 +44,10 @@ export const RulesContainer = styled.div`
 `
 export const BtnContainer = styled(motion.div)`
     display: flex;
-    gap: 8px;
+    gap: 16px;
     width: 100%;
+
+    @media (max-width: 500px) {
+        gap: 12px;
+    }
 `

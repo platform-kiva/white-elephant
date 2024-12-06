@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
-import { setLastGiftStolen, setStolenGiftTurnIndex, addGameHistory, setGameIsOver, setFirstPlayerReplayed } from '../../store/game/game.action';
+import { setLastGiftStolen, setStolenGiftTurnIndex, addGameHistory, setGameIsOver, setFirstPlayerReplayed, setPresentOverlay, setSystemNotification } from '../../store/game/game.action';
 import { setTurnIndex } from '../../store/game/game.action';
 import { selectPlayerData } from '../../store/players/players.selector';
 import { selectPresentData } from '../../store/presents/presents.selector';
-import { selectGameHistory, selectLastGiftStolen, selectTurnIndex, selectFirstPlayerReplayed, selectGameIsOver } from '../../store/game/game.selector';
+import { selectGameHistory, selectLastGiftStolen, selectTurnIndex, selectFirstPlayerReplayed, selectGameIsOver, selectPresentOverlay } from '../../store/game/game.selector';
 import { selectStolenGiftTurnIndex } from '../../store/game/game.selector';
 import { selectShuffleStatus } from '../../store/game/game.selector';
 import { useNavigate } from 'react-router-dom';
@@ -31,6 +31,7 @@ export default function PresentsDisplay({ endOfGame=false }) {
   const gameHistory = useSelector(selectGameHistory);
   const firstPlayerReplayed = useSelector(selectFirstPlayerReplayed);
   const gameIsOver = useSelector(selectGameIsOver);
+  const presentOverlay = useSelector(selectPresentOverlay);
 
   useEffect(() => {
     if (!shuffleStatus) {
@@ -39,14 +40,16 @@ export default function PresentsDisplay({ endOfGame=false }) {
   }, [shuffleStatus, navigate]);
 
   useEffect(() => {
-    if ((turnIndex === playerData.length) && (lastGiftStolen === null)) {
+    if ((turnIndex === playerData.length) && (lastGiftStolen === null) && !presentOverlay) {
       dispatch(setFirstPlayerReplayed(true));
       dispatch(setTurnIndex(0));
+      dispatch(setSystemNotification("The first player gets to go last, or may end the game."))
     };
-  }, [turnIndex, dispatch, playerData.length, lastGiftStolen]);
+  }, [turnIndex, dispatch, playerData.length, lastGiftStolen, presentOverlay]);
 
   const handleOpen = (playerID, presentID) => {
     dispatch(addGameHistory(gameHistory, [playerID, "opened", presentID]));
+    dispatch(setPresentOverlay(`${playerData[playerID].name} opened ${presentData[presentID].name}`, presentData[presentID].presentImg))
     dispatch(addPresentHistory(playerData, playerID, presentID));
     dispatch(addOwnerHistory(presentData, presentID, playerID, false));
     dispatch(setLastGiftStolen(null));
@@ -63,16 +66,18 @@ export default function PresentsDisplay({ endOfGame=false }) {
   const handleSteal = (thief, victim, present) => {
     if (present.id !== lastGiftStolen) {
       if (present.stealsLeft !== 0) {
+        dispatch(setSystemNotification(`${thief} stole ${present.name} from ${victim}, who receives ${presentData[thief].name}`));
         dispatch(addGameHistory(gameHistory, [thief, "stole", present.id, "from", victim]));
         dispatch(addPresentHistory(playerData, thief, present.id));
         dispatch(addOwnerHistory(presentData, present.id, thief, true));
         dispatch(setLastGiftStolen(present.id));
         dispatch(setStolenGiftTurnIndex(victim));
+        
       } else {
-        alert("Present cannot be stolen any more times");
+        dispatch(setSystemNotification("Present cannot be stolen any more times!"));
       };
     } else {
-      alert("You cannot immediately steal back the same gift!");
+      dispatch(setSystemNotification("You cannot immediately steal back the same gift!"));
     };
   };
 
@@ -81,6 +86,7 @@ export default function PresentsDisplay({ endOfGame=false }) {
     const victim = presentData[stolenPresent].ownerHistory[presentData[stolenPresent].ownerHistory.length - 1];
     const victimsPresent = playerData[victim].presentHistory[playerData[victim].presentHistory.length - 1];
     dispatch(addGameHistory(gameHistory, [thief, "stole", victimsPresent, "from", victim], [victim, "is given", thiefsPresent, "from", thief]));
+    dispatch(setSystemNotification(`${thief.name} stole ${stolenPresent.name} from ${victim.name}, who receives ${thiefsPresent.name}`));
     dispatch(swapOwners(presentData, thief, victim, thiefsPresent, victimsPresent));
     dispatch(setGameIsOver());
   };

@@ -9,7 +9,8 @@ export const GAME_INITIAL_STATE = {
     gameIsOver: false,
     gameIsStarted: false,
     firstPlayerReplayed: false,
-    systemNotification: null
+    systemNotification: null,
+    presentOverlay: null
 };
 
 export const gameReducer = (state = GAME_INITIAL_STATE, action = {}) => {
@@ -48,6 +49,8 @@ export const gameReducer = (state = GAME_INITIAL_STATE, action = {}) => {
             }
         case GAME_ACTION_TYPES.SET_SYSTEM_NOTIFICATION:
             return { ...state, systemNotification: payload };
+        case GAME_ACTION_TYPES.SET_PRESENT_OVERLAY:
+            return { ...state, presentOverlay: payload };
         default:
             return state;
     }
