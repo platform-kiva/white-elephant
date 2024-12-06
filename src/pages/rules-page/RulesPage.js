@@ -124,7 +124,7 @@ export default function RulesPage({ displayMode = false }) {
             rel="noopener noreferrer"
             style={{ textDecoration: 'none', width: '100%' }} // Optional: match existing styles
           >
-            <Btn label={"KEEP OPEN IN NEW TAB"} />
+            <Btn label={"OPEN IN NEW TAB"} />
           </a>
         </BtnContainer>
       }

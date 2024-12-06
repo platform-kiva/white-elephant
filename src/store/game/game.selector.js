@@ -42,7 +42,3 @@ export const selectSystemNotification = createSelector(
     [selectGameReducer],
     (gameSlice) => gameSlice.systemNotification
 );
-export const selectPresentOverlay = createSelector(
-    [selectGameReducer],
-    (gameSlice) => gameSlice.presentOverlay
-);
