@@ -28,7 +28,9 @@ export default function PresentOverlay({ text, img }) {
             transition={{ duration: 0.2 }}
             className="panel-bg"
         >
-            <img src={img} alt="present" />
+            {img &&
+                <img src={img} alt="present" />
+            }
             <h3>{text}</h3>
             <BtnContainer
                 style={{ display: "flex", gap: "8px" }}

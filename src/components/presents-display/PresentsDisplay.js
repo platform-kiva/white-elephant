@@ -66,7 +66,7 @@ export default function PresentsDisplay({ endOfGame=false }) {
   const handleSteal = (thief, victim, present) => {
     if (present.id !== lastGiftStolen) {
       if (present.stealsLeft !== 0) {
-        dispatch(setSystemNotification(`${thief} stole ${present.name} from ${victim}, who receives ${presentData[thief].name}`));
+        dispatch(setPresentOverlay(`${playerData[thief].name} stole ${present.name} from ${playerData[victim].name}, who receives ${presentData[thief].name}`));
         dispatch(addGameHistory(gameHistory, [thief, "stole", present.id, "from", victim]));
         dispatch(addPresentHistory(playerData, thief, present.id));
         dispatch(addOwnerHistory(presentData, present.id, thief, true));

@@ -57,8 +57,12 @@ export const setSystemNotification = (text) => {
 };
 
 export const setPresentOverlay = (text, img) => {
-    if (text && img) {
-        return ({ type: GAME_ACTION_TYPES.SET_PRESENT_OVERLAY, payload: { text, img } });
+    if (text) {
+        if (text && img) {
+            return ({ type: GAME_ACTION_TYPES.SET_PRESENT_OVERLAY, payload: { text } });
+        } else {
+            return ({ type: GAME_ACTION_TYPES.SET_PRESENT_OVERLAY, payload: { text } });
+        }
     } else {
         return ({ type: GAME_ACTION_TYPES.SET_PRESENT_OVERLAY, payload: null });
     }
