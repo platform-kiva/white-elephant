@@ -43,14 +43,14 @@ export default function EndingPage() {
         <EndingPageContainer $gameIsOver={gameIsOver}>
             <ContentContainer>
                 <EndOfGameHeader>
-                    <GameLogo size={"regular"} />
+                    <GameLogo size={"small"} />
                     <SummaryText
                         initial="hidden"
                         animate="visible"
                         variants={fadeInUp}
                         custom={1 * 0.1}>
-                        <h3>Game Summary</h3>
-                        <p>Remember to take a screenshot of game results before clickng End Game, as all images and players will be promptly deleted.</p>
+                        <h1>Game Over!</h1>
+                        <h3>Remember to take a screenshot of game results before clicking End Game, as all images and players will be promptly deleted.</h3>
                     </SummaryText>
                 </EndOfGameHeader>
             </ContentContainer>

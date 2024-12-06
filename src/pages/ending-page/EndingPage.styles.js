@@ -42,8 +42,10 @@ export const SummaryText = styled(motion.div)`
     display: flex;
     flex-direction: column;
     gap: 8px;
+    text-align: center;
 
-    p {
+    h3 {
+        font-weight: 500;
         max-width: 480px;
     }
 `

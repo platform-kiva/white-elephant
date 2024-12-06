@@ -52,6 +52,7 @@ export default function RulesPage({ displayMode = false }) {
           >
             <h3>Game Setup</h3>
             <ul>
+              <li>This game is designed to be played on the largest screen you can find</li>
               <li>The <b>Game Organizer</b> enters all participant names, and uploads an image and title for each participant's gift.</li>
               <li>Once all players and gifts are entered, the <b>Game Organizer</b> may shuffle the player list to randomly generate the playing order.</li>
             </ul>

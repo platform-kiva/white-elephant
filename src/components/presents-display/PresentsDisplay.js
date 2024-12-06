@@ -43,7 +43,7 @@ export default function PresentsDisplay({ endOfGame=false }) {
     if ((turnIndex === playerData.length) && (lastGiftStolen === null) && !presentOverlay) {
       dispatch(setFirstPlayerReplayed(true));
       dispatch(setTurnIndex(0));
-      dispatch(setSystemNotification("The first player gets to go last, or may end the game."))
+      dispatch(setPresentOverlay("The first player gets to go last, or may end the game."))
     };
   }, [turnIndex, dispatch, playerData.length, lastGiftStolen, presentOverlay]);
 
@@ -86,7 +86,7 @@ export default function PresentsDisplay({ endOfGame=false }) {
     const victim = presentData[stolenPresent].ownerHistory[presentData[stolenPresent].ownerHistory.length - 1];
     const victimsPresent = playerData[victim].presentHistory[playerData[victim].presentHistory.length - 1];
     dispatch(addGameHistory(gameHistory, [thief, "stole", victimsPresent, "from", victim], [victim, "is given", thiefsPresent, "from", thief]));
-    dispatch(setSystemNotification(`${thief.name} stole ${stolenPresent.name} from ${victim.name}, who receives ${thiefsPresent.name}`));
+    dispatch(setSystemNotification(`${playerData[thief].name} stole ${presentData[stolenPresent].name} from ${playerData[victim].name}, who receives ${presentData[thiefsPresent].name}`));
     dispatch(swapOwners(presentData, thief, victim, thiefsPresent, victimsPresent));
     dispatch(setGameIsOver());
   };
