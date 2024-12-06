@@ -42,6 +42,25 @@ export const NotificationText = styled(motion.h3)`
     font-weight: 500;
     padding: 8px 0px;
 `
+export const StealDisplayContainer = styled.div`
+    align-items: center;
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+`
+export const StealIcon = styled.img`
+    height: 20px;
+`
+export const StolenGoodsDisplay = styled.div`
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    img {
+        max-height: 120px;
+    }
+`
 export const BtnContainer = styled(motion.div)`
     display: flex;
     gap: 8px;

@@ -1,6 +1,38 @@
 import styled, { keyframes } from "styled-components";
 import { size } from "../../media-breakpoints";
 
+export const HoverButtons = styled.div`
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    display: flex;
+    gap: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+
+    button {
+        background-color: rgba(0, 0, 0, 0.7);
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #000;
+        }
+
+        @media (max-width: ${size.mobileL}) {
+            padding: 6px 12px;
+            font-size: 10px;
+        }
+    }
+`;
+
 const shakeAndTiltAnimation = keyframes`
   0%, 100% {
     transform: translateX(0) rotate(0);
@@ -30,8 +62,10 @@ export const PresentContainer = styled.div`
         height: 80px;
         width: 80px;
     }
-`
+`;
+
 export const PresentUnopened = styled.div`
+    position: relative;
 
     img {
         height: 75%;
@@ -41,7 +75,13 @@ export const PresentUnopened = styled.div`
     &:hover {
         animation: ${shakeAndTiltAnimation} 0.5s;
     }
-`
+
+    &:hover ${HoverButtons} {
+        opacity: 1;
+        visibility: visible;
+    }
+`;
+
 export const PresentOpened = styled.div`
     align-items: center;
     background-color: rgba(${props => props.$bgCol}, 0.5);
@@ -52,7 +92,13 @@ export const PresentOpened = styled.div`
     justify-content: center;
     position: relative;
     width: 100%;
-`
+
+    &:hover ${HoverButtons} {
+        opacity: 1;
+        visibility: visible;
+    }
+`;
+
 export const OwnerContainer = styled.div`
     border: 2px solid #FFFFFF;
     border-radius: 50px;
@@ -63,7 +109,8 @@ export const OwnerContainer = styled.div`
         font-size: 16px;
         margin: 5px 24px;
     }
-`
+`;
+
 export const PresentImgContainer = styled.div`
     display: flex;
     height: 50%;
@@ -78,7 +125,8 @@ export const PresentImgContainer = styled.div`
         max-width: 95%;
     }
 `;
-export  const PresentInfo = styled.div`
+
+export const PresentInfo = styled.div`
     display: flex;
     flex-direction: column;
     margin-top: 48px;
@@ -92,4 +140,4 @@ export  const PresentInfo = styled.div`
     h2 {
         font-size: 10px;
     }
-`
+`;

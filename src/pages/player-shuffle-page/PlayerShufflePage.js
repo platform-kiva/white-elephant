@@ -33,7 +33,16 @@ export default function PlayerShufflePage() {
     const shuffleStatus = useSelector(selectShuffleStatus);
 
     useEffect(() => {
-        dispatch(setSystemNotification("Click Shuffle to randomize playing order"));
+        dispatch(setSystemNotification({
+            text: "Click Shuffle to randomize playing order",
+            player1: null,
+            player2: null,
+            present1Name: null,
+            present1Img: null,
+            present2Name: null,
+            present2Img: null,
+            type: "message"
+        }));
     }, [dispatch])
 
     useEffect(() => {

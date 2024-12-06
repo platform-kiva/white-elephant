@@ -46,14 +46,6 @@ export const setGameIsStarted = (status) => {
     return ({ type: GAME_ACTION_TYPES.SET_GAME_IS_STARTED, payload: status })
 }
 
-export const setSystemNotification = (text, img) => {
-    if (text) {
-        if (text && img) {
-            return ({ type: GAME_ACTION_TYPES.SET_SYSTEM_NOTIFICATION, payload: { text, img } });
-        } else {
-            return ({ type: GAME_ACTION_TYPES.SET_SYSTEM_NOTIFICATION, payload: { text } });
-        }
-    } else {
-        return ({ type: GAME_ACTION_TYPES.SET_SYSTEM_NOTIFICATION, payload: null });
-    }
+export const setSystemNotification = (notificationData) => {
+    return ({ type: GAME_ACTION_TYPES.SET_SYSTEM_NOTIFICATION, payload: notificationData });
 };

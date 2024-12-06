@@ -7,18 +7,31 @@ import {
   NotificationContainer,
   NotificationContent,
   NotificationText,
+  StealDisplayContainer,
+  StolenGoodsDisplay,
+  StealIcon,
   BtnContainer
 } from './Notification.styles';
+
+// assets
+import stealIcon from '../../assets/swap-icon.png';
 
 // components
 import Btn from '../btn/Btn';
 
-export default function Notification({ content }) {
+export default function Notification({ notificationData }) {
   const dispatch = useDispatch();
-  const { text, img } = content;
+  const {
+    text,
+    player1,
+    player2,
+    present1Img,
+    present2Img,
+    type
+  } = notificationData;
 
   const handleClose = (action) => {
-    dispatch(setSystemNotification());
+    dispatch(setSystemNotification(null));
     if (action === "end") {
       dispatch(setGameIsOver(true));
     }
@@ -42,17 +55,32 @@ export default function Notification({ content }) {
         transition={{ duration: 0.2 }}
         className="panel-bg"
       >
-        {img &&
-          <img src={img} alt={"Present"} />
+        {((type === 'open') || (type === "view")) &&
+          <img src={present1Img} alt={"Present"} />
         }
-        <NotificationText
-          initial="hidden"
-          animate="visible"
-          variants={fadeInUp}
-          custom={4 * 0.05}
-        >
-          {text}
-        </NotificationText>
+        {type === 'steal' &&
+          <StealDisplayContainer>
+            <StolenGoodsDisplay>
+              <img src={present1Img} alt={"Present"} />
+              <h3>{player1}</h3>
+            </StolenGoodsDisplay>
+            <StealIcon src={stealIcon} alt="steal icon" />
+            <StolenGoodsDisplay>
+              <img src={present2Img} alt={"Present"} />
+              <h3>{player2}</h3>
+            </StolenGoodsDisplay>
+          </StealDisplayContainer>
+        }
+        {text &&
+          <NotificationText
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            custom={4 * 0.05}
+          >
+            {text}
+          </NotificationText>
+        }
         <BtnContainer
           initial="hidden"
           animate="visible"

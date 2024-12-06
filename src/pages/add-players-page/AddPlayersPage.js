@@ -52,7 +52,17 @@ export default function AddPlayersPage() {
 
     useEffect(() => {
         if (!allUniqueNames) {
-            dispatch(setSystemNotification("Name has been used already"));
+            const notificationData = {
+                text: "Name has been used already.",
+                player1: null,
+                player2: null,
+                present1Name: null,
+                present1Img: null,
+                present2Name: null,
+                present2Img: null,
+                type: "message"
+              }
+            dispatch(setSystemNotification(notificationData));
         }
     }, [dispatch, allUniqueNames])
 

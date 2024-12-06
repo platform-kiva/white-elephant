@@ -16,18 +16,22 @@ import {
 // components
 import Notification from '../../components/notification/Notification.js';
 import Snowfall from 'react-snowfall';
+import { useEffect } from 'react';
 
 export default function Home() {
   const cardImgsUploaded = useSelector(selectCardImgsUploaded);
   const presentData = useSelector(selectPresentData);
   const systemNotification = useSelector(selectSystemNotification);
 
+  useEffect(() => {
+    console.log(systemNotification);
+  }, [systemNotification])
+
   return (
     <HomeContainer>
       <AnimatePresence>
-        {systemNotification && <Notification content={systemNotification} key="notification" />}
+        {systemNotification && <Notification notificationData={systemNotification} key="notification" />}
       </AnimatePresence>
-
       <Background>
         <Snowfall />
       </Background>
