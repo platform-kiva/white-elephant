@@ -21,6 +21,11 @@ export const HoverButtons = styled.div`
         cursor: pointer;
         font-size: 12px;
 
+        .invisible {
+            background: pink;
+            height: 500px;
+        }
+
         &:hover {
             background-color: rgba(255, 255, 255, 0.9);
             color: #000;
@@ -65,6 +70,9 @@ export const PresentContainer = styled.div`
 `;
 
 export const PresentUnopened = styled.div`
+    align-items: center;
+    display: flex;
+    justify-content: center;
     position: relative;
 
     img {

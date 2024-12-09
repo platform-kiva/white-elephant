@@ -24,6 +24,10 @@ export default function LandingPage() {
   const shuffleStatus = useSelector(selectShuffleStatus);
 
   useEffect(() => {
+    dispatch(resetGameState());
+  }, [dispatch])
+
+  useEffect(() => {
     if (shuffleStatus) {
       dispatch(resetGameState);
       dispatch(clearPlayers());

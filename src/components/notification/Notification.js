@@ -1,6 +1,8 @@
-import { useDispatch } from 'react-redux';
-import { fadeInUp } from '../../animations/Animations';
+import { useDispatch, useSelector } from 'react-redux';
 import { setGameIsOver, setSystemNotification } from '../../store/game/game.action';
+import { selectPresentData } from '../../store/presents/presents.selector';
+import { selectPlayerData } from '../../store/players/players.selector';
+import { fadeInUp } from '../../animations/Animations';
 
 // styles
 import {
@@ -21,14 +23,9 @@ import Btn from '../btn/Btn';
 
 export default function Notification({ notificationData }) {
   const dispatch = useDispatch();
-  const {
-    text,
-    player1,
-    player2,
-    present1Img,
-    present2Img,
-    type
-  } = notificationData;
+  const { text, player1Id, player2Id, present1Id, present2Id, type } = notificationData;
+  const playerData = useSelector(selectPlayerData);
+  const presentData = useSelector(selectPresentData);
 
   const handleClose = (action) => {
     dispatch(setSystemNotification(null));
@@ -56,18 +53,22 @@ export default function Notification({ notificationData }) {
         className="panel-bg"
       >
         {((type === 'open') || (type === "view")) &&
-          <img src={present1Img} alt={"Present"} />
+          <img src={presentData[present1Id].presentImg} alt={"Present"} />
         }
         {type === 'steal' &&
           <StealDisplayContainer>
             <StolenGoodsDisplay>
-              <img src={present1Img} alt={"Present"} />
-              <h3>{player1}</h3>
+              <img src={presentData[present2Id].presentImg} alt={"Present"} />
+              <h3>{playerData[player1Id].name}</h3>
             </StolenGoodsDisplay>
             <StealIcon src={stealIcon} alt="steal icon" />
             <StolenGoodsDisplay>
-              <img src={present2Img} alt={"Present"} />
-              <h3>{player2}</h3>
+              {present1Id === null ?
+                <h3>No gift</h3>
+                :
+                <img src={presentData[present1Id].presentImg} alt={"Present"} />
+              }
+              <h3>{playerData[player2Id].name}</h3>
             </StolenGoodsDisplay>
           </StealDisplayContainer>
         }

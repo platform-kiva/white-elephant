@@ -43,35 +43,31 @@ export default function PresentsDisplay({ endOfGame = false }) {
     if ((turnIndex === playerData.length) && (lastGiftStolen === null) && !systemNotification) {
       dispatch(setFirstPlayerReplayed(true));
       dispatch(setTurnIndex(0));
-      const notificationData = {
+      const moveData = {
         text: "The first player gets to go last, or may end the game.",
-        player1: null,
-        player2: null,
-        present1Name: null,
-        present1Img: null,
-        present2Name: null,
-        present2Img: null,
+        player1Id: null,
+        player2Id: null,
+        present1Id: null,
+        present2Id: null,
         type: "message"
       }
-      dispatch(setSystemNotification(notificationData))
+      dispatch(setSystemNotification(moveData))
     };
   }, [turnIndex, dispatch, playerData.length, lastGiftStolen, systemNotification]);
 
   const handleOpen = (playerID, presentID) => {
-    dispatch(addGameHistory(gameHistory, [playerID, "opened", presentID]));
-    const notificationData = {
+    const moveData = {
       text: `${playerData[playerID].name} opened ${presentData[presentID].name}`,
-      player1: `${playerData[playerID].name}`,
-      player2: null,
-      present1Name: `${presentData[presentID].name}`,
-      present1Img: presentData[presentID].presentImg,
-      present2Name: null,
-      present2Img: null,
+      player1Id: playerID,
+      player2Id: null,
+      present1Id: presentID,
+      present2Id: null,
       type: "open"
     }
-    dispatch(setSystemNotification(notificationData))
-    dispatch(addPresentHistory(playerData, playerID, presentID));
-    dispatch(addOwnerHistory(presentData, presentID, playerID, false));
+    dispatch(addGameHistory(gameHistory, moveData));
+    dispatch(setSystemNotification(moveData))
+    dispatch(addPresentHistory(playerData, moveData));
+    dispatch(addOwnerHistory(presentData, moveData));
     dispatch(setLastGiftStolen(null));
     dispatch(setStolenGiftTurnIndex(null));
 
@@ -85,49 +81,58 @@ export default function PresentsDisplay({ endOfGame = false }) {
 
   const handleSteal = (thief, victim, present) => {
     if (present.id !== lastGiftStolen) {
+      let moveData = {}
       if (present.stealsLeft !== 0) {
-        const notificationData = {
-          text: !firstPlayerReplayed ? `${playerData[thief].name} stole ${present.name} from ${playerData[victim].name}, who receives ${presentData[thief].name}. Now it is ${playerData[victim].name}'s turn to steal or open.` : `${playerData[thief].name} stole ${present.name} from ${playerData[victim].name}, who receives ${presentData[thief].name}. The game is now over.`,
-          player1: `${playerData[thief].name}`,
-          player2: `${playerData[victim].name}`,
-          present1Name: `${present.name}`,
-          present1Img: presentData[victim].presentImg,
-          present2Name: `${presentData[thief].name}`,
-          present2Img: presentData[thief].presentImg,
-          type: "steal"
+        if (playerData[thief].presentHistory.length !== 0) {
+          // swap occurs
+          moveData = {
+            text: `${playerData[thief].name} stole ${present.name} from ${playerData[victim].name}, who receives ${playerData[thief].presentHistory[playerData[thief].presentHistory.length - 1]}. Now it is ${playerData[victim].name}'s turn to steal or open.`,
+            player1Id: thief,
+            player2Id: victim,
+            present1Id: present.id,
+            present2Id: presentData[thief].ownerHistory[presentData[thief].ownerHistory.length - 1],
+            type: "steal"
+          }
+          dispatch(setSystemNotification(moveData));
+        } else {
+          // no swap occurs
+          moveData = {
+            text: `${playerData[thief].name} stole ${present.name} from ${playerData[victim].name}. Now it is ${playerData[victim].name}'s turn to steal or open.`,
+            player1Id: thief,
+            player2Id: victim,
+            present1Id: null,
+            present2Id: present.id,
+            type: "steal"
+          }
+          dispatch(setSystemNotification(moveData));
         }
-        dispatch(setSystemNotification(notificationData));
-        dispatch(addGameHistory(gameHistory, [thief, "stole", present.id, "from", victim]));
-        dispatch(addPresentHistory(playerData, thief, present.id));
-        dispatch(addOwnerHistory(presentData, present.id, thief, true));
+        dispatch(addGameHistory(gameHistory, moveData));
+        dispatch(addPresentHistory(playerData, moveData));
+        dispatch(addOwnerHistory(presentData, moveData));
         dispatch(setLastGiftStolen(present.id));
         dispatch(setStolenGiftTurnIndex(victim));
 
       } else {
-        const notificationData = {
+        const moveData = {
           text: "Present cannot be stolen any more times!",
-          player1: null,
-          player2: null,
-          present1Name: null,
-          present1Img: null,
-          present2Name: null,
-          present2Img: null,
+          player1Id: null,
+          player2Id: null,
+          present1Id: null,
+          present2Id: null,
           type: "message"
         }
-        dispatch(setSystemNotification(notificationData));
+        dispatch(setSystemNotification(moveData));
       };
     } else {
-      const notificationData = {
+      const moveData = {
         text: "You cannot immediately steal back the same gift!",
-        player1: null,
-        player2: null,
-        present1Name: null,
-        present1Img: null,
-        present2Name: null,
-        present2Img: null,
+        player1Id: null,
+        player2Id: null,
+        present1Id: null,
+        present2Id: null,
         type: "message"
       }
-      dispatch(setSystemNotification(notificationData));
+      dispatch(setSystemNotification(moveData));
     };
   };
 
@@ -135,18 +140,16 @@ export default function PresentsDisplay({ endOfGame = false }) {
     const thiefsPresent = playerData[thief].presentHistory[playerData[thief].presentHistory.length - 1];
     const victim = presentData[stolenPresent].ownerHistory[presentData[stolenPresent].ownerHistory.length - 1];
     const victimsPresent = playerData[victim].presentHistory[playerData[victim].presentHistory.length - 1];
-    dispatch(addGameHistory(gameHistory, [thief, "stole", victimsPresent, "from", victim], [victim, "is given", thiefsPresent, "from", thief]));
-    const notificationData = {
-      text: !firstPlayerReplayed ? `${playerData[thief].name} stole ${presentData[stolenPresent].name} from ${playerData[victim].name}, who receives ${presentData[thiefsPresent].name}. Now it is ${playerData[victim].name}'s turn to steal or open.` : `${playerData[thief].name} stole ${presentData[stolenPresent].name} from ${playerData[victim].name}, who receives ${presentData[thiefsPresent].name}. The game is now over.`,
-      player1: `${playerData[thief].name}`,
-      player2: `${playerData[victim].name}`,
-      present1Name: `${presentData[stolenPresent].name}`,
-      present1Img: presentData[stolenPresent].presentImg,
-      present2Name: `${presentData[thiefsPresent].name}`,
-      present2Img: presentData[thiefsPresent].presentImg,
+    const moveData = {
+      text: `${playerData[thief].name} stole ${presentData[stolenPresent].name} from ${playerData[victim].name}, who receives ${presentData[thiefsPresent].name}. The game is now over.`,
+      player1Id: thief,
+      player2Id: victim,
+      present1Id: thiefsPresent,
+      present2Id: victimsPresent,
       type: "steal"
     }
-    dispatch(setSystemNotification(notificationData));
+    dispatch(addGameHistory(gameHistory, moveData));
+    dispatch(setSystemNotification(moveData));
     dispatch(swapOwners(presentData, thief, victim, thiefsPresent, victimsPresent));
     dispatch(setGameIsOver());
   };
@@ -157,7 +160,6 @@ export default function PresentsDisplay({ endOfGame = false }) {
     }
     let player = null
     const present = presentData[presentID];
-    console.log("present: ", present)
     if (stolenGiftTurnIndex === null) {
       player = playerData[turnIndex].id;
     } else {

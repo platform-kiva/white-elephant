@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { shufflePlayers } from '../../store/players/players.action';
-import { setGameIsStarted, setShuffleStatus } from '../../store/game/game.action';
-import { shufflePresents } from '../../store/presents/presents.action.js';
+import { resetPlayerHistory, shufflePlayers } from '../../store/players/players.action';
+import { resetGameState, setGameIsStarted, setShuffleStatus } from '../../store/game/game.action';
+import { resetPresentsHistory, shufflePresents } from '../../store/presents/presents.action.js';
 import { selectPresentData } from '../../store/presents/presents.selector.js';
 import { selectShuffleStatus } from '../../store/game/game.selector';
 import { selectPlayerData } from '../../store/players/players.selector';
@@ -30,7 +30,20 @@ export default function PlayerShufflePage() {
     const navigate = useNavigate();
     const playerData = useSelector(selectPlayerData);
     const presentData = useSelector(selectPresentData);
+    const playerDataRef = useRef(playerData);
+    const presentDataRef = useRef(presentData);
     const shuffleStatus = useSelector(selectShuffleStatus);
+
+    useEffect(() => {
+        playerDataRef.current = playerData;
+        presentDataRef.current = presentData;
+    }, [playerData, presentData]);
+
+    useEffect(() => {
+        dispatch(resetGameState());
+        dispatch(resetPlayerHistory(playerDataRef.current));
+        dispatch(resetPresentsHistory(presentDataRef.current));
+    }, [dispatch]);
 
     useEffect(() => {
         dispatch(setSystemNotification({

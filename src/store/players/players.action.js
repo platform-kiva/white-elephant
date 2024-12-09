@@ -1,4 +1,4 @@
-import { PLAYERS_ACTION_TYPES } from "./players.types"
+import { PLAYERS_ACTION_TYPES } from "./players.types";
 
 const swapPresentsHelper = (playersArray, thief, victim, thiefsPresent, victimsPresent) => {
   return playersArray.map(player => {
@@ -18,7 +18,7 @@ const swapPresentsHelper = (playersArray, thief, victim, thiefsPresent, victimsP
 
 export const swapPresents = (playersArray, thief, victim, thiefsPresent, victimsPresent) => {
   const swappedPresentsArray = swapPresentsHelper(playersArray, thief, victim, thiefsPresent, victimsPresent)
-  return ({ type: PLAYERS_ACTION_TYPES.SWAP_PRESENTS, payload: swappedPresentsArray })
+  return ({ type: PLAYERS_ACTION_TYPES.SET_PLAYERS, payload: swappedPresentsArray })
 }
 
 const shuffleArray = (array) => {
@@ -38,7 +38,7 @@ const shuffleArray = (array) => {
 
 export const shufflePlayers = (playersArray) => {
   const shuffledPlayersArray = shuffleArray(playersArray);
-  return ({ type: PLAYERS_ACTION_TYPES.SHUFFLE_PLAYERS, payload: shuffledPlayersArray });
+  return ({ type: PLAYERS_ACTION_TYPES.SET_PLAYERS, payload: shuffledPlayersArray });
 };
 
 const removePresentHistoryHelper = (playersArray, playerID) => {
@@ -53,27 +53,60 @@ const removePresentHistoryHelper = (playersArray, playerID) => {
 
 export const removePresentHistory = (playersArray, playerID) => {
   const updatedArray = removePresentHistoryHelper(playersArray, playerID);
-  return ({ type: PLAYERS_ACTION_TYPES.REMOVE_PRESENT_HISTORY, payload: updatedArray });
+  return ({ type: PLAYERS_ACTION_TYPES.SET_PLAYERS, payload: updatedArray });
 };
 
-const addPresentHistoryHelper = (playersArray, playerID, presentID) => {
-  return playersArray.map((player) => {
-    if (player.id === playerID) {
-      const updatedHistory = player.presentHistory.map(turn => turn)
-      updatedHistory.push(presentID)
-      return { ...player, presentHistory: updatedHistory };
+const addPresentHistoryHelper = (playersArray, player1Id, player2Id, present1Id, present2Id) => {
+  if (player2Id === null) {
+    alert("move = Open");
+    return playersArray.map((player) => {
+      if (player.id === player1Id) {
+        const updatedHistory = player.presentHistory.map(present => present)
+        updatedHistory.push(present1Id)
+        return { ...player, presentHistory: updatedHistory };
+      }
+      return player;
+    });
+  } else {
+    alert("move = Steal");
+    if (present2Id === null) {
+      alert("move = Steal without swapping");
+      return playersArray.map((player) => {
+        if (player.id === player2Id) {
+          const updatedHistory = player.presentHistory.map(present => present)
+          updatedHistory.push(null)
+          return { ...player, presentHistory: updatedHistory };
+        }
+        return player;
+      });
+    } else {
+      alert("move = Steal with swapping")
+      return playersArray.map((player) => {
+        if (player.id === player2Id) {
+          const updatedHistory = player.presentHistory.map(present => present);
+          updatedHistory.push(present1Id);
+          return { ...player, presentHistory: updatedHistory };
+        } else {
+          if (player.id === player1Id) {
+            const updatedHistory = player.presentHistory.map(present => present);
+            updatedHistory.push(present2Id);
+            return { ...player, presentHistory: updatedHistory };
+          }
+        }
+        return player;
+      });
     }
-    return player;
-  });
+  }
 }
 
-export const addPresentHistory = (playersArray, playerID, presentID) => {
-  const updatedArray = addPresentHistoryHelper(playersArray, playerID, presentID);
-  return ({ type: PLAYERS_ACTION_TYPES.ADD_PRESENT_HISTORY, payload: updatedArray });
+export const addPresentHistory = (playersArray, moveData) => {
+  const { player1Id, player2Id, present1Id, present2Id } = moveData;
+  const updatedArray = addPresentHistoryHelper(playersArray, player1Id, player2Id, present1Id, present2Id);
+  return ({ type: PLAYERS_ACTION_TYPES.SET_PLAYERS, payload: updatedArray });
 };
 
 export const resetPlayersState = () => {
-  return ({ type: PLAYERS_ACTION_TYPES.RESET_PLAYERS_STATE })
+  return ({ type: PLAYERS_ACTION_TYPES.SET_PLAYERS, payload: [] })
 }
 
 export const addPlayer = (playerData, player) => {
@@ -94,4 +127,12 @@ export const removePlayer = (playerData, index) => {
 
 export const clearPlayers = () => {
   return ({ type: PLAYERS_ACTION_TYPES.SET_PLAYERS, payload: [] });
+}
+
+export const resetPlayerHistory = (playerData) => {
+  const resetPlayerData = playerData.map(player => ({
+    ...player,
+    presentHistory: []
+  }))
+  return ({ type: PLAYERS_ACTION_TYPES.SET_PLAYERS, payload: resetPlayerData });
 }

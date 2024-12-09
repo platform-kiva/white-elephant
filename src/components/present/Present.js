@@ -20,19 +20,16 @@ export default function Present({ present, handleAction }) {
     const gameIsOver = useSelector(selectGameIsOver);
 
     const handleView = () => {
-        const notificationData = {
+        const moveData = {
             text: present.name,
-            player1: null,
-            player2: null,
-            present1Name: null,
-            present1Img: present.presentImg,
-            present2Name: null,
-            present2Img: null,
+            player1Id: null,
+            player2Id: null,
+            present1Id: present.id,
+            present2Id: null,
             type: "view"
-          }
-        dispatch(setSystemNotification(notificationData))
-    }
-
+        };
+        dispatch(setSystemNotification(moveData));
+    };
 
     return (
         <PresentContainer>
@@ -55,14 +52,16 @@ export default function Present({ present, handleAction }) {
                     </OwnerContainer>
                     <HoverButtons>
                         <button onClick={handleView}>VIEW</button>
-                        <button onClick={() => handleAction(present.id)}>STEAL</button>
+                        {!gameIsOver &&
+                            <button onClick={() => handleAction(present.id)}>STEAL</button>
+                        }
                     </HoverButtons>
                 </PresentOpened>
             ) : (
                 <PresentUnopened>
                     <img src={present.coverImg} alt="gift graphic" />
                     <HoverButtons>
-                        <button onClick={() => handleAction(present.id)}>OPEN</button>
+                        <button className='invisible' onClick={() => handleAction(present.id)}>OPEN</button>
                     </HoverButtons>
                 </PresentUnopened>
             )}

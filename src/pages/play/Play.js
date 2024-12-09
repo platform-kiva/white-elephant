@@ -37,10 +37,8 @@ export default function Play() {
     }
   }, [navigate, gameIsOver])
 
-
   return (
     <PlayContainer>
-      {/* <Notification text={"Test Notification"}/> */}
       <PlayersDisplay />
       <PresentsDisplay />
     </PlayContainer >

@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { selectPlayerData } from '../../store/players/players.selector';
 import { selectPresentData } from '../../store/presents/presents.selector';
 import { setCardImgsUploaded, setPresents } from '../../store/presents/presents.action';
+import { resetGameState } from '../../store/game/game.action';
+import { resetPresentsHistory } from '../../store/presents/presents.action';
+import { resetPlayerHistory } from '../../store/players/players.action';
 import { fadeInUp } from '../../animations/Animations';
 
 // styles
@@ -39,21 +42,34 @@ import Btn from '../../components/btn/Btn';
 import ContentContainer from '../../components/content-container/ContentContainer';
 import PageTitle from '../../components/page-title/PageTitle';
 
+const coverImgsArray = [
+    P0_C, P1_C, P2_C, P3_C,
+    P4_C, P5_C, P6_C, P7_C,
+    P8_C, P9_C, P10_C, P11_C,
+    P12_C, P13_C, P14_C, P15_C, P16_C
+];
+
 export default function AddPresentsPage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const playerData = useSelector(selectPlayerData);
     const presentData = useSelector(selectPresentData);
+    const playerDataRef = useRef(playerData);
+    const presentDataRef = useRef(presentData);
     const [uploadedPhotos, setUploadedPhotos] = useState([]); // Track uploaded photos
     const [fileNames, setFileNames] = useState([]); // Track file names
     const [titles, setTitles] = useState([]); // Track titles for each present
 
-    const coverImgsArray = [
-        P0_C, P1_C, P2_C, P3_C,
-        P4_C, P5_C, P6_C, P7_C,
-        P8_C, P9_C, P10_C, P11_C,
-        P12_C, P13_C, P14_C, P15_C, P16_C
-    ]
+    useEffect(() => {
+        playerDataRef.current = playerData;
+        presentDataRef.current = presentData;
+    }, [playerData, presentData]);
+
+    useEffect(() => {
+        dispatch(resetGameState());
+        dispatch(resetPlayerHistory(playerDataRef.current));
+        dispatch(resetPresentsHistory(presentDataRef.current));
+    }, [dispatch]);
 
     useEffect(() => {
         if (playerData.length === 0) {
@@ -139,7 +155,7 @@ export default function AddPresentsPage() {
                     {playerData.map((_, index) => (
                         <PresentItem
                             key={index}
-                            hasImage={!!uploadedPhotos[index]} // True if the image exists
+                            $hasImage={!!uploadedPhotos[index]} // True if the image exists
                             initial="hidden"
                             animate="visible"
                             variants={fadeInUp}
@@ -162,7 +178,7 @@ export default function AddPresentsPage() {
                                 placeholder="Enter present title..."
                                 value={titles[index] || ""}
                                 onChange={(event) => handleTitleChange(event, index)}
-                                hasTitle={!!titles[index]?.trim()} // True if the title is not empty
+                                $hasTitle={!!titles[index]?.trim()} // True if the title is not empty
                             />
                         </PresentItem>
                     ))}

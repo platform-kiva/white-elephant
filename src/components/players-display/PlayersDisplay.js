@@ -19,6 +19,7 @@ import {
   PlayerNamesContainer,
   PlayerContainer,
   PlayerName,
+  PlayerInfo,
   TurnIcon
 } from './PlayersDisplay.styles.js';
 
@@ -37,27 +38,19 @@ export default function PlayersDisplay() {
 
   const handleUndo = () => {
     dispatch(setFirstPlayerReplayed(false));
-    if (gameHistory.length !== 0) {
-      const lastTurn = gameHistory.pop(-1);
-      const lastTurnWasASteal = lastTurn.length === 5 ? true : false;
-      if (!lastTurnWasASteal) {
-        dispatch(removeOwnerHistory(presentData, lastTurn[2], false))
-        dispatch(removePresentHistory(playerData, lastTurn[0], lastTurn[4]))
+    const previousMoveData = gameHistory.pop(-1);
+    dispatch(removeOwnerHistory(presentData, previousMoveData));
+    dispatch(removePresentHistory(playerData, previousMoveData));
+    dispatch(setTurnIndex(previousMoveData.player1Id));
+    const previousTurn = gameHistory[gameHistory.length - 1]
+    if (previousTurn) {
+      if (previousTurn.player2Id !== null) {
+        const previousTurn = gameHistory[gameHistory.length - 1];
+        dispatch(setLastGiftStolen(previousTurn.present1Id));
+        dispatch(setStolenGiftTurnIndex(previousTurn.player2Id));
       } else {
-        dispatch(removeOwnerHistory(presentData, lastTurn[2], true))
-        dispatch(removePresentHistory(playerData, lastTurn[5], lastTurn[2]))
-      };
-      dispatch(setTurnIndex(lastTurn[0]));
-      const previousTurn = gameHistory[gameHistory.length - 1]
-      if (previousTurn) {
-        if (previousTurn.length === 5) {
-          const previousTurn = gameHistory[gameHistory.length - 1];
-          dispatch(setLastGiftStolen(previousTurn[2]));
-          dispatch(setStolenGiftTurnIndex(previousTurn[4]));
-        } else {
-          dispatch(setLastGiftStolen(null));
-          dispatch(setStolenGiftTurnIndex(null));
-        };
+        dispatch(setLastGiftStolen(null));
+        dispatch(setStolenGiftTurnIndex(null));
       };
     };
   };
@@ -107,9 +100,12 @@ export default function PlayersDisplay() {
                 {player.name === playerData[stolenGiftTurnIndex === null ? turnIndex : stolenGiftTurnIndex].name &&
                   <TurnIcon src={turnIcon} alt='turn icon' />
                 }
-
-                <h2>{player.name}</h2>
-
+                <PlayerInfo>
+                  <h2>{player.name}</h2>
+                  {player.presentHistory.length > 0 && player.presentHistory[player.presentHistory.length - 1] !== null &&
+                    <h4>({presentData[player.presentHistory[player.presentHistory.length - 1]].name})</h4>
+                  }
+                </PlayerInfo>
                 {player.name === playerData[stolenGiftTurnIndex === null ? turnIndex : stolenGiftTurnIndex].name &&
                   <TurnIcon src={turnIcon} alt='turn icon' />
                 }

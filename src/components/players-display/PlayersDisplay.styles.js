@@ -76,14 +76,27 @@ export const PlayerName = styled.div`
     align-items: center;
     display: flex;
     gap: 8px;
+    justify-content: ${props => props.$isActive ? 'space-between' : 'center'};;
+    padding: 0px 8px;
+    width: 100%;
 
-    h2 {
+    h2, h4 {
         color: ${props => props.$isActive ? '#FFFFFF' : '#FFFFFF50'};
-        font-size: ${props => props.$isActive ? '16px' : '12px'};
         font-family: 'Roboto';
-        /* opacity: ${props => props.$isActive ? '1.0' : '0.5'}; */
+    }
+    h2 {
+        font-size: ${props => props.$isActive ? '16px' : '12px'};
         padding: 8px 0px;
     }
+    h4 {
+        font-size: ${props => props.$isActive ? '12px' : '8px'};
+        margin: 8px 0px;
+    }
+`
+export const PlayerInfo = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 8pxx;
 `
 export const TurnIcon = styled.img`
     height: 24px;

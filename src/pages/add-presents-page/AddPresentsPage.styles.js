@@ -36,7 +36,7 @@ export const PresentItem = styled(motion.div)`
     width: 100%;
 
     &:focus {
-        border: 2px solid ${(props) => (props.hasImage ? 'rgba(255, 255, 255, 1.0)' : 'rgba(255, 0, 0, 0.4)')};
+        border: ${props => props.$hasImage ? '2px solid rgba(255, 255, 255, 1.0)' : '2px solid rgba(255, 0, 0, 0.4)'};
         box-sizing: border-box;
         outline: none;
     }
@@ -47,7 +47,7 @@ export const PresentItem = styled(motion.div)`
 
     .custom-file-upload {
         background-color: none;
-        border: 2px solid ${(props) => (props.hasImage ? 'rgba(255, 255, 255, 1.0)' : 'rgba(255, 0, 0, 0.4)')};
+        border: ${props => props.$hasImage ? '2px solid rgba(255, 255, 255, 1.0)' : '2px solid rgba(255, 0, 0, 0.4)'};
         border-radius: 8px;
         box-sizing: border-box;
         cursor: pointer;
@@ -67,7 +67,7 @@ export const PresentItem = styled(motion.div)`
 `;
 export const TextInput = styled.input`
     background: none;
-    border: 2px solid ${(props) => (props.hasTitle ? 'rgba(255, 255, 255, 0.25)' : 'rgba(255, 0, 0, 0.4)')};
+    border: 2px solid ${(props) => (props.$hasTitle ? 'rgba(255, 255, 255, 0.25)' : 'rgba(255, 0, 0, 0.4)')};
     border-radius: 8px;
     box-sizing: border-box;
     color: #FFFFFF;

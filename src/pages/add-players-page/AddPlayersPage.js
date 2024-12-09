@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectPlayerData } from '../../store/players/players.selector';
-import { addPlayer, removePlayer } from '../../store/players/players.action';
+import { addPlayer, removePlayer, resetPlayerHistory } from '../../store/players/players.action';
 import { fadeInUp } from '../../animations/Animations.js';
-import { setSystemNotification } from '../../store/game/game.action.js';
+import { resetGameState, setSystemNotification } from '../../store/game/game.action.js';
+import { resetPresentsHistory } from '../../store/presents/presents.action.js';
+import { selectPresentData } from '../../store/presents/presents.selector.js';
 
 // styles
 import {
@@ -20,11 +22,26 @@ import Btn from '../../components/btn/Btn.js';
 import ContentContainer from '../../components/content-container/ContentContainer.js';
 import PageTitle from '../../components/page-title/PageTitle.js';
 
+
 export default function AddPlayersPage() {
     const dispatch = useDispatch();
     const playerData = useSelector(selectPlayerData);
+    const presentData = useSelector(selectPresentData);
+    const playerDataRef = useRef(playerData);
+    const presentDataRef = useRef(presentData);
     const allUniqueNames = playerData.length === new Set(playerData.map(player => player.name)).size;
     const [playerName, setPlayerName] = useState('');
+
+    useEffect(() => {
+        playerDataRef.current = playerData;
+        presentDataRef.current = presentData;
+    }, [playerData, presentData]);
+
+    useEffect(() => {
+        dispatch(resetGameState());
+        dispatch(resetPlayerHistory(playerDataRef.current));
+        dispatch(resetPresentsHistory(presentDataRef.current));
+    }, [dispatch]);
 
     const handleAddPlayer = () => {
         if (playerName.trim()) {
@@ -52,7 +69,7 @@ export default function AddPlayersPage() {
 
     useEffect(() => {
         if (!allUniqueNames) {
-            const notificationData = {
+            const moveData = {
                 text: "Name has been used already.",
                 player1: null,
                 player2: null,
@@ -61,8 +78,8 @@ export default function AddPlayersPage() {
                 present2Name: null,
                 present2Img: null,
                 type: "message"
-              }
-            dispatch(setSystemNotification(notificationData));
+            }
+            dispatch(setSystemNotification(moveData));
         }
     }, [dispatch, allUniqueNames])
 
@@ -103,7 +120,7 @@ export default function AddPlayersPage() {
                         return (
                             <PlayerItem
                                 key={playerData.length - 1 - index}
-                                isDuplicate={isDuplicate} // Pass the isDuplicate prop
+                                $isDuplicate={isDuplicate} // Pass the isDuplicate prop
                                 initial="hidden"
                                 animate="visible"
                                 variants={fadeInUp}
