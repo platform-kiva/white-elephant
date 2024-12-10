@@ -57,6 +57,16 @@ export const StolenGoodsDisplay = styled.div`
     flex-direction: column;
     gap: 8px;
 
+    .img-placeholder {
+        align-items: center;
+        border: 1px solid #FFFFFF;
+        border-radius: 8px;
+        display: flex;
+        height: 120px;
+        justify-content: center;
+        width: 100px;
+    }
+
     img {
         max-height: 120px;
     }

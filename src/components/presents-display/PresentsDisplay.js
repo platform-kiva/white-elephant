@@ -145,7 +145,7 @@ export default function PresentsDisplay({ endOfGame = false }) {
   };
 
   const handleSwap = (thiefId, stolenPresentId) => {
-    if (stolenPresentId.stealsLeft === 0) {
+    if (presentData[stolenPresentId].stealsLeft === 0) {
       const moveData = {
         text: "Present cannot be stolen any more times!",
         player1Id: null,

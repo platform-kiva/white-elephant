@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { selectPlayerData } from '../../store/players/players.selector.js'
-import { selectGameIsOver } from '../../store/game/game.selector.js'
+import { selectGameIsOver, selectTurnIndex } from '../../store/game/game.selector.js'
 import { setSystemNotification } from '../../store/game/game.action.js';
 
 // styles
@@ -16,8 +16,9 @@ import {
 
 export default function Present({ present, handleAction }) {
     const dispatch = useDispatch();
-    const playerData = useSelector(selectPlayerData);
     const gameIsOver = useSelector(selectGameIsOver);
+    const playerData = useSelector(selectPlayerData);
+    const turnIndex = useSelector(selectTurnIndex);
 
     const handleView = () => {
         const moveData = {
@@ -40,14 +41,16 @@ export default function Present({ present, handleAction }) {
                     </PresentImgContainer>
                     <PresentInfo>
                         <h1>{present.name}</h1>
-                        {!gameIsOver && <h2>Steals Left: {present.stealsLeft}</h2>}
+                        {!gameIsOver && 
+                            <h2>Steals Left: {present.stealsLeft}</h2>
+                        }
                     </PresentInfo>
                     <OwnerContainer>
                         <h2>{playerData[present.owner[present.owner.length - 1]].name}</h2>
                     </OwnerContainer>
                     <HoverButtons>
                         <button onClick={handleView}>VIEW</button>
-                        {!gameIsOver &&
+                        {(!gameIsOver) && (present.owner[present.owner.length - 1] !==turnIndex) &&
                             <button onClick={() => handleAction(present.id)}>STEAL</button>
                         }
                     </HoverButtons>

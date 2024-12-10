@@ -61,10 +61,14 @@ export default function Notification({ notificationData }) {
               <img src={presentData[present2Id].presentImg} alt={"Present"} />
               <h3>{playerData[player1Id].name}</h3>
             </StolenGoodsDisplay>
-            <StealIcon src={stealIcon} alt="steal icon" />
+            {present1Id !== null ?
+              <StealIcon src={stealIcon} alt="steal icon" />
+              :
+              <h2>&#8592;</h2>
+            }
             <StolenGoodsDisplay>
               {present1Id === null ?
-                <h3>No gift</h3>
+                <div className='img-placeholder' />
                 :
                 <img src={presentData[present1Id].presentImg} alt={"Present"} />
               }
