@@ -34,14 +34,14 @@ const swapOwnersHelper = (presentsArray, moveData) => {
 
   return presentsArray.map(present => {
     if (present.id === present2Id) {
-      const updatedHistory = present.ownerHistory.map(owner => owner);
-      updatedHistory.push(player1Id);
-      return { ...present, ownerHistory: updatedHistory };
+      const newOwnerArray = present.owner;
+      newOwnerArray.push(player1Id);
+      return { ...present, owner: newOwnerArray };
     }
     if (present.id === present1Id) {
-      const updatedHistory = present.ownerHistory.map(owner => owner);
-      updatedHistory.push(player2Id);
-      return { ...present, ownerHistory: updatedHistory };
+      const newOwnerArray = present.owner;
+      newOwnerArray.push(player2Id);
+      return { ...present, owner: newOwnerArray };
     }
     return present;
   });
@@ -52,22 +52,50 @@ export const swapOwners = (presentsArray, moveData) => {
 };
 
 
-const removeOwnerHistoryHelper = (presentsArray, presentID, wasStolen) => {
-  return presentsArray.map((present) => {
-    if (present.id === presentID) {
-      const updatedHistory = present.ownerHistory.slice(0, -1)
-      if (wasStolen) {
-        return { ...present, ownerHistory: updatedHistory, stealsLeft: present.stealsLeft + 1 };
-      } else {
-        return { ...present, ownerHistory: updatedHistory };
+const removeOwnerHistoryHelper = (presentData, previousMoveData) => {
+  const { present1Id, present2Id, type } = previousMoveData;
+
+  if (type === "open") {
+    return presentData.map((present) => {
+      if (present.id === present1Id) {
+        const newOwnerArray = present.owner;
+        newOwnerArray.pop();
+        return { ...present, owner: newOwnerArray };
       }
+      return present; // Return the unchanged object for all other cases
+    });
+  } else if (type === "steal") {
+    if (present1Id === null) {
+      // Undo no-swap steal
+      return presentData.map((present) => {
+        if (present.id === present2Id) {
+          const newOwnerArray = present.owner;
+          newOwnerArray.pop();
+          const newStealsLeft = present.stealsLeft + 1;
+          return { ...present, owner: newOwnerArray, stealsLeft: newStealsLeft };
+        }
+        return present; // Return the unchanged object for all other cases
+      });
+    } else {
+      // Undo swap steal
+      return presentData.map((present) => {
+        if (present.id === present1Id || present.id === present2Id) {
+          const newOwnerArray = present.owner;
+          newOwnerArray.pop();
+          const newStealsLeft = present.stealsLeft + 1;
+          return { ...present, owner: newOwnerArray, stealsLeft: newStealsLeft };
+        }
+        return present; // Return the unchanged object for all other cases
+      });
     }
-    return present;
-  });
-}
-export const removeOwnerHistory = (presentsArray, presentID, wasStolen) => {
-  const updatedArray = removeOwnerHistoryHelper(presentsArray, presentID, wasStolen)
-  return ({ type: PRESENTS_ACTION_TYPES.SET_PRESENTS, payload: updatedArray })
+  }
+  return presentData; // Default case, return the original array if no conditions are met
+};
+
+
+export const removeOwnerHistory = (presentData, previousMoveData) => {
+  const updatedPresentData = removeOwnerHistoryHelper(presentData, previousMoveData)
+  return ({ type: PRESENTS_ACTION_TYPES.SET_PRESENTS, payload: updatedPresentData })
 };
 
 const addOwnerHistoryHelper = (presentsArray, player1Id, player2Id, present1Id, present2Id) => {
@@ -75,9 +103,9 @@ const addOwnerHistoryHelper = (presentsArray, player1Id, player2Id, present1Id, 
     // move = Open
     return presentsArray.map((present) => {
       if (present.id === present1Id) {
-        const updatedHistory = present.ownerHistory.map(owner => owner)
-        updatedHistory.push(player1Id)
-        return { ...present, ownerHistory: updatedHistory };
+        const newOwnerArray = present.owner;
+        newOwnerArray.push(player1Id);
+        return { ...present, owner: newOwnerArray };
       }
       return present;
     });
@@ -87,9 +115,9 @@ const addOwnerHistoryHelper = (presentsArray, player1Id, player2Id, present1Id, 
       // move = Steal without swapping
       return presentsArray.map((present) => {
         if (present.id === present2Id) {
-          const updatedHistory = present.ownerHistory.map(owner => owner)
-          updatedHistory.push(player1Id)
-          return { ...present, ownerHistory: updatedHistory, stealsLeft: present.stealsLeft - 1 };
+          const newOwnerArray = present.owner;
+          newOwnerArray.push(player1Id);
+          return { ...present, owner: newOwnerArray, stealsLeft: present.stealsLeft - 1 };
         }
         return present;
       });
@@ -97,14 +125,14 @@ const addOwnerHistoryHelper = (presentsArray, player1Id, player2Id, present1Id, 
       // move = Steal with swapping
       return presentsArray.map((present) => {
         if (present.id === present2Id) {
-          const updatedHistory = present.ownerHistory.map(owner => owner);
-          updatedHistory.push(player1Id);
-          return { ...present, ownerHistory: updatedHistory, stealsLeft: present.stealsLeft - 1 };
+          const newOwnerArray = present.owner;
+          newOwnerArray.push(player1Id);
+          return { ...present, owner: newOwnerArray, stealsLeft: present.stealsLeft - 1 };
         } else {
           if (present.id === present1Id) {
-            const updatedHistory = present.ownerHistory.map(owner => owner);
-            updatedHistory.push(player2Id);
-            return { ...present, ownerHistory: updatedHistory };
+            const newOwnerArray = present.owner;
+            newOwnerArray.push(player2Id);
+            return { ...present, owner: newOwnerArray };
           }
         }
         return present;
@@ -118,12 +146,11 @@ export const addOwnerHistory = (presentsArray, moveData) => {
   return ({ type: PRESENTS_ACTION_TYPES.SET_PRESENTS, payload: updatedArray });
 };
 
-
-
 export const resetPresentsHistory = (presentData) => {
   const resetPresentsData = presentData.map(present => ({
     ...present,
-    ownerHistory: []
+    owner: [null],
+    stealsLeft: 3
   }))
   return ({ type: PRESENTS_ACTION_TYPES.SET_PRESENTS, payload: resetPresentsData });
 }

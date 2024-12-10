@@ -146,6 +146,9 @@ export const PresentInfo = styled.div`
         margin-bottom: 12px;
     }
     h2 {
+        border: 1px solid #FFFFFF;
+        border-radius: 100px;
         font-size: 10px;
+        padding: 2px 4px;
     }
 `;

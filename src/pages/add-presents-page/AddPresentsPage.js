@@ -119,7 +119,7 @@ export default function AddPresentsPage() {
         const presentPhotoData = uploadedPhotos.map((photo, index) => ({
             name: titles[index] || "Untitled Present",
             id: index,
-            ownerHistory: [],
+            owner: [],
             coverImg: coverImgsArray[Math.floor(Math.random() * coverImgsArray.length)], // Random cover image
             presentImg: photo,
             fileName: fileNames[index] || "",

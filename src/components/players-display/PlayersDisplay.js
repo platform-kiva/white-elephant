@@ -41,6 +41,7 @@ export default function PlayersDisplay() {
     const previousMoveData = gameHistory.pop(-1);
     dispatch(removeOwnerHistory(presentData, previousMoveData));
     dispatch(removePresentHistory(playerData, previousMoveData));
+
     dispatch(setTurnIndex(previousMoveData.player1Id));
     const previousTurn = gameHistory[gameHistory.length - 1]
     if (previousTurn) {
@@ -74,7 +75,7 @@ export default function PlayersDisplay() {
             variants={fadeInUp}
             custom={2 * 0.05}
           >
-            <div onClick={() => handleUndo()}>
+            <div onClick={handleUndo}>
               <Btn label={"UNDO MOVE"} isActive={gameHistory.length !== 0} />
             </div>
           </BtnContainer>
@@ -102,8 +103,8 @@ export default function PlayersDisplay() {
                 }
                 <PlayerInfo>
                   <h2>{player.name}</h2>
-                  {player.presentHistory.length > 0 && player.presentHistory[player.presentHistory.length - 1] !== null &&
-                    <h4>({presentData[player.presentHistory[player.presentHistory.length - 1]].name})</h4>
+                  {player.present[player.present.length - 1] !== null &&
+                    <h4>({presentData[player.present[player.present.length - 1]].name})</h4>
                   }
                 </PlayerInfo>
                 {player.name === playerData[stolenGiftTurnIndex === null ? turnIndex : stolenGiftTurnIndex].name &&

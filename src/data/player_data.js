@@ -24,31 +24,31 @@ export const PLAYER_DATA = [
     {
         name: 'Kiva',
         id: null,
-        presentHistory: []
+        present: null
     },
     {
         name: 'Moon',
         id: null,
-        presentHistory: []
+        present: null
     },
     {
         name: 'Seb',
         id: null,
-        presentHistory: []
+        present: null
     },
     {
         name: 'Mesh',
         id: null,
-        presentHistory: []
+        present: null
     },
     {
         name: 'Spence',
         id: null,
-        presentHistory: []
+        present: null
     },
     {
         name: 'Dave',
         id: null,
-        presentHistory: []
+        present: null
     }
 ]

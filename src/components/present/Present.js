@@ -33,7 +33,7 @@ export default function Present({ present, handleAction }) {
 
     return (
         <PresentContainer>
-            {present.ownerHistory.length !== 0 ? (
+            {present.owner[present.owner.length - 1] !== null ? (
                 <PresentOpened $bgCol={'255,255,255'}>
                     <PresentImgContainer>
                         <img src={present.presentImg} alt='present cover img' />
@@ -43,12 +43,7 @@ export default function Present({ present, handleAction }) {
                         {!gameIsOver && <h2>Steals Left: {present.stealsLeft}</h2>}
                     </PresentInfo>
                     <OwnerContainer>
-                        <h2>
-                            {
-                                playerData[present.ownerHistory[present.ownerHistory.length - 1]]
-                                    .name
-                            }
-                        </h2>
+                        <h2>{playerData[present.owner[present.owner.length - 1]].name}</h2>
                     </OwnerContainer>
                     <HoverButtons>
                         <button onClick={handleView}>VIEW</button>

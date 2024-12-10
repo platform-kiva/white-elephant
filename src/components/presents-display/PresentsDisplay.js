@@ -55,12 +55,13 @@ export default function PresentsDisplay({ endOfGame = false }) {
     };
   }, [turnIndex, dispatch, playerData.length, lastGiftStolen, systemNotification]);
 
-  const handleOpen = (playerID, presentID) => {
+  const handleOpen = (playerId, presentId) => {
+    console.log("playerId: ", playerId, "presentId: ", presentId);
     const moveData = {
-      text: `${playerData[playerID].name} opened ${presentData[presentID].name}`,
-      player1Id: playerID,
+      text: `${playerData[playerId].name} opened ${presentData[presentId].name}`,
+      player1Id: playerId,
       player2Id: null,
-      present1Id: presentID,
+      present1Id: presentId,
       present2Id: null,
       type: "open"
     }
@@ -79,51 +80,13 @@ export default function PresentsDisplay({ endOfGame = false }) {
     };
   };
 
-  const handleSteal = (thief, victim, present) => {
-    if (present.id !== lastGiftStolen) {
-      let moveData = {}
-      if (present.stealsLeft !== 0) {
-        if (playerData[thief].presentHistory.length !== 0) {
-          // swap occurs
-          moveData = {
-            text: `${playerData[thief].name} stole ${present.name} from ${playerData[victim].name}, who receives ${playerData[thief].presentHistory[playerData[thief].presentHistory.length - 1]}. Now it is ${playerData[victim].name}'s turn to steal or open.`,
-            player1Id: thief,
-            player2Id: victim,
-            present1Id: present.id,
-            present2Id: presentData[thief].ownerHistory[presentData[thief].ownerHistory.length - 1],
-            type: "steal"
-          }
-          dispatch(setSystemNotification(moveData));
-        } else {
-          // no swap occurs
-          moveData = {
-            text: `${playerData[thief].name} stole ${present.name} from ${playerData[victim].name}. Now it is ${playerData[victim].name}'s turn to steal or open.`,
-            player1Id: thief,
-            player2Id: victim,
-            present1Id: null,
-            present2Id: present.id,
-            type: "steal"
-          }
-          dispatch(setSystemNotification(moveData));
-        }
-        dispatch(addGameHistory(gameHistory, moveData));
-        dispatch(addPresentHistory(playerData, moveData));
-        dispatch(addOwnerHistory(presentData, moveData));
-        dispatch(setLastGiftStolen(present.id));
-        dispatch(setStolenGiftTurnIndex(victim));
+  const handleSteal = (thiefId, presentId) => {
+    // stolen present
+    const present = presentData[presentId];
+    const victimId = presentData[presentId].owner[presentData[presentId].owner.length - 1];
 
-      } else {
-        const moveData = {
-          text: "Present cannot be stolen any more times!",
-          player1Id: null,
-          player2Id: null,
-          present1Id: null,
-          present2Id: null,
-          type: "message"
-        }
-        dispatch(setSystemNotification(moveData));
-      };
-    } else {
+    // blocked move
+    if (presentId === lastGiftStolen) {
       const moveData = {
         text: "You cannot immediately steal back the same gift!",
         player1Id: null,
@@ -133,45 +96,103 @@ export default function PresentsDisplay({ endOfGame = false }) {
         type: "message"
       }
       dispatch(setSystemNotification(moveData));
-    };
-  };
+      return;
+    }
 
-  const handleSwap = (thief, stolenPresent) => {
-    const thiefsPresent = playerData[thief].presentHistory[playerData[thief].presentHistory.length - 1];
-    const victim = presentData[stolenPresent].ownerHistory[presentData[stolenPresent].ownerHistory.length - 1];
-    const victimsPresent = playerData[victim].presentHistory[playerData[victim].presentHistory.length - 1];
-    const moveData = {
-      text: `${playerData[thief].name} stole ${presentData[stolenPresent].name} from ${playerData[victim].name}, who receives ${presentData[thiefsPresent].name}. The game is now over.`,
-      player1Id: thief,
-      player2Id: victim,
-      present1Id: thiefsPresent,
-      present2Id: victimsPresent,
-      type: "steal"
+    // blocked move
+    if (present.stealsLeft === 0) {
+      const moveData = {
+        text: "Present cannot be stolen any more times!",
+        player1Id: null,
+        player2Id: null,
+        present1Id: null,
+        present2Id: null,
+        type: "message"
+      }
+      dispatch(setSystemNotification(moveData));
+      return;
+    }
+
+    let moveData = {}
+    if (playerData[thiefId].present[playerData[thiefId].present.length - 1] !== null) {
+      // present swap occurs
+      moveData = {
+        text: `${playerData[thiefId].name} stole ${present.name} from ${playerData[victimId].name}, who receives ${playerData[thiefId].present[playerData[thiefId].present.length - 1]}. Now it is ${playerData[victimId].name}'s turn to steal or open.`,
+        player1Id: thiefId,
+        player2Id: victimId,
+        present1Id: present.id,
+        present2Id: presentData[thiefId].owner[presentData[thiefId].owner.length - 1],
+        type: "steal"
+      }
+      dispatch(setSystemNotification(moveData));
+    } else {
+      // no swap occurs
+      moveData = {
+        text: `${playerData[thiefId].name} stole ${present.name} from ${playerData[victimId].name}. Now it is ${playerData[victimId].name}'s turn to steal or open.`,
+        player1Id: thiefId,
+        player2Id: victimId,
+        present1Id: null,
+        present2Id: present.id,
+        type: "steal"
+      }
+      dispatch(setSystemNotification(moveData));
     }
     dispatch(addGameHistory(gameHistory, moveData));
-    dispatch(setSystemNotification(moveData));
-    dispatch(swapOwners(presentData, thief, victim, thiefsPresent, victimsPresent));
-    dispatch(setGameIsOver());
+    dispatch(addPresentHistory(playerData, moveData));
+    dispatch(addOwnerHistory(presentData, moveData));
+    dispatch(setLastGiftStolen(present.id));
+    dispatch(setStolenGiftTurnIndex(victimId));
   };
 
-  const handleAction = (presentID) => {
+  const handleSwap = (thiefId, stolenPresentId) => {
+    if (stolenPresentId.stealsLeft === 0) {
+      const moveData = {
+        text: "Present cannot be stolen any more times!",
+        player1Id: null,
+        player2Id: null,
+        present1Id: null,
+        present2Id: null,
+        type: "message"
+      };
+      dispatch(setSystemNotification(moveData));
+      return;
+    } else {
+      const thiefsPresent = playerData[thiefId].present[playerData[thiefId].present.length - 1];
+      const victim = presentData[stolenPresentId].owner[presentData[stolenPresentId].owner.length - 1];
+      const victimsPresent = playerData[victim].present[playerData[victim].present.length - 1];
+      const moveData = {
+        text: `${playerData[thiefId].name} stole ${presentData[stolenPresentId].name} from ${playerData[victim].name}, who receives ${presentData[thiefsPresent].name}. The game is now over.`,
+        player1Id: thiefId,
+        player2Id: victim,
+        present1Id: thiefsPresent,
+        present2Id: victimsPresent,
+        type: "steal"
+      }
+      dispatch(addGameHistory(gameHistory, moveData));
+      dispatch(setSystemNotification(moveData));
+      dispatch(swapOwners(presentData, moveData));
+      dispatch(setGameIsOver());
+    }
+  };
+
+  const handleAction = (presentId) => {
     if (gameIsOver) {
       return;
     }
-    let player = null
-    const present = presentData[presentID];
+    let player = null;
+    const present = presentData[presentId];
     if (stolenGiftTurnIndex === null) {
-      player = playerData[turnIndex].id;
+      player = playerData[turnIndex];
     } else {
-      player = playerData[stolenGiftTurnIndex].id;
+      player = playerData[stolenGiftTurnIndex];
     }
-    if (present.ownerHistory.length === 0) {
-      handleOpen(player, present.id);
+    if (present.owner[present.owner.length - 1] === null) {
+      handleOpen(player.id, present.id);
     } else {
       if (!firstPlayerReplayed) {
-        handleSteal(player, present.ownerHistory[present.ownerHistory.length - 1], present);
+        handleSteal(player.id, presentId);
       } else {
-        handleSwap(player, presentID);
+        handleSwap(player.id, presentId);
       }
     }
   }

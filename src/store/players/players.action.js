@@ -3,14 +3,14 @@ import { PLAYERS_ACTION_TYPES } from "./players.types";
 const swapPresentsHelper = (playersArray, thief, victim, thiefsPresent, victimsPresent) => {
   return playersArray.map(player => {
     if (player.id === thief) {
-      const updatedHistory = player.presentHistory.map(present => present)
-      updatedHistory.push(victimsPresent)
-      return { ...player, presentHistory: updatedHistory }
+      const newPresentArray = player.present;
+      newPresentArray.push(victimsPresent);
+      return { ...player, present: newPresentArray }
     }
     if (player.id === victim) {
-      const updatedHistory = player.presentHistory.map(present => present)
-      updatedHistory.push(thiefsPresent)
-      return { ...player, presentHistory: updatedHistory }
+      const newPresentArray = player.present;
+      newPresentArray.push(thiefsPresent);
+      return { ...player, present: newPresentArray }
     }
     return player;
   });
@@ -41,18 +41,56 @@ export const shufflePlayers = (playersArray) => {
   return ({ type: PLAYERS_ACTION_TYPES.SET_PLAYERS, payload: shuffledPlayersArray });
 };
 
-const removePresentHistoryHelper = (playersArray, playerID) => {
-  return playersArray.map((player) => {
-    if (player.id === playerID) {
-      const updatedHistory = player.presentHistory.slice(0, -1)
-      return { ...player, presentHistory: updatedHistory };
-    }
-    return player;
-  });
-}
+const removePresentHistoryHelper = (playerData, previousMoveData) => {
+  const { player1Id, player2Id, present1Id, type } = previousMoveData;
 
-export const removePresentHistory = (playersArray, playerID) => {
-  const updatedArray = removePresentHistoryHelper(playersArray, playerID);
+  if (type === "open") {
+    return playerData.map((player) => {
+      if (player.id === player1Id) {
+        const newPresentArray = player.present;
+        newPresentArray.pop();
+        return {
+          ...player,
+          present: newPresentArray, // Set present to null
+        };
+      }
+      return player; // Return the unchanged player for other cases
+    });
+  } else if (type === "steal") {
+    if (present1Id === null) {
+      // Undo no-swap steal
+      return playerData.map((player) => {
+        if (player.id === player1Id || player.id === player2Id) {
+          const newPresentArray = player.present;
+          newPresentArray.pop();
+          return {
+            ...player,
+            present: newPresentArray, // Set present to null
+          };
+        }
+        return player; // Return the unchanged player for other cases
+      });
+    } else {
+      // Undo swap steal
+      return playerData.map((player) => {
+        if (player.id === player1Id || player.id === player2Id) {
+          const newPresentArray = player.present;
+          newPresentArray.pop();
+          return {
+            ...player,
+            present: newPresentArray, // Set present to null
+          };
+        }
+        return player; // Return the unchanged player for other cases
+      });
+    }
+  }
+  // Default case: return original playerData if no conditions are met
+  return playerData;
+};
+
+export const removePresentHistory = (playerData, previousMoveData) => {
+  const updatedArray = removePresentHistoryHelper(playerData, previousMoveData);
   return ({ type: PLAYERS_ACTION_TYPES.SET_PLAYERS, payload: updatedArray });
 };
 
@@ -61,9 +99,9 @@ const addPresentHistoryHelper = (playersArray, player1Id, player2Id, present1Id,
     alert("move = Open");
     return playersArray.map((player) => {
       if (player.id === player1Id) {
-        const updatedHistory = player.presentHistory.map(present => present)
-        updatedHistory.push(present1Id)
-        return { ...player, presentHistory: updatedHistory };
+        const newPresentArray = player.present;
+        newPresentArray.push(present1Id)
+        return { ...player, present: newPresentArray };
       }
       return player;
     });
@@ -73,9 +111,9 @@ const addPresentHistoryHelper = (playersArray, player1Id, player2Id, present1Id,
       alert("move = Steal without swapping");
       return playersArray.map((player) => {
         if (player.id === player2Id) {
-          const updatedHistory = player.presentHistory.map(present => present)
-          updatedHistory.push(null)
-          return { ...player, presentHistory: updatedHistory };
+          const newPresentArray = player.present;
+          newPresentArray.push(null);
+          return { ...player, present: newPresentArray };
         }
         return player;
       });
@@ -83,14 +121,14 @@ const addPresentHistoryHelper = (playersArray, player1Id, player2Id, present1Id,
       alert("move = Steal with swapping")
       return playersArray.map((player) => {
         if (player.id === player2Id) {
-          const updatedHistory = player.presentHistory.map(present => present);
-          updatedHistory.push(present1Id);
-          return { ...player, presentHistory: updatedHistory };
+          const newPresentArray = player.present;
+          newPresentArray.push(present1Id);
+          return { ...player, present: newPresentArray };
         } else {
           if (player.id === player1Id) {
-            const updatedHistory = player.presentHistory.map(present => present);
-            updatedHistory.push(present2Id);
-            return { ...player, presentHistory: updatedHistory };
+            const newPresentArray = player.present;
+            newPresentArray.push(present2Id);
+            return { ...player, present: newPresentArray };
           }
         }
         return player;
@@ -113,7 +151,7 @@ export const addPlayer = (playerData, player) => {
   const playerObject = {
     name: player,
     id: null,
-    presentHistory: []
+    present: [null]
   };
 
   const newPlayerDataArray = [...playerData, playerObject]
@@ -132,7 +170,7 @@ export const clearPlayers = () => {
 export const resetPlayerHistory = (playerData) => {
   const resetPlayerData = playerData.map(player => ({
     ...player,
-    presentHistory: []
+    present: [null]
   }))
   return ({ type: PLAYERS_ACTION_TYPES.SET_PLAYERS, payload: resetPlayerData });
 }

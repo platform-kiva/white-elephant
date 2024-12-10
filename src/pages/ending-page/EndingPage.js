@@ -89,7 +89,7 @@ export default function EndingPage() {
                             variants={fadeInUp}
                             custom={5 * 0.1}
                         >
-                            Want to support our small business or leave a tip? Scan the QR code below ❤️
+                            Want to support a small business? Scan the QR code below ❤️
                         </motion.p>
                     </VenmoContainer>
                 </EndOfGameHeader>
