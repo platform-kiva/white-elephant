@@ -56,9 +56,9 @@ export default function AddPresentsPage() {
     const presentData = useSelector(selectPresentData);
     const playerDataRef = useRef(playerData);
     const presentDataRef = useRef(presentData);
-    const [uploadedPhotos, setUploadedPhotos] = useState([]); // Track uploaded photos
-    const [fileNames, setFileNames] = useState([]); // Track file names
-    const [titles, setTitles] = useState([]); // Track titles for each present
+    const [uploadedPhotos, setUploadedPhotos] = useState([]);
+    const [fileNames, setFileNames] = useState([]);
+    const [titles, setTitles] = useState([]);
 
     useEffect(() => {
         playerDataRef.current = playerData;
@@ -120,19 +120,13 @@ export default function AddPresentsPage() {
             name: titles[index] || "Untitled Present",
             id: index,
             owner: [],
-            coverImg: coverImgsArray[Math.floor(Math.random() * coverImgsArray.length)], // Random cover image
+            coverImg: coverImgsArray[Math.floor(Math.random() * coverImgsArray.length)],
             presentImg: photo,
             fileName: fileNames[index] || "",
             stealsLeft: 3,
         }));
-
-        // scramble data
-
-        // Dispatch the data to Redux
         dispatch(setPresents(presentPhotoData));
         dispatch(setCardImgsUploaded(true));
-
-        // Navigate to the next page
         navigate('/shuffle-players');
     };
 
@@ -155,7 +149,7 @@ export default function AddPresentsPage() {
                     {playerData.map((_, index) => (
                         <PresentItem
                             key={index}
-                            $hasImage={!!uploadedPhotos[index]} // True if the image exists
+                            $hasImage={!!uploadedPhotos[index]}
                             initial="hidden"
                             animate="visible"
                             variants={fadeInUp}
@@ -178,7 +172,7 @@ export default function AddPresentsPage() {
                                 placeholder="Enter present title..."
                                 value={titles[index] || ""}
                                 onChange={(event) => handleTitleChange(event, index)}
-                                $hasTitle={!!titles[index]?.trim()} // True if the title is not empty
+                                $hasTitle={!!titles[index]?.trim()}
                             />
                         </PresentItem>
                     ))}

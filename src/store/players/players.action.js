@@ -96,7 +96,6 @@ export const removePresentHistory = (playerData, previousMoveData) => {
 
 const addPresentHistoryHelper = (playersArray, player1Id, player2Id, present1Id, present2Id) => {
   if (player2Id === null) {
-    alert("move = Open");
     return playersArray.map((player) => {
       if (player.id === player1Id) {
         const newPresentArray = player.present;
@@ -106,9 +105,7 @@ const addPresentHistoryHelper = (playersArray, player1Id, player2Id, present1Id,
       return player;
     });
   } else {
-    alert("move = Steal");
     if (present2Id === null) {
-      alert("move = Steal without swapping");
       return playersArray.map((player) => {
         if (player.id === player2Id) {
           const newPresentArray = player.present;
@@ -118,7 +115,6 @@ const addPresentHistoryHelper = (playersArray, player1Id, player2Id, present1Id,
         return player;
       });
     } else {
-      alert("move = Steal with swapping")
       return playersArray.map((player) => {
         if (player.id === player2Id) {
           const newPresentArray = player.present;
