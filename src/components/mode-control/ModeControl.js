@@ -11,25 +11,15 @@ import {
 import moonIcon from '../../assets/moon-icon.svg';
 import sunIcon from '../../assets/sun-icon.svg';
 
-
-const gradientColors = [
-    '#232c3b', // Night
-    '#2e3a4e', // Early Dawn
-    '#3e5671', // Morning
-    '#5d82a3', // Late Morning
-    '#7fb4d1', // Noon Sky
-    '#9ccae2', // Light Blue Sky
-];
-
-
 export default function ModeControl() {
     const dispatch = useDispatch();
     const [sliderValue, setSliderValue] = useState(50);
-    const backgroundColor = gradientColors[Math.floor((sliderValue / 100) * (gradientColors.length - 1))];
+
 
     useEffect(() => {
-        dispatch(setBackgroundColor(backgroundColor));
-    }, [dispatch, backgroundColor])
+        dispatch(setBackgroundColor(sliderValue));
+        console.log("hi")
+    }, [dispatch, sliderValue])
 
     return (
         <ModeControlContainer>
