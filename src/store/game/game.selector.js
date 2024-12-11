@@ -38,3 +38,7 @@ export const selectTurnIndex = createSelector(
     [selectGameReducer],
     (gameSlice) => gameSlice.turnIndex
 );
+export const selectBackgroundColor = createSelector(
+    [selectGameReducer],
+    (gameSlice) => gameSlice.backgroundColor
+);

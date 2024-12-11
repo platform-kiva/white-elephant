@@ -18,9 +18,15 @@ export const GameLogoContainer = styled.div`
     align-items: center;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    max-width: 376px;
+    gap: 24px;
+    max-width: 280px;
     width: 90%;
+`
+export const BtnContainerContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
 `
 export const BtnContainer = styled(motion.div)`
     max-width: 500px;

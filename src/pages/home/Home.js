@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { AnimatePresence } from 'framer-motion';
@@ -14,9 +15,10 @@ import {
 } from './Home.styles.js';
 
 // components
+import BG from '../../components/bg/BG.js';
 import Notification from '../../components/notification/Notification.js';
 import Snowfall from 'react-snowfall';
-import { useEffect } from 'react';
+
 
 export default function Home() {
   const cardImgsUploaded = useSelector(selectCardImgsUploaded);
@@ -45,6 +47,7 @@ export default function Home() {
           })}
         </ImgContainer>
       }
+      <BG />
     </HomeContainer>
   )
 };

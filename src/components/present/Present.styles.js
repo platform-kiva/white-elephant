@@ -135,20 +135,30 @@ export const PresentImgContainer = styled.div`
 `;
 
 export const PresentInfo = styled.div`
+    align-items: center;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    margin-top: 48px;
+    margin-top: 24px;
+    padding: 0px 4px;
     text-align: center;
+    width: 100%;
 
     h1 {
         font-family: 'Roboto Condensed';
         font-size: 12px;
         margin-bottom: 12px;
+        max-width: 100%;
+        overflow-x: hidden;
+        position: relative;
     }
+
     h2 {
         border: 1px solid #FFFFFF;
         border-radius: 100px;
         font-size: 10px;
+        max-width: 80px;
         padding: 2px 4px;
+        overflow-x: hidden;
     }
 `;

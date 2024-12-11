@@ -41,7 +41,7 @@ export default function Present({ present, handleAction }) {
                     </PresentImgContainer>
                     <PresentInfo>
                         <h1>{present.name}</h1>
-                        {!gameIsOver && 
+                        {!gameIsOver &&
                             <h2>Steals Left: {present.stealsLeft}</h2>
                         }
                     </PresentInfo>
@@ -50,18 +50,19 @@ export default function Present({ present, handleAction }) {
                     </OwnerContainer>
                     <HoverButtons>
                         <button onClick={handleView}>VIEW</button>
-                        {(!gameIsOver) && (present.owner[present.owner.length - 1] !==turnIndex) &&
+                        {(!gameIsOver) && (present.owner[present.owner.length - 1] !== turnIndex) &&
                             <button onClick={() => handleAction(present.id)}>STEAL</button>
                         }
                     </HoverButtons>
                 </PresentOpened>
             ) : (
-                <PresentUnopened>
-                    <img src={present.coverImg} alt="gift graphic" />
-                    <HoverButtons>
-                        <button className='invisible' onClick={() => handleAction(present.id)}>OPEN</button>
-                    </HoverButtons>
-                </PresentUnopened>
+                <div onClick={() => handleAction(present.id)}>
+                    <PresentUnopened>
+                        <img src={present.coverImg} alt="gift graphic" />
+                        <HoverButtons>
+                        </HoverButtons>
+                    </PresentUnopened>
+                </div>
             )}
         </PresentContainer>
     );

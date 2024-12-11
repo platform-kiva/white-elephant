@@ -10,6 +10,7 @@ export const GAME_INITIAL_STATE = {
     stolenGiftTurnIndex: null,
     systemNotification: null,
     turnIndex: 0,
+    backgroundColor: 50
 };
 
 export const gameReducer = (state = GAME_INITIAL_STATE, action = {}) => {
@@ -46,6 +47,8 @@ export const gameReducer = (state = GAME_INITIAL_STATE, action = {}) => {
             return { ...state, systemNotification: payload };
         case GAME_ACTION_TYPES.SET_TURN_INDEX:
             return { ...state, turnIndex: payload }
+        case GAME_ACTION_TYPES.SET_BG_COLOR:
+            return { ...state, backgroundColor: payload }
         default:
             return state;
     }

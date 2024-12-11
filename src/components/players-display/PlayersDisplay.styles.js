@@ -51,7 +51,7 @@ export const PlayerNamesContainer = styled.div`
 `
 export const PlayerContainer = styled(motion.div)`
     align-items: center;
-    background: rgba(255,255,255,0.25);
+    background: rgba(0,0,0,0.25);
     border: ${props => props.$isActive ? '2px solid #FFFFFF80' : ''};
     border-radius: 8px;
     box-sizing: border-box;
@@ -74,6 +74,7 @@ export const PlayerContainer = styled(motion.div)`
 `
 export const PlayerName = styled.div`
     align-items: center;
+    box-sizing: border-box;
     display: flex;
     gap: 8px;
     justify-content: ${props => props.$isActive ? 'space-between' : 'center'};;
@@ -81,7 +82,7 @@ export const PlayerName = styled.div`
     width: 100%;
 
     h2, h4 {
-        color: ${props => props.$isActive ? '#FFFFFF' : '#FFFFFF50'};
+        color: ${props => props.$isActive ? '#FFFFFF' : '#FFFFFF80'};
         font-family: 'Roboto';
     }
     h2 {
@@ -89,14 +90,13 @@ export const PlayerName = styled.div`
         padding: 8px 0px;
     }
     h4 {
-        font-size: ${props => props.$isActive ? '12px' : '8px'};
+        font-size: ${props => props.$isActive ? '16px' : '12px'};
         margin: 8px 0px;
     }
 `
 export const PlayerInfo = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 8pxx;
 `
 export const TurnIcon = styled.img`
     height: 24px;

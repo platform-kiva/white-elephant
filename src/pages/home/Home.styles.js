@@ -18,7 +18,7 @@ export const OutletContainer = styled.div`
     }
 `
 export const Background = styled.div`
-    background-color: #232c3b;
+    /* background-color: #232c3b; */
     background-size: auto 200px;
     background-repeat: no-repeat;
     height: 100vh;

@@ -41,6 +41,7 @@ export const NotificationText = styled(motion.h3)`
     font-size: 24px;
     font-weight: 500;
     padding: 8px 0px;
+    overflow-x: hidden;
 `
 export const StealDisplayContainer = styled.div`
     align-items: center;

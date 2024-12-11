@@ -39,3 +39,6 @@ export const resetGameState = () => {
 export const setSystemNotification = (notificationData) => {
     return ({ type: GAME_ACTION_TYPES.SET_SYSTEM_NOTIFICATION, payload: notificationData });
 };
+export const setBackgroundColor = (val) => {
+    return ({ type: GAME_ACTION_TYPES.SET_BG_COLOR, payload: val });
+}

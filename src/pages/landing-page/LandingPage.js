@@ -11,6 +11,7 @@ import { resetPresentsState } from '../../store/presents/presents.action.js';
 import {
   LandingPageContainer,
   GameLogoContainer,
+  BtnContainerContainer,
   BtnContainer
 } from './LandingPage.styles.js';
 
@@ -40,25 +41,27 @@ export default function LandingPage() {
     <LandingPageContainer>
       <GameLogoContainer>
         <GameLogo size={"regular"} />
-        <BtnContainer
-          initial="hidden"
-          animate="visible"
-          variants={fadeInUp}
-          custom={4 * 0.05}
-        >
-          <Btn
-            label={"START"}
-            navTo={"/add-players"}
-          />
-        </BtnContainer>
-        <BtnContainer
-          initial="hidden"
-          animate="visible"
-          variants={fadeInUp}
-          custom={6 * 0.05}
-        >
-          <Btn label={"RULES"} navTo={"/rules"} />
-        </BtnContainer>
+        <BtnContainerContainer style={{ width: '100%' }}>
+          <BtnContainer
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            custom={4 * 0.05}
+          >
+            <Btn
+              label={"START"}
+              navTo={"/add-players"}
+            />
+          </BtnContainer>
+          <BtnContainer
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            custom={6 * 0.05}
+          >
+            <Btn label={"RULES"} navTo={"/rules"} />
+          </BtnContainer>
+        </BtnContainerContainer>
       </GameLogoContainer>
     </LandingPageContainer>
   )

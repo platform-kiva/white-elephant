@@ -27,6 +27,7 @@ import {
 import Btn from '../btn/Btn';
 import GameLogo from '../game-logo/GameLogo';
 import GameHistory from '../game-history/GameHistory';
+import ModeControl from '../mode-control/ModeControl.js';
 
 export default function PlayersDisplay() {
   const dispatch = useDispatch();
@@ -61,6 +62,7 @@ export default function PlayersDisplay() {
       <GameLogoContainer>
         <GameLogo size={"small"} />
       </GameLogoContainer>
+      <ModeControl />
       {gameHistory.length !== 0 &&
         <GameHistoryContainer
           initial="hidden"

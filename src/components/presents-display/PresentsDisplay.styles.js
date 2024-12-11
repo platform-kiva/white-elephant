@@ -18,3 +18,7 @@ export const PresentsDisplayContainer = styled.div`
         margin: 24px 0px;
     }
 `
+
+// left: 232px + 48px; = 280px;
+
+// left: 232px + 24px; = 256px;
