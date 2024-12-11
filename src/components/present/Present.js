@@ -50,7 +50,7 @@ export default function Present({ present, handleAction }) {
                     </OwnerContainer>
                     <HoverButtons>
                         <button onClick={handleView}>VIEW</button>
-                        {(!gameIsOver) && (present.owner[present.owner.length - 1] !== turnIndex) &&
+                        {(!gameIsOver) && ((present.owner[present.owner.length - 1] !== turnIndex) || (playerData.length === 1)) &&
                             <button onClick={() => handleAction(present.id)}>STEAL</button>
                         }
                     </HoverButtons>
