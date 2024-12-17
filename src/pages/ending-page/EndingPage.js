@@ -66,32 +66,6 @@ export default function EndingPage() {
                     >
                         <Btn label={'END GAME'} />
                     </motion.div>
-                    <VenmoContainer
-                        initial="hidden"
-                        animate="visible"
-                        variants={fadeInUp}
-                        custom={3 * 0.1}
-                    >
-                        <motion.a
-                            href={"https://www.venmo.com/u/presence-exp"}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            initial="hidden"
-                            animate="visible"
-                            variants={fadeInUp}
-                            custom={4 * 0.1}
-                        >
-                            <VenmoTag src={venmoCode} alt='Venmo: @presence-exp' />
-                        </motion.a>
-                        <motion.p
-                            initial="hidden"
-                            animate="visible"
-                            variants={fadeInUp}
-                            custom={5 * 0.1}
-                        >
-                            Want to support a small business? Scan the QR code below ❤️
-                        </motion.p>
-                    </VenmoContainer>
                 </EndOfGameHeader>
             </ContentContainer>
         </EndingPageContainer>
